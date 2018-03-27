@@ -15,7 +15,7 @@ public class FileManagment
 			String sCurrentLine;
 			while ((sCurrentLine = br.readLine()) != null)
 			{
-				if (sCurrentLine.startsWith("#"))
+				if (isLineValid(sCurrentLine))
 				{
 
 				}
@@ -23,5 +23,11 @@ public class FileManagment
 			}
 
 		}
+	}
+	
+	private boolean isLineValid (String sCurrentLine)
+	{
+		
+		return true;
 	}
 }
