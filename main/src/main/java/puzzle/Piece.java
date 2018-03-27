@@ -6,13 +6,13 @@ enum EnumSides
 {
     TOP, BOTTOM, RIGHT, LEFT;
 };
-public class Pice {
+public class Piece {
 
     public static int numOfElements = 0;
     private int id;
     private HashMap<EnumSides, Integer> pice = new HashMap<EnumSides, Integer>();
 
-    public Pice(int id, HashMap<EnumSides, Integer> shape)
+    public Piece(int id, HashMap<EnumSides, Integer> shape)
     {
         super();
         this.id = id;
