@@ -2,10 +2,7 @@ package puzzle;
 
 import java.util.HashMap;
 
-enum EnumSides
-{
-    TOP, BOTTOM, RIGHT, LEFT;
-};
+;
 public class Piece {
 
     public static int numOfElements = 0;
