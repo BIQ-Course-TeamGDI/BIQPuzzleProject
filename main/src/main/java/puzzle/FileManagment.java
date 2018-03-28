@@ -170,6 +170,7 @@ public class FileManagment
 		}
 		else
 		{
+			errors.addError(ErrorsManagment.ERROR_NUM_ELEMENTS_NOT_EQUAL_TO_ACTUAL_PIECES + numElements +  " and actual is:" + pieces.size());
 			status = false;
 		}
 		if (!missingElements.isEmpty())
