@@ -143,6 +143,7 @@ public class FileManagment
 	{
 		if (isIdsAndSizeValids())
 		{
+			Collections.sort(pieces);
 			return pieces;
 		}
 		else
@@ -155,28 +156,51 @@ public class FileManagment
 	public boolean isIdsAndSizeValids()
 	{
 		String missingElements = "";
+		String wrongElements = "";
 		boolean status = true;
+		int[] arr = new int[numElements];
+
 		if (pieces.size() == numElements)
 		{
-			Collections.sort(pieces);
 			for (int i = 0; i < numElements; i++)
 			{
-				if (pieces.get(i).getId() != i + 1)
+				int id = pieces.get(i).getId();
+				if (id > numElements)
 				{
-					status = false;
-					missingElements += (i + 1) + ",";
+					wrongElements += pieces.get(i).getId() + ",";
+				}
+				else
+				{
+					arr[id-1] = 1;
+				}
+
+			}
+
+			for (int i = 0; i < numElements; i++)
+			{
+				if (arr[i] != 1)
+				{
+					missingElements += (i+1) + ",";
 				}
 			}
 		}
 		else
 		{
-			errors.addError(ErrorsManagment.ERROR_NUM_ELEMENTS_NOT_EQUAL_TO_ACTUAL_PIECES + numElements +  " and actual is:" + pieces.size());
+			errors.addError(ErrorsManagment.ERROR_NUM_ELEMENTS_NOT_EQUAL_TO_ACTUAL_PIECES + numElements
+					+ " and actual is:" + pieces.size());
 			status = false;
 		}
 		if (!missingElements.isEmpty())
 		{
-			missingElements = missingElements.substring(0,missingElements.lastIndexOf(","));
+			status = false;
+			missingElements = missingElements.substring(0, missingElements.lastIndexOf(","));
 			errors.addError(ErrorsManagment.ERROR_MISSING_ELEMENTS + missingElements);
+		}
+		if (!wrongElements.isEmpty())
+		{
+			status = false;
+			wrongElements = wrongElements.substring(0, wrongElements.lastIndexOf(","));
+			errors.addError(ErrorsManagment.ERROR_WRONG_ELEMENT_IDS + wrongElements);
 		}
 		return status;
 	}
