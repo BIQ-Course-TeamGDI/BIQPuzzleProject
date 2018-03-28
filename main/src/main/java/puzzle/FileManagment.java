@@ -3,6 +3,7 @@ package puzzle;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class FileManagment
 
 	}
 
-	public void loadAsText() throws IOException
+	public void loadAsText() throws IOException, FileManagmentException
 	{
 		if (fileInput.exists())
 		{
@@ -56,6 +57,7 @@ public class FileManagment
 		else
 		{
 			errors.addError(ErrorsManagment.ERROR_MISSING_IN_FILE + fileInput.getAbsolutePath());
+			throw new FileNotFoundException(ErrorsManagment.ERROR_MISSING_IN_FILE + fileInput.getAbsolutePath());
 		}
 	}
 
@@ -81,7 +83,7 @@ public class FileManagment
 					}
 					catch (Exception e)
 					{
-						errors.addError(ErrorsManagment.ERROR_NUM_ELEMENTS + sCurrentLine);
+						errors.addError(e.getMessage());
 						return false;
 					}
 				}
@@ -203,12 +205,5 @@ public class FileManagment
 			errors.addError(ErrorsManagment.ERROR_WRONG_ELEMENT_IDS + wrongElements);
 		}
 		return status;
-	}
-
-	public static void main(String[] args) throws IOException
-	{
-		FileManagment fileManagment = new FileManagment("./resources/input.txt");
-		fileManagment.loadAsText();
-		fileManagment.getPieces();
 	}
 }
