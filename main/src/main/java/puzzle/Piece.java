@@ -1,7 +1,11 @@
 package puzzle;
 
 import java.util.HashMap;
-
+/**
+ * 
+ * @author Guy Bitan
+ *
+ */
 public class Piece implements Comparable<Piece>
 {
 

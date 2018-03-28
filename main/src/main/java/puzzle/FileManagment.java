@@ -9,19 +9,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import org.apache.log4j.Logger;
-
-public class FileManagment implements FileParamsInterface, ErrorsInterface
+/**
+ * 
+ * @author Guy Bitan
+ *
+ */
+public class FileManagment
 {
+	static final int SIDES = 5;
+	static final String NUM_ELEMENTS_STR = "NumElements=";
+	static final String SEPARATOR = " ";
 	private File fileInput;
 	private int numElements = 0;
 	private ArrayList<Piece> pieces = new ArrayList<Piece>();
-	final static Logger logger = Logger.getLogger(FileManagment.class);
-	private ArrayList<String> errorsList = new ArrayList<String>();
+	private ErrorsManagment errors = new ErrorsManagment();
 
 	public FileManagment(String inputFilePath)
 	{
 		fileInput = new File(inputFilePath);
+
 	}
 
 	public void loadAsText() throws IOException
@@ -31,8 +37,7 @@ public class FileManagment implements FileParamsInterface, ErrorsInterface
 			try (FileInputStream fis = new FileInputStream(fileInput))
 			{
 				BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-				String sCurrentLine;
-				sCurrentLine = br.readLine();
+				String sCurrentLine = br.readLine();
 				while ((sCurrentLine = br.readLine()) != null)
 				{
 					if (!sCurrentLine.startsWith("#") && isNumElementsValid(sCurrentLine))
@@ -50,16 +55,7 @@ public class FileManagment implements FileParamsInterface, ErrorsInterface
 		}
 		else
 		{
-			errorsList.add(ERROR_MISSING_IN_FILE + fileInput.getAbsolutePath());
-		}
-		printErrors();
-	}
-
-	private void printErrors()
-	{
-		for (String error : errorsList)
-		{
-			logger.error(error);
+			errors.addError(ErrorsManagment.ERROR_MISSING_IN_FILE + fileInput.getAbsolutePath());
 		}
 	}
 
@@ -85,7 +81,7 @@ public class FileManagment implements FileParamsInterface, ErrorsInterface
 					}
 					catch (Exception e)
 					{
-						errorsList.add(ERROR_NUM_ELEMENTS + sCurrentLine);
+						errors.addError(ErrorsManagment.ERROR_NUM_ELEMENTS + sCurrentLine);
 						return false;
 					}
 				}
@@ -151,13 +147,14 @@ public class FileManagment implements FileParamsInterface, ErrorsInterface
 		}
 		else
 		{
+			errors.printErrors();
 			return null;
 		}
 	}
 
 	public boolean isIdsAndSizeValids()
 	{
-		StringBuffer missingElementsBuffer = new StringBuffer();
+		String missingElements = "";
 		boolean status = true;
 		if (pieces.size() == numElements)
 		{
@@ -167,25 +164,25 @@ public class FileManagment implements FileParamsInterface, ErrorsInterface
 				if (pieces.get(i).getId() != i + 1)
 				{
 					status = false;
-					missingElementsBuffer.append(i + 1 + ",");
+					missingElements += (i + 1) + ",";
 				}
 			}
-			status = true;
 		}
 		else
 		{
 			status = false;
 		}
-		if (missingElementsBuffer.length() < 0)
+		if (!missingElements.isEmpty())
 		{
-			errorsList.add(ErrorsInterface.ERROR_MISSING_ELEMENTS + missingElementsBuffer);
+			missingElements = missingElements.substring(0,missingElements.lastIndexOf(","));
+			errors.addError(ErrorsManagment.ERROR_MISSING_ELEMENTS + missingElements);
 		}
 		return status;
 	}
 
 	public static void main(String[] args) throws IOException
 	{
-		FileManagment fileManagment = new FileManagment("input.txt");
+		FileManagment fileManagment = new FileManagment("./resources/input.txt");
 		fileManagment.loadAsText();
 		fileManagment.getPieces();
 	}
