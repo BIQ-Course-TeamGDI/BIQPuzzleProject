@@ -171,7 +171,7 @@ public class FileManagment
 				}
 				else
 				{
-					arr[id-1] = 1;
+					arr[id - 1] = 1;
 				}
 
 			}
@@ -180,7 +180,7 @@ public class FileManagment
 			{
 				if (arr[i] != 1)
 				{
-					missingElements += (i+1) + ",";
+					missingElements += (i + 1) + ",";
 				}
 			}
 		}
