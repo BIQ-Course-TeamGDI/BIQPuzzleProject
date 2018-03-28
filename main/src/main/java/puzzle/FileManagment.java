@@ -17,6 +17,7 @@ public class FileManagment implements FileParamsInterface, ErrorsInterface
 	private int numElements = 0;
 	private ArrayList<Piece> pieces = new ArrayList<Piece>();
 	final static Logger logger = Logger.getLogger(FileManagment.class);
+	private ArrayList<String> errorsList = new ArrayList<String>();
 
 	public FileManagment(String inputFilePath)
 	{
@@ -47,6 +48,19 @@ public class FileManagment implements FileParamsInterface, ErrorsInterface
 				}
 			}
 		}
+		else
+		{
+			errorsList.add(ERROR_MISSING_IN_FILE + fileInput.getAbsolutePath());
+		}
+		printErrors();
+	}
+
+	private void printErrors()
+	{
+		for (String error : errorsList)
+		{
+			logger.error(error);
+		}
 	}
 
 	private boolean isNumElementsValid(String sCurrentLine)
@@ -66,11 +80,12 @@ public class FileManagment implements FileParamsInterface, ErrorsInterface
 				{
 					try
 					{
-						this.numElements = Integer.parseInt(value);
+						numElements = Integer.parseInt(value);
 						return true;
 					}
 					catch (Exception e)
 					{
+						errorsList.add(ERROR_NUM_ELEMENTS + sCurrentLine);
 						return false;
 					}
 				}
@@ -149,18 +164,21 @@ public class FileManagment implements FileParamsInterface, ErrorsInterface
 			Collections.sort(pieces);
 			for (int i = 0; i < numElements; i++)
 			{
-				if (pieces.get(i).getId() != i+1)
+				if (pieces.get(i).getId() != i + 1)
 				{
 					status = false;
-					missingElementsBuffer.append(i+1 + ",");
+					missingElementsBuffer.append(i + 1 + ",");
 				}
 			}
 			status = true;
 		}
 		else
 		{
-			logger.error(ErrorsInterface.ERROR_MISSING_ELEMENTS + missingElementsBuffer);
 			status = false;
+		}
+		if (missingElementsBuffer.length() < 0)
+		{
+			errorsList.add(ErrorsInterface.ERROR_MISSING_ELEMENTS + missingElementsBuffer);
 		}
 		return status;
 	}
