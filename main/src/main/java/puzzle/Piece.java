@@ -2,7 +2,6 @@ package puzzle;
 
 import java.util.HashMap;
 
-;
 public class Piece {
 
     public static int numOfElements = 0;
