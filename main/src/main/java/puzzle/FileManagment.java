@@ -143,7 +143,7 @@ public class FileManagment
 
 	public ArrayList<Piece> getPieces()
 	{
-		if (isIdsAndSizeValids())
+		if (isIdsAndSizeAreValids())
 		{
 			Collections.sort(pieces);
 			return pieces;
@@ -155,7 +155,7 @@ public class FileManagment
 		}
 	}
 
-	public boolean isIdsAndSizeValids()
+	public boolean isIdsAndSizeAreValids()
 	{
 		String missingElements = "";
 		String wrongElements = "";
@@ -175,9 +175,7 @@ public class FileManagment
 				{
 					arr[id - 1] = 1;
 				}
-
 			}
-
 			for (int i = 0; i < numElements; i++)
 			{
 				if (arr[i] != 1)
