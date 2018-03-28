@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
-public class FileManagment implements ParamsInterface
+public class FileManagment implements FileParamsInterface, ErrorsInterface
 {
 	private File fileInput;
 	private int numElements = 0;
@@ -142,22 +142,27 @@ public class FileManagment implements ParamsInterface
 
 	public boolean isIdsAndSizeValids()
 	{
+		StringBuffer missingElementsBuffer = new StringBuffer();
+		boolean status = true;
 		if (pieces.size() == numElements)
 		{
 			Collections.sort(pieces);
-			for (int i = 0; i <= numElements; i++)
+			for (int i = 0; i < numElements; i++)
 			{
-				if (pieces.get(i).getId() != i)
+				if (pieces.get(i).getId() != i+1)
 				{
-					return false;
+					status = false;
+					missingElementsBuffer.append(i+1 + ",");
 				}
 			}
-			return true;
+			status = true;
 		}
 		else
 		{
-			return false;
+			logger.error(ErrorsInterface.ERROR_MISSING_ELEMENTS + missingElementsBuffer);
+			status = false;
 		}
+		return status;
 	}
 
 	public static void main(String[] args) throws IOException
