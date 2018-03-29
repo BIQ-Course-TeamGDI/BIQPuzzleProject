@@ -31,7 +31,11 @@ public class FileManagment implements ErrorsManagment
 	public FileManagment(String inputFilePath)
 	{
 		fileInput = new File(inputFilePath);
+	}
 
+	public void setFileInput(File fileInput)
+	{
+		this.fileInput = fileInput;
 	}
 
 	public ArrayList<Piece> getPicesFromFile() throws IOException, FileManagmentException
