@@ -11,6 +11,6 @@ public class JunitTests
 	{
 		FileManagment fileManagment = new FileManagment("./resources/input.txt");
 		fileManagment.loadAsText();
-		fileManagment.getPieces();
+		fileManagment.getAllPieces();
 	}
 }

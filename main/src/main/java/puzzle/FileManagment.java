@@ -19,9 +19,10 @@ import org.apache.log4j.Logger;
  */
 public class FileManagment implements ErrorsManagment
 {
-	static final int SIDES = 5;
-	static final String NUM_ELEMENTS_STR = "NumElements=";
-	static final String SEPARATOR = " ";
+	private final int SIDES = 5;
+	private final String NUM_OF_ELEMENTS_KEY = "NumElements=";
+	private final String SEPARATOR = " ";
+	private final String COMMENTLINE = "#";
 	private File fileInput;
 	private int numElements = 0;
 	private ArrayList<Piece> pieces = new ArrayList<Piece>();
@@ -43,9 +44,9 @@ public class FileManagment implements ErrorsManagment
 				String sCurrentLine = br.readLine();
 				while ((sCurrentLine = br.readLine()) != null)
 				{
-					if (!sCurrentLine.startsWith("#") && isNumElementsValid(sCurrentLine))
+					if (!sCurrentLine.startsWith(COMMENTLINE) && isNumElementsValid(sCurrentLine))
 					{
-						int[] piece = getLineAsPiece(sCurrentLine);
+						int[] piece = convertLineToArr(sCurrentLine);
 
 						if (piece != null)
 						{
@@ -67,7 +68,7 @@ public class FileManagment implements ErrorsManagment
 	{
 		if (numElements == 0)
 		{
-			if (sCurrentLine.startsWith(NUM_ELEMENTS_STR))
+			if (sCurrentLine.startsWith(NUM_OF_ELEMENTS_KEY))
 			{
 				String[] numElementsArr = sCurrentLine.split("=");
 				String value = numElementsArr[1].trim();
@@ -101,11 +102,11 @@ public class FileManagment implements ErrorsManagment
 		}
 	}
 
-	private int[] getLineAsPiece(String sCurrentLine)
+	private int[] convertLineToArr(String sCurrentLine)
 	{
 		int[] goodPiece = new int[SIDES];
 
-		if (sCurrentLine.startsWith(NUM_ELEMENTS_STR))
+		if (sCurrentLine.startsWith(NUM_OF_ELEMENTS_KEY))
 		{
 			return null;
 		}
@@ -125,7 +126,6 @@ public class FileManagment implements ErrorsManagment
 					{
 						return null;
 					}
-
 				}
 			}
 		}
@@ -143,7 +143,7 @@ public class FileManagment implements ErrorsManagment
 		pieces.add(new Piece(id, pieceMap));
 	}
 
-	public ArrayList<Piece> getPieces()
+	public ArrayList<Piece> getAllPieces()
 	{
 		if (isIdsAndSizeAreValids())
 		{
@@ -156,7 +156,7 @@ public class FileManagment implements ErrorsManagment
 		}
 	}
 
-	public boolean isIdsAndSizeAreValids()
+	private boolean isIdsAndSizeAreValids()
 	{
 		String missingElements = "";
 		String wrongElements = "";
@@ -187,8 +187,7 @@ public class FileManagment implements ErrorsManagment
 		}
 		else
 		{
-			logger.error(ErrorsManagment.ERROR_NUM_ELEMENTS_NOT_EQUAL_TO_ACTUAL_PIECES + numElements + " and actual is:"
-					+ pieces.size());
+			logger.error(ErrorsManagment.ERROR_NUM_ELEMENTS_NOT_EQUAL_TO_ACTUAL_PIECES + numElements + " and actual is:" + pieces.size());
 			status = false;
 		}
 		if (!missingElements.isEmpty())
