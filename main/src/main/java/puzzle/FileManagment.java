@@ -10,12 +10,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
 /**
  * 
  * @author Guy Bitan
  *
  */
-public class FileManagment
+public class FileManagment implements ErrorsManagment
 {
 	static final int SIDES = 5;
 	static final String NUM_ELEMENTS_STR = "NumElements=";
@@ -23,7 +25,7 @@ public class FileManagment
 	private File fileInput;
 	private int numElements = 0;
 	private ArrayList<Piece> pieces = new ArrayList<Piece>();
-	private ErrorsManagment errors = new ErrorsManagment();
+	final static Logger logger = Logger.getLogger(FileManagment.class);
 
 	public FileManagment(String inputFilePath)
 	{
@@ -56,7 +58,7 @@ public class FileManagment
 		}
 		else
 		{
-			errors.addError(ErrorsManagment.ERROR_MISSING_IN_FILE + fileInput.getAbsolutePath());
+			logger.error(ErrorsManagment.ERROR_MISSING_IN_FILE + fileInput.getAbsolutePath());
 			throw new FileNotFoundException(ErrorsManagment.ERROR_MISSING_IN_FILE + fileInput.getAbsolutePath());
 		}
 	}
@@ -83,7 +85,7 @@ public class FileManagment
 					}
 					catch (Exception e)
 					{
-						errors.addError(e.getMessage());
+						logger.error(e.getMessage());
 						return false;
 					}
 				}
@@ -150,7 +152,6 @@ public class FileManagment
 		}
 		else
 		{
-			errors.printErrors();
 			return null;
 		}
 	}
@@ -186,21 +187,21 @@ public class FileManagment
 		}
 		else
 		{
-			errors.addError(ErrorsManagment.ERROR_NUM_ELEMENTS_NOT_EQUAL_TO_ACTUAL_PIECES + numElements
-					+ " and actual is:" + pieces.size());
+			logger.error(ErrorsManagment.ERROR_NUM_ELEMENTS_NOT_EQUAL_TO_ACTUAL_PIECES + numElements + " and actual is:"
+					+ pieces.size());
 			status = false;
 		}
 		if (!missingElements.isEmpty())
 		{
 			status = false;
 			missingElements = missingElements.substring(0, missingElements.lastIndexOf(","));
-			errors.addError(ErrorsManagment.ERROR_MISSING_ELEMENTS + missingElements);
+			logger.error(ErrorsManagment.ERROR_MISSING_ELEMENTS + missingElements);
 		}
 		if (!wrongElements.isEmpty())
 		{
 			status = false;
 			wrongElements = wrongElements.substring(0, wrongElements.lastIndexOf(","));
-			errors.addError(ErrorsManagment.ERROR_WRONG_ELEMENT_IDS + wrongElements);
+			logger.error(ErrorsManagment.ERROR_WRONG_ELEMENT_IDS + wrongElements);
 		}
 		return status;
 	}
