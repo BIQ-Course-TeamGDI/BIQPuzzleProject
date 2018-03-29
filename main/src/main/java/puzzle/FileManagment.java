@@ -34,7 +34,7 @@ public class FileManagment implements ErrorsManagment
 
 	}
 
-	public void loadAsText() throws IOException, FileManagmentException
+	public ArrayList<Piece> getPicesFromFile() throws IOException, FileManagmentException
 	{
 		if (fileInput.exists())
 		{
@@ -56,6 +56,7 @@ public class FileManagment implements ErrorsManagment
 					}
 				}
 			}
+			return getAllPieces();
 		}
 		else
 		{
@@ -143,7 +144,7 @@ public class FileManagment implements ErrorsManagment
 		pieces.add(new Piece(id, pieceMap));
 	}
 
-	public ArrayList<Piece> getAllPieces()
+	private ArrayList<Piece> getAllPieces()
 	{
 		if (isIdsAndSizeAreValids())
 		{
@@ -187,7 +188,8 @@ public class FileManagment implements ErrorsManagment
 		}
 		else
 		{
-			logger.error(ErrorsManagment.ERROR_NUM_ELEMENTS_NOT_EQUAL_TO_ACTUAL_PIECES + numElements + " and actual is:" + pieces.size());
+			logger.error(ErrorsManagment.ERROR_NUM_ELEMENTS_NOT_EQUAL_TO_ACTUAL_PIECES + numElements + " and actual is:"
+					+ pieces.size());
 			status = false;
 		}
 		if (!missingElements.isEmpty())
