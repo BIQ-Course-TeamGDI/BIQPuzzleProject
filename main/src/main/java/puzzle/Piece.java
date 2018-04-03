@@ -1,49 +1,57 @@
 package puzzle;
 
 import java.util.HashMap;
+/**
+ * 
+ * @author Guy Bitan
+ *
+ */
+public class Piece implements Comparable<Piece>
+{
 
-;
-public class Piece {
+	public static int numOfElements = 0;
+	private int id;
+	private HashMap<EnumSides, Integer> piece = new HashMap<EnumSides, Integer>();
 
-    public static int numOfElements = 0;
-    private int id;
-    private HashMap<EnumSides, Integer> pice = new HashMap<EnumSides, Integer>();
+	public Piece(int id, HashMap<EnumSides, Integer> piece)
+	{
+		this.id = id;
+		this.piece = piece;
+	}
 
-    public Piece(int id, HashMap<EnumSides, Integer> shape)
-    {
-        super();
-        this.id = id;
-        this.pice = shape;
-        numOfElements++;
-    }
+	public Integer getId()
+	{
+		return id;
+	}
 
-    public int getId()
-    {
-        return id;
-    }
+	public void setId(int id)
+	{
+		this.id = id;
+	}
 
-    public void setId(int id)
-    {
-        this.id = id;
-    }
+	public int getBottom()
+	{
+		return piece.get(EnumSides.BOTTOM);
+	}
 
-    public int getBottom()
-    {
-        return pice.get(EnumSides.BOTTOM);
-    }
+	public int getTop()
+	{
+		return piece.get(EnumSides.TOP);
+	}
 
-    public int getTop()
-    {
-        return pice.get(EnumSides.TOP);
-    }
+	public int getLeft()
+	{
+		return piece.get(EnumSides.LEFT);
+	}
 
-    public int getLeft()
-    {
-        return pice.get(EnumSides.LEFT);
-    }
+	public int getRight()
+	{
+		return piece.get(EnumSides.RIGHT);
+	}
 
-    public int getRight()
-    {
-        return pice.get(EnumSides.RIGHT);
-    }
+	@Override
+	public int compareTo(Piece piece)
+	{
+		return getId().compareTo(piece.getId());
+	}
 }
