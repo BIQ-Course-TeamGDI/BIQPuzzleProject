@@ -12,7 +12,7 @@ class AnalyzeinputTests {
 
 	@Test
 	void ValidateSumOfEdgesBadTest() {
-		//TODO: sum edges for a single piece and assert is zero
+		//TODO: 5,-5,0,0
 		
 	} 
 
