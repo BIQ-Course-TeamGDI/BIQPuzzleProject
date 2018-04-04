@@ -12,4 +12,12 @@ public class Puzzle {
         this.puzzlePieces=puzzlePieces;
     }
 
+
+    public int size(){
+        return puzzlePieces.size();
+    }
+
+    public ArrayList<Piece> getPuzzlePieces() {
+        return puzzlePieces;
+    }
 }
