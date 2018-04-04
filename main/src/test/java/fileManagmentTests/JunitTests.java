@@ -1,9 +1,12 @@
-package puzzle;
+package fileManagmentTests;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
+import puzzle.FileManagment;
+import puzzle.FileManagmentException;
+import puzzle.Piece;
 
 public class JunitTests
 {
