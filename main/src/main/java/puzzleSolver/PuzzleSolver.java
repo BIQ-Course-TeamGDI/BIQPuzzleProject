@@ -14,7 +14,7 @@ public class PuzzleSolver {
     private static List<Piece> fitPieces = new ArrayList<Piece>();
     private static boolean isSolved = false;
 
-    public  static void solve(Puzzle puzzle){
+    public  static Piece[][] solve(Puzzle puzzle){
         ArrayList<Integer> possibleSolutionRows = getPossibleSolutionRows(puzzle.size());
         for(int numOfRows : possibleSolutionRows) {
             if (!isSolved) {
@@ -23,21 +23,18 @@ public class PuzzleSolver {
                 findSolution(puzzle);
             }
         }
-        if (isSolved){
-            System.out.println(Arrays.deepToString(solution));
-        } else {
-            System.out.println("There is no solution  for this puzzle");
+        if (isSolved) {
+            return solution;
         }
-
-
+        return null;
     }
 
     private static void findSolution(Puzzle puzzle){
-        int[] rowAndCol = getNextPlaceInThePuzzle();
         for (Piece p : puzzle.getPuzzlePieces()){
             if(isSolved){
                 return;
             }
+            int[] rowAndCol = getNextPlaceInThePuzzle();
             if(!fitPieces.contains(p) ){
                 if (isPieceFit(p, solution, rowAndCol[0], rowAndCol[1])) {
                     fitPieces.add(p);
@@ -92,7 +89,7 @@ public class PuzzleSolver {
 
     private static void removeLastPieceFromPuzzle(Piece piece) {
         for (int i=0;i<solution.length;i++){
-            for (int j=0;j<solution.length;j++){
+            for (int j=0;j<solution[0].length;j++){
                 if(piece.equals(solution[i][j])){
                     solution[i][j]=null;
                     return;
@@ -103,7 +100,7 @@ public class PuzzleSolver {
 
     private static int[] getNextPlaceInThePuzzle() {
         for (int i=0;i<solution.length;i++){
-            for (int j=0;j<solution.length;j++){
+            for (int j=0;j<solution[0].length;j++){
                 if(solution[i][j]==null){
                     return new int[]{i,j};
                 }
