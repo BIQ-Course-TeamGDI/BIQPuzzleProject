@@ -10,4 +10,4 @@
 /.idea/
 .metadata
 *.iml
-/main/pom.xml
+/main/.idea
