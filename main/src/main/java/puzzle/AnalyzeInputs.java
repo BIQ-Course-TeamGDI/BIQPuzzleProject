@@ -32,6 +32,7 @@ public class AnalyzeInputs {
 				}
 			}
 		}
+		//analyze errors list:
 		return null;
 	}
 
@@ -123,13 +124,13 @@ public class AnalyzeInputs {
 	 * @return errors: Arraylist
 	 * @see: This method check that input pieces edges arein the range of -1 to 1
 	 */
-	private ArrayList<String> validatePiecesFormat(ArrayList<Piece> input) {
+	public static ArrayList<String> validatePiecesFormat(ArrayList<Piece> input) {
 		// TODO Auto-generated method stub
 		for (Piece p : input) {
 			if (p.getRight() >= -1 && p.getRight() <= 1 && p.getTop() >= -1 && p.getTop() <= 1 && p.getBottom() >= -1
 					&& p.getBottom() <= 1 && p.getLeft() >= -1 && p.getLeft() <= 1) {
 				System.out.println("Id: " + p.getId() + ". is not valid!");
-				errors.add(ErrorsManagment.ERROR_WRONG_ELEMENT_IDS + " " + p.getId());
+				errors.add(ErrorsManagment.ERROR_WRONG_ELEMENTS_FORMAT + " " + p.getId());
 			}
 		}
 		return errors;
