@@ -12,4 +12,7 @@ public interface ErrorsManagment
 	final String ERROR_WRONG_ELEMENT_IDS = "Wrong element IDs: ";
 	final String ERROR_WRONG_ELEMENTS_FORMAT = "Wrong elements format: ";
 	final String ERROR_NUM_ELEMENTS = "Number of elements is invalid: ";
+	final String ERROR_NUM_STRAIGHT_EDGES = "Number of straight edges is invalid: ";
+	final String ERROR_MISSING_CORNER_ELEMENT = "Cannot solve puzzle: missing corner element:";
+
 }

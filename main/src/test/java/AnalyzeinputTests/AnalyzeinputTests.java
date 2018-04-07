@@ -16,7 +16,7 @@ import puzzle.AnalyzeInputs;
 import puzzle.Piece;
 
 class AnalyzeinputTests {
-
+//need to remove
 	@BeforeEach
 	public void setup() {
 		Piece p1 = Mockito.mock(Piece.class);
@@ -128,24 +128,96 @@ class AnalyzeinputTests {
 	@Test
 	void ValidateWrongNumberOfStraightEdgesBadTest() {
 		// TODO: wrong number of straight edges
+		Piece p1 = Mockito.mock(Piece.class);
+		Mockito.when(p1.getLeft()).thenReturn(0);
+		Mockito.when(p1.getTop()).thenReturn(1);
+		Mockito.when(p1.getRight()).thenReturn(1);
+		Mockito.when(p1.getBottom()).thenReturn(0);
+		
+		Piece p2 = Mockito.mock(Piece.class);
+		Mockito.when(p2.getLeft()).thenReturn(0);
+		Mockito.when(p2.getTop()).thenReturn(1);
+		Mockito.when(p2.getRight()).thenReturn(0);
+		Mockito.when(p2.getBottom()).thenReturn(1);
+
+		ArrayList<Piece> pcs = new ArrayList<>();
+		pcs.add(p1);
+		pcs.add(p2);
+		AnalyzeInputs.validateMinimumStraightEdges(pcs);
+		
+		// need to add assert
 
 	}
 
 	@Test
-	void ValidateWrongNumberOfStraightEdgesGoodTest() {
+	void ValidateNumberOfStraightEdgesGoodTest() {
 		// TODO: minimum+ number of straight edges
+		Piece p1 = Mockito.mock(Piece.class);
+		Mockito.when(p1.getLeft()).thenReturn(0);
+		Mockito.when(p1.getTop()).thenReturn(1);
+		Mockito.when(p1.getRight()).thenReturn(1);
+		Mockito.when(p1.getBottom()).thenReturn(0);
+		
+		Piece p2 = Mockito.mock(Piece.class);
+		Mockito.when(p2.getLeft()).thenReturn(0);
+		Mockito.when(p2.getTop()).thenReturn(-1);
+		Mockito.when(p2.getRight()).thenReturn(-1);
+		Mockito.when(p2.getBottom()).thenReturn(0);
+
+		ArrayList<Piece> pcs = new ArrayList<>();
+		pcs.add(p1);
+		pcs.add(p2);
+		AnalyzeInputs.validateMinimumStraightEdges(pcs);
+		
+		// need to add assert
 
 	}
 
 	@Test
 	void ValidatePiecesCornersGoodTest() {
 		// TODO: minimum+ corner
+		Piece p1 = Mockito.mock(Piece.class);
+		Mockito.when(p1.getLeft()).thenReturn(0);
+		Mockito.when(p1.getTop()).thenReturn(0);
+		Mockito.when(p1.getRight()).thenReturn(0);
+		Mockito.when(p1.getBottom()).thenReturn(0);
+		
+		Piece p2 = Mockito.mock(Piece.class);
+		Mockito.when(p2.getLeft()).thenReturn(0);
+		Mockito.when(p2.getTop()).thenReturn(0);
+		Mockito.when(p2.getRight()).thenReturn(0);
+		Mockito.when(p2.getBottom()).thenReturn(0);
+
+		ArrayList<Piece> pcs = new ArrayList<>();
+		pcs.add(p1);
+		pcs.add(p2);
+		AnalyzeInputs.validateMinimumCorners(pcs, null);
+		
+		// need to add assert
 
 	}
 
 	@Test
 	void ValidatePiecesCornersBaddTest() {
 		// TODO: > corners
+		Piece p1 = Mockito.mock(Piece.class);
+		Mockito.when(p1.getLeft()).thenReturn(0);
+		Mockito.when(p1.getTop()).thenReturn(1);
+		Mockito.when(p1.getRight()).thenReturn(1);
+		Mockito.when(p1.getBottom()).thenReturn(0);
+		
+		Piece p2 = Mockito.mock(Piece.class);
+		Mockito.when(p2.getLeft()).thenReturn(0);
+		Mockito.when(p2.getTop()).thenReturn(-1);
+		Mockito.when(p2.getRight()).thenReturn(-1);
+		Mockito.when(p2.getBottom()).thenReturn(0);
+
+		ArrayList<Piece> pcs = new ArrayList<>();
+		pcs.add(p1);
+		pcs.add(p2);
+		AnalyzeInputs.validateMinimumCorners(pcs, null);
+		
+		// need to add assert
 
 	}
 }
