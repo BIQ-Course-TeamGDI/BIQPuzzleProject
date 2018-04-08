@@ -2,14 +2,9 @@ package AnalyzeinputTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import puzzle.AnalyzeInputs;
@@ -85,7 +80,7 @@ class AnalyzeinputTests {
 
 	}
 
-	@Test
+	/*@Test
 	void ValidateWrongPiecesIdsBadTest() {
 		// Puzzle with 2 pieces have id: 5
 		errors.clear();
@@ -101,9 +96,9 @@ class AnalyzeinputTests {
 		assertFalse(errors.isEmpty());
 		assertTrue(errors.get(0).contains("Wrong element IDs"));
 
-	}
+	}*/
 
-	@Test
+	/*@Test
 	void ValidateMissingPiecesIdsBadTest() {
 		// Puzzle with non-sequenced ids :1,3,9
 
@@ -124,7 +119,7 @@ class AnalyzeinputTests {
 		assertFalse(errors.isEmpty());
 		assertTrue(errors.get(0).contains("Wrong element IDs"));
 
-	}
+	}*/
 
 	@Test
 	void ValidateWrongNumberOfStraightEdgesBadTest() {
