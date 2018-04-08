@@ -32,28 +32,34 @@ public class FileManagment implements ErrorsManagment
 	public FileManagment(String inputFilePath)
 	{
 		fileInput = new File(inputFilePath);
-
 	}
 
-	public ArrayList<Piece> getPicesFromFile() throws IOException, FileManagmentException
+	public void setFileInput(File fileInput)
+	{
+		this.fileInput = fileInput;
+	}
+
+	public ArrayList<Piece> getPicesFromFile() throws IOException
 	{
 		if (fileInput.exists())
 		{
 			try (FileInputStream fis = new FileInputStream(fileInput))
 			{
 				BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-				String sCurrentLine = br.readLine();
+				String sCurrentLine;
 				while ((sCurrentLine = br.readLine()) != null)
 				{
 					if (!sCurrentLine.startsWith(COMMENTLINE) && isNumElementsValid(sCurrentLine))
 					{
-						int[] piece = convertLineToArr(sCurrentLine);
-
-						if (piece != null)
+						if (!sCurrentLine.replaceAll(" ", "").startsWith(NUM_OF_ELEMENTS_KEY))
 						{
-							addPiece(piece);
-						}
+							int[] piece = convertLineToArr(sCurrentLine);
 
+							if (piece != null)
+							{
+								addPiece(piece);
+							}
+						}
 					}
 				}
 			}
@@ -66,11 +72,11 @@ public class FileManagment implements ErrorsManagment
 		}
 	}
 
-	private boolean isNumElementsValid(String sCurrentLine)
+	private boolean isNumElementsValid(String sCurrentLine) throws IOException
 	{
 		if (numElements == 0)
 		{
-			if (sCurrentLine.startsWith(NUM_OF_ELEMENTS_KEY))
+			if (sCurrentLine.replaceAll(" ", "").startsWith(NUM_OF_ELEMENTS_KEY))
 			{
 				String[] numElementsArr = sCurrentLine.split("=");
 				String value = numElementsArr[1].trim();
@@ -160,30 +166,30 @@ public class FileManagment implements ErrorsManagment
 
 	private boolean isIdsAndSizeAreValids()
 	{
-		String missingElements = "";
-		String wrongElements = "";
+		String missingElements = "", wrongElements = "";
 		boolean status = true;
 		int[] arr = new int[numElements];
 
 		if (pieces.size() == numElements)
 		{
-			for (int i = 0; i < numElements; i++)
+			for (int i = 0; i <numElements; i++)
 			{
 				int id = pieces.get(i).getId();
+
 				if (id > numElements)
 				{
 					wrongElements += pieces.get(i).getId() + ",";
 				}
 				else
 				{
-					arr[id - 1] = 1;
+					arr[id-1] = 1;
 				}
 			}
 			for (int i = 0; i < numElements; i++)
 			{
 				if (arr[i] != 1)
 				{
-					missingElements += (i + 1) + ",";
+					missingElements += i + ",";
 				}
 			}
 		}
