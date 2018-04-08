@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import infra.FileManagment;
-import infra.FileManagmentException;
 import puzzle.Piece;
 
 public class JunitTests
@@ -15,7 +14,7 @@ public class JunitTests
 	
 	@Test
 	@DisplayName("1")
-	public void testFileManagment() throws IOException, FileManagmentException
+	public void testFileManagment() throws IOException
 	{
 		fileManagment = new FileManagment("./resources/input.txt");
 		pieces = fileManagment.getPicesFromFile();

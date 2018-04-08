@@ -2,9 +2,7 @@ package puzzle;
 
 import puzzle.Piece;
 import puzzle.Puzzle;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**

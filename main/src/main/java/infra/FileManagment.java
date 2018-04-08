@@ -39,8 +39,7 @@ public class FileManagment implements ErrorsManagment
 		this.fileInput = fileInput;
 	}
 
-	public ArrayList<Piece> getPicesFromFile() throws IOException, FileManagmentException
-	{
+	public ArrayList<Piece> getPicesFromFile() throws IOException 	{
 		if (fileInput.exists())
 		{
 			try (FileInputStream fis = new FileInputStream(fileInput))
