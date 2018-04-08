@@ -1,5 +1,7 @@
 package puzzle;
 
+import infra.EnumSides;
+
 import java.util.HashMap;
 /**
  * 

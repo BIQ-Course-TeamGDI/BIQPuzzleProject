@@ -1,4 +1,4 @@
-package puzzle;
+package infra;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
+import puzzle.Piece;
 
 /**
  * 
