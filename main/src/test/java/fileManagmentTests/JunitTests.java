@@ -16,7 +16,7 @@ public class JunitTests
 	@DisplayName("1")
 	public void testFileManagment() throws IOException
 	{
-		fileManagment = new FileManagment("./resources/files/test11.in");
+		fileManagment = new FileManagment("./resources/files/test6.in");
 		pieces = fileManagment.getPicesFromFile();
 	}
 
