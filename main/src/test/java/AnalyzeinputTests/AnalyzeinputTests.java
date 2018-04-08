@@ -1,14 +1,18 @@
 package AnalyzeinputTests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.mockito.Mockito;
 
+import infra.FileManagment;
 import puzzle.AnalyzeInputs;
 import puzzle.Piece;
+import puzzle.Puzzle;
 
 class AnalyzeinputTests {
 	ArrayList<String> errors = new ArrayList<>();
@@ -17,6 +21,7 @@ class AnalyzeinputTests {
 	void ValidateSumOfEdgesGoodTest() {
 		// Sum of edges for a single piece and assert is zero
 		Piece p1 = Mockito.mock(Piece.class);
+		Mockito.when(p1.getId()).thenReturn(10);
 		Mockito.when(p1.getLeft()).thenReturn(0);
 		Mockito.when(p1.getTop()).thenReturn(0);
 		Mockito.when(p1.getRight()).thenReturn(0);
@@ -24,8 +29,8 @@ class AnalyzeinputTests {
 
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(p1);
-
-		assertTrue(AnalyzeInputs.validateEdgesSum(pcs).isEmpty());
+		errors = AnalyzeInputs.validateEdgesSum(pcs);
+		assertFalse(errors.contains("Number of straight edges is invalid:10"));
 
 	}
 
@@ -42,8 +47,8 @@ class AnalyzeinputTests {
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(p1);
 		errors = AnalyzeInputs.validateEdgesSum(pcs);
-		assertFalse(errors.isEmpty());
-		assertTrue(errors.get(0).contains("Number of straight edges is invalid"));
+		// assertFalse(errors.isEmpty());
+		assertTrue(errors.contains("Cannot solve puzzle: edges sum is not zero"));
 	}
 
 	@Test
@@ -51,14 +56,15 @@ class AnalyzeinputTests {
 		// Format of edges for single piece is good: 0,0,1,0
 
 		Piece p1 = Mockito.mock(Piece.class);
+		Mockito.when(p1.getId()).thenReturn(11);
 		Mockito.when(p1.getLeft()).thenReturn(0);
 		Mockito.when(p1.getTop()).thenReturn(0);
 		Mockito.when(p1.getRight()).thenReturn(1);
 		Mockito.when(p1.getBottom()).thenReturn(0);
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(p1);
-
-		assertTrue(AnalyzeInputs.validatePiecesFormat(pcs).isEmpty());
+		errors = AnalyzeInputs.validatePiecesFormat(pcs);
+		assertFalse(errors.contains("Wrong elements format: 11"));
 
 	}
 
@@ -68,6 +74,7 @@ class AnalyzeinputTests {
 		errors.clear();
 
 		Piece p1 = Mockito.mock(Piece.class);
+		Mockito.when(p1.getId()).thenReturn(13);
 		Mockito.when(p1.getLeft()).thenReturn(0);
 		Mockito.when(p1.getTop()).thenReturn(2);
 		Mockito.when(p1.getRight()).thenReturn(0);
@@ -75,51 +82,41 @@ class AnalyzeinputTests {
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(p1);
 		errors = AnalyzeInputs.validatePiecesFormat(pcs);
-		assertFalse(errors.isEmpty());
-		assertTrue(errors.get(0).contains("Wrong elements format"));
+
+		assertTrue(errors.contains("Wrong elements value on line: 13"));
 
 	}
 
-	/*@Test
-	void ValidateWrongPiecesIdsBadTest() {
-		// Puzzle with 2 pieces have id: 5
-		errors.clear();
-		Piece p1 = Mockito.mock(Piece.class);
-		Mockito.when(p1.getId()).thenReturn(5);
-		Piece p2 = Mockito.mock(Piece.class);
-		Mockito.when(p2.getId()).thenReturn(2);
+	/*
+	 * @Test void ValidateWrongPiecesIdsBadTest() { // Puzzle with 2 pieces have id:
+	 * 5 errors.clear(); Piece p1 = Mockito.mock(Piece.class);
+	 * Mockito.when(p1.getId()).thenReturn(5); Piece p2 = Mockito.mock(Piece.class);
+	 * Mockito.when(p2.getId()).thenReturn(2);
+	 * 
+	 * ArrayList<Piece> pcs = new ArrayList<>(); pcs.add(p1); pcs.add(p2); errors =
+	 * AnalyzeInputs.validatePiecesIds(pcs); assertFalse(errors.isEmpty());
+	 * assertTrue(errors.get(0).contains("Wrong element IDs"));
+	 * 
+	 * }
+	 */
 
-		ArrayList<Piece> pcs = new ArrayList<>();
-		pcs.add(p1);
-		pcs.add(p2);
-		errors = AnalyzeInputs.validatePiecesIds(pcs);
-		assertFalse(errors.isEmpty());
-		assertTrue(errors.get(0).contains("Wrong element IDs"));
-
-	}*/
-
-	/*@Test
-	void ValidateMissingPiecesIdsBadTest() {
-		// Puzzle with non-sequenced ids :1,3,9
-
-		errors.clear();
-
-		Piece p1 = Mockito.mock(Piece.class);
-		Mockito.when(p1.getId()).thenReturn(1);
-		Piece p2 = Mockito.mock(Piece.class);
-		Mockito.when(p2.getId()).thenReturn(2);
-		Piece p3 = Mockito.mock(Piece.class);
-		Mockito.when(p3.getId()).thenReturn(4);
-
-		ArrayList<Piece> pcs = new ArrayList<>();
-		pcs.add(p1);
-		pcs.add(p2);
-		pcs.add(p3);
-		errors = AnalyzeInputs.validatePiecesIds(pcs);
-		assertFalse(errors.isEmpty());
-		assertTrue(errors.get(0).contains("Wrong element IDs"));
-
-	}*/
+	/*
+	 * @Test void ValidateMissingPiecesIdsBadTest() { // Puzzle with non-sequenced
+	 * ids :1,3,9
+	 * 
+	 * errors.clear();
+	 * 
+	 * Piece p1 = Mockito.mock(Piece.class); Mockito.when(p1.getId()).thenReturn(1);
+	 * Piece p2 = Mockito.mock(Piece.class); Mockito.when(p2.getId()).thenReturn(2);
+	 * Piece p3 = Mockito.mock(Piece.class); Mockito.when(p3.getId()).thenReturn(4);
+	 * 
+	 * ArrayList<Piece> pcs = new ArrayList<>(); pcs.add(p1); pcs.add(p2);
+	 * pcs.add(p3); errors = AnalyzeInputs.validatePiecesIds(pcs);
+	 * assertFalse(errors.isEmpty());
+	 * assertTrue(errors.get(0).contains("Wrong element IDs"));
+	 * 
+	 * }
+	 */
 
 	@Test
 	void ValidateWrongNumberOfStraightEdgesBadTest() {
@@ -148,14 +145,14 @@ class AnalyzeinputTests {
 		// input has minimum+ number of straight edges
 		Piece p1 = Mockito.mock(Piece.class);
 		Mockito.when(p1.getLeft()).thenReturn(0);
-		Mockito.when(p1.getTop()).thenReturn(1);
-		Mockito.when(p1.getRight()).thenReturn(1);
+		Mockito.when(p1.getTop()).thenReturn(0);
+		Mockito.when(p1.getRight()).thenReturn(0);
 		Mockito.when(p1.getBottom()).thenReturn(0);
 
 		Piece p2 = Mockito.mock(Piece.class);
 		Mockito.when(p2.getLeft()).thenReturn(0);
-		Mockito.when(p2.getTop()).thenReturn(-1);
-		Mockito.when(p2.getRight()).thenReturn(-1);
+		Mockito.when(p2.getTop()).thenReturn(0);
+		Mockito.when(p2.getRight()).thenReturn(0);
 		Mockito.when(p2.getBottom()).thenReturn(0);
 
 		ArrayList<Piece> pcs = new ArrayList<>();
@@ -190,7 +187,7 @@ class AnalyzeinputTests {
 	}
 
 	@Test
-	void ValidatePiecesCornersBaddTest() {
+	void ValidatePiecesCornersBadTest() {
 		// Less than minimum corners
 		Piece p1 = Mockito.mock(Piece.class);
 		Mockito.when(p1.getLeft()).thenReturn(0);
@@ -212,5 +209,15 @@ class AnalyzeinputTests {
 		rows.add(2);
 		assertTrue(AnalyzeInputs.validateMinimumCorners(pcs, rows).isEmpty());
 
+	}
+	
+	@Test
+	public void AnalyzeTest() throws IOException
+	{
+		String piecesFile = "C:\\\\BiqPassoverProject\\test1.in";
+		FileManagment fileManagment = new FileManagment(piecesFile);
+		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
+		AnalyzeInputs.analyzePicesList(pieces);
+		
 	}
 }

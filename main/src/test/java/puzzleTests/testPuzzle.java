@@ -1,16 +1,14 @@
 package puzzleTests;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import infra.FileManagment;
 import puzzle.Piece;
 import puzzle.Puzzle;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 public class testPuzzle
 {

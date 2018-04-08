@@ -1,13 +1,8 @@
 package puzzle;
 
-import java.awt.List;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
-import org.apache.log4j.Logger;
-
-import puzzleSolver.PuzzleSolver;
+import infra.ErrorsManagment;
+import puzzle.PuzzleSolver;
 
 /**
  * @author iw4360
@@ -21,19 +16,23 @@ public class AnalyzeInputs {
 	private ArrayList<Piece> pieces = new ArrayList<Piece>();
 	private static ArrayList<String> errors = new ArrayList<>();
 
-	public ArrayList<Integer> analyzePicesList(ArrayList<Piece> input) {
+	public static ArrayList<Integer> analyzePicesList(ArrayList<Piece> input) {
 
-		if (validateEdgesSum(input).isEmpty()) {
-			if (validatePiecesIds(input).isEmpty()) {
-				if (validatePiecesFormat(input).isEmpty()) {
-					ArrayList<Integer> rows = validateMinimumStraightEdges(input);
-					if (!rows.isEmpty())
-						return validateMinimumCorners(input, rows);
-				}
-			}
+		validateEdgesSum(input);
+		validatePiecesFormat(input);
+		ArrayList<Integer> rows = validateMinimumStraightEdges(input);
+		if (!rows.isEmpty())
+			rows = validateMinimumCorners(input, rows);
+
+		if (errors.isEmpty())
+			return rows;
+		else {
+			// analyze errors list:
+			for (String s : errors)
+				System.out.println("ERROR :" + s);
+			return null;
 		}
-		//analyze errors list:
-		return null;
+
 	}
 
 	/**
@@ -47,10 +46,12 @@ public class AnalyzeInputs {
 	public static ArrayList<Integer> validateMinimumStraightEdges(ArrayList<Piece> input) {
 		// TODO Auto-generated method stub
 		int leftZeroEdges = 0, topZeroEdges = 0, rightZeroEdges = 0, bottomZeroEdges = 0;
+
 		ArrayList<Integer> optionalRowsForSolution = new ArrayList<>();
 		ArrayList<Integer> possibleSolutionRows = PuzzleSolver.getPossibleSolutionRows(input.size());
 		for (int numOfRows : possibleSolutionRows) {
 			int numOfColumns = input.size() / numOfRows;
+			leftZeroEdges = 0; topZeroEdges = 0; rightZeroEdges = 0; bottomZeroEdges = 0;
 			for (Piece p : input) {
 				if (p.getLeft() == 0)
 					leftZeroEdges++;
@@ -69,6 +70,8 @@ public class AnalyzeInputs {
 			}
 
 		}
+		if(optionalRowsForSolution.isEmpty())
+			errors.add(ErrorsManagment.ERROR_NUM_STRAIGHT_EDGES);
 		return optionalRowsForSolution;
 	}
 
@@ -84,10 +87,11 @@ public class AnalyzeInputs {
 	 */
 	public static ArrayList<Integer> validateMinimumCorners(ArrayList<Piece> input, ArrayList<Integer> rows) {
 		// TODO Auto-generated method stub
-		boolean leftTopCorner = false, topRightCorner = false, rightBottomCorner = false, bottomLeftCorner = false;
 		ArrayList<Integer> optionalRowsForSolution = new ArrayList<>();
+		boolean leftTopCorner = false , topRightCorner = false , rightBottomCorner = false , bottomLeftCorner = false;
 
 		for (int numOfRows : rows) {
+			leftTopCorner = false;topRightCorner = false;rightBottomCorner = false;bottomLeftCorner = false;
 			for (Piece p : input) {
 				if (p.getLeft() == 0 && p.getTop() == 0)
 					leftTopCorner = true;
@@ -105,14 +109,14 @@ public class AnalyzeInputs {
 			}
 
 		}
-		if(!leftTopCorner)
-			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + ": TL" );
-		if(!topRightCorner)
-			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + ": TR" );
-		if(!rightBottomCorner)
-			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + ": BR" );
-		if(!bottomLeftCorner)
-			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + ": BL" );
+		if (!leftTopCorner)
+			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + ": TL");
+		if (!topRightCorner)
+			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + ": TR");
+		if (!rightBottomCorner)
+			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + ": BR");
+		if (!bottomLeftCorner)
+			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + ": BL");
 
 		return optionalRowsForSolution;
 
@@ -127,10 +131,9 @@ public class AnalyzeInputs {
 	public static ArrayList<String> validatePiecesFormat(ArrayList<Piece> input) {
 		// TODO Auto-generated method stub
 		for (Piece p : input) {
-			if (p.getRight() >= -1 && p.getRight() <= 1 && p.getTop() >= -1 && p.getTop() <= 1 && p.getBottom() >= -1
-					&& p.getBottom() <= 1 && p.getLeft() >= -1 && p.getLeft() <= 1) {
-				System.out.println("Id: " + p.getId() + ". is not valid!");
-				errors.add(ErrorsManagment.ERROR_WRONG_ELEMENTS_FORMAT + " " + p.getId());
+			if (!(p.getRight() >= -1 && p.getRight() <= 1 && p.getTop() >= -1 && p.getTop() <= 1 && p.getBottom() >= -1
+					&& p.getBottom() <= 1 && p.getLeft() >= -1 && p.getLeft() <= 1)) {
+				errors.add(ErrorsManagment.ERROR_WRONG_ELEMENTS_VALUES + p.getId());
 			}
 		}
 		return errors;
@@ -145,46 +148,16 @@ public class AnalyzeInputs {
 	 */
 	public static ArrayList<String> validateEdgesSum(ArrayList<Piece> input) {
 		// TODO Auto-generated method stub
-		for (Piece p : input) {
-			if (p.getRight() + p.getTop() + p.getBottom() + p.getLeft() != 0) {
-				System.out.println("Id: " + p.getId() + ". is not valid!");
-				// Logger.error(ErrorsManagment.ERROR_MISSING_ELEMENTS + " ");
-				errors.add(ErrorsManagment.ERROR_NUM_STRAIGHT_EDGES);
-
-			}
+		int temp = 0;
+		for (Piece p : input)
+			temp += p.getRight() + p.getTop() + p.getBottom() + p.getLeft();
+		if (temp != 0) {
+			// System.out.println("Id: " + p.getId() + ". is not valid!");
+			// Logger.error(ErrorsManagment.ERROR_MISSING_ELEMENTS + " ");
+			errors.add(ErrorsManagment.ERROR_EDGES_SUM_NOT_ZERO);
 		}
-		return errors;
-	}
-
-	/**
-	 * @param input:
-	 *            ArrayList
-	 * @return
-	 * @see: This method check that input pieces ids is correct
-	 */
-	public static ArrayList<String> validatePiecesIds(ArrayList<Piece> input) {
-		// TODO Auto-generated method stub
-		// Arrays.sort(input.toArray());
-		Collections.sort(input);
-		if (input.size() != input.indexOf(input.size() - 1)) {
-			System.out.println("Missing Ids of pieces...");
-			errors.add(ErrorsManagment.ERROR_WRONG_ELEMENT_IDS);
-			// Need to find out what pieces are missing...
-		}
-		checkPiecesSequences(input);
 
 		return errors;
-	}
-
-	private static void checkPiecesSequences(ArrayList<Piece> input) {
-		// TODO Auto-generated method stub
-		for (int i = 0; i < input.size() ; i++) {
-			if (input.get(i).getId() != i) {
-				System.out.println("Wrong Ids of pieces...");
-				errors.add(ErrorsManagment.ERROR_WRONG_ELEMENT_IDS +":  "+ input.get(i).getId());
-			}
-		}
-
 	}
 
 }
