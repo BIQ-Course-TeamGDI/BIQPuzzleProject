@@ -1,9 +1,6 @@
 package puzzle;
 
-import puzzleSolver.PuzzleSolver;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * This is the puzzle class.

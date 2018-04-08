@@ -1,4 +1,4 @@
-package puzzle;
+package infra;
 /**
  * 
  * @author Guy Bitan
