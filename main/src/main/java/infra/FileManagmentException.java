@@ -1,4 +1,4 @@
-package puzzle;
+package infra;
 
 public class FileManagmentException extends Exception
 {

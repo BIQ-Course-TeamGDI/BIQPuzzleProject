@@ -1,5 +1,7 @@
 package puzzle;
 
+import infra.EnumSides;
+
 import java.util.HashMap;
 /**
  * 
@@ -53,5 +55,15 @@ public class Piece implements Comparable<Piece>
 	public int compareTo(Piece piece)
 	{
 		return getId().compareTo(piece.getId());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return id==((Piece)obj).id;
+	}
+
+	@Override
+	public String toString() {
+		return String.valueOf(id);
 	}
 }
