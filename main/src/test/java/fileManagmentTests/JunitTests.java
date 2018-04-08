@@ -11,13 +11,13 @@ public class JunitTests
 {
 	ArrayList<Piece> pieces;
 	FileManagment fileManagment;
-	
+
 	@Test
 	@DisplayName("1")
 	public void testFileManagment() throws IOException
 	{
-		fileManagment = new FileManagment("./resources/input.txt");
+		fileManagment = new FileManagment("./resources/files/test11.in");
 		pieces = fileManagment.getPicesFromFile();
 	}
-	
+
 }
