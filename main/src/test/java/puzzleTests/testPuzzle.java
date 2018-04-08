@@ -1,8 +1,8 @@
 package puzzleTests;
 
 import org.junit.jupiter.api.Test;
-import puzzle.FileManagment;
-import puzzle.FileManagmentException;
+import infra.FileManagment;
+import infra.FileManagmentException;
 import puzzle.Piece;
 import puzzle.Puzzle;
 
@@ -39,5 +39,14 @@ public class testPuzzle {
         assertNull(puzzle.getSolution());
     }
 
+    @Test
+    public void Amir_tests() throws IOException, FileManagmentException {
+        String piecesFile = "C:\\Development_Course\\Passover_Project\\AmirTests\\AdditionalPuzzleTests\\test15.in";
+        FileManagment fileManagment = new FileManagment(piecesFile);
+        ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
+        Puzzle puzzle = new Puzzle(pieces);
+        puzzle.solve();
+        puzzle.printSolution();
+    }
 
 }
