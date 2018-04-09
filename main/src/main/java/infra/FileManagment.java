@@ -24,26 +24,27 @@ public class FileManagment implements ErrorsManagment
 	private final String NUM_OF_ELEMENTS_KEY = "NumElements=";
 	private final String SEPARATOR = " ";
 	private final String COMMENTLINE = "#";
-	private File fileInput;
+	private File inFilePath, outFilePath;
 	private int numElements = 0;
 	private ArrayList<Piece> pieces = new ArrayList<Piece>();
 	final static Logger logger = Logger.getLogger(FileManagment.class);
 
-	public FileManagment(String inputFilePath)
+	public FileManagment(String inputFilePath, String outFilePath)
 	{
-		fileInput = new File(inputFilePath);
+		this.inFilePath = new File(inputFilePath);
+		this.outFilePath = new File(outFilePath);
 	}
 
 	public void setFileInput(File fileInput)
 	{
-		this.fileInput = fileInput;
+		this.inFilePath = fileInput;
 	}
 
 	public ArrayList<Piece> getPicesFromFile() throws IOException
 	{
-		if (fileInput.exists())
+		if (inFilePath.exists())
 		{
-			try (FileInputStream fis = new FileInputStream(fileInput))
+			try (FileInputStream fis = new FileInputStream(inFilePath))
 			{
 				BufferedReader br = new BufferedReader(new InputStreamReader(fis));
 				String sCurrentLine;
@@ -67,8 +68,8 @@ public class FileManagment implements ErrorsManagment
 		}
 		else
 		{
-			logger.error(ErrorsManagment.ERROR_MISSING_IN_FILE + fileInput.getAbsolutePath());
-			throw new FileNotFoundException(ErrorsManagment.ERROR_MISSING_IN_FILE + fileInput.getAbsolutePath());
+			logger.error(ErrorsManagment.ERROR_MISSING_IN_FILE + inFilePath.getAbsolutePath());
+			throw new FileNotFoundException(ErrorsManagment.ERROR_MISSING_IN_FILE + inFilePath.getAbsolutePath());
 		}
 	}
 
@@ -172,7 +173,7 @@ public class FileManagment implements ErrorsManagment
 
 		if (pieces.size() == numElements)
 		{
-			for (int i = 0; i <numElements; i++)
+			for (int i = 0; i < numElements; i++)
 			{
 				int id = pieces.get(i).getId();
 
@@ -182,7 +183,7 @@ public class FileManagment implements ErrorsManagment
 				}
 				else
 				{
-					arr[id-1] = 1;
+					arr[id - 1] = 1;
 				}
 			}
 			for (int i = 0; i < numElements; i++)
