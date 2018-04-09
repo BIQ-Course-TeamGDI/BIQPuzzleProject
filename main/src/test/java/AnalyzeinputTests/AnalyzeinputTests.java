@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import org.mockito.Mockito;
 
+import infra.EnumSides;
 import infra.FileManagment;
 import puzzle.AnalyzeInputs;
 import puzzle.Piece;
@@ -20,18 +22,18 @@ class AnalyzeinputTests {
 	@Test
 	void ValidateSumOfEdgesGoodTest() {
 		// Sum of edges for a single piece and assert is zero
-		Piece p1 = Mockito.mock(Piece.class);
-		Mockito.when(p1.getId()).thenReturn(10);
-		Mockito.when(p1.getLeft()).thenReturn(0);
-		Mockito.when(p1.getTop()).thenReturn(0);
-		Mockito.when(p1.getRight()).thenReturn(0);
-		Mockito.when(p1.getBottom()).thenReturn(0);
 
+		HashMap<EnumSides, Integer> edges = new HashMap<>();
+		edges.put(EnumSides.LEFT, 0);
+		edges.put(EnumSides.TOP, 0);
+		edges.put(EnumSides.RIGHT, 0);
+		edges.put(EnumSides.BOTTOM, 0);
+		Piece pc1 = new Piece(10, edges);
+				
 		ArrayList<Piece> pcs = new ArrayList<>();
-		pcs.add(p1);
+		pcs.add(pc1);
 		errors = AnalyzeInputs.validateEdgesSum(pcs);
 		assertFalse(errors.contains("Number of straight edges is invalid:10"));
-
 	}
 
 	@Test
@@ -39,15 +41,16 @@ class AnalyzeinputTests {
 		// Sum of edges for single piece is not zero
 		errors.clear();
 
-		Piece p1 = Mockito.mock(Piece.class);
-		Mockito.when(p1.getLeft()).thenReturn(1);
-		Mockito.when(p1.getTop()).thenReturn(-1);
-		Mockito.when(p1.getRight()).thenReturn(1);
-		Mockito.when(p1.getBottom()).thenReturn(1);
+		HashMap<EnumSides, Integer> edges = new HashMap<>();
+		edges.put(EnumSides.LEFT, 1);
+		edges.put(EnumSides.TOP, -1);
+		edges.put(EnumSides.RIGHT, 1);
+		edges.put(EnumSides.BOTTOM, 1);
+		Piece pc1 = new Piece(10, edges);
+		
 		ArrayList<Piece> pcs = new ArrayList<>();
-		pcs.add(p1);
+		pcs.add(pc1);
 		errors = AnalyzeInputs.validateEdgesSum(pcs);
-		// assertFalse(errors.isEmpty());
 		assertTrue(errors.contains("Cannot solve puzzle: edges sum is not zero"));
 	}
 
@@ -55,14 +58,15 @@ class AnalyzeinputTests {
 	void ValidatePieceFormatGoodTest() {
 		// Format of edges for single piece is good: 0,0,1,0
 
-		Piece p1 = Mockito.mock(Piece.class);
-		Mockito.when(p1.getId()).thenReturn(11);
-		Mockito.when(p1.getLeft()).thenReturn(0);
-		Mockito.when(p1.getTop()).thenReturn(0);
-		Mockito.when(p1.getRight()).thenReturn(1);
-		Mockito.when(p1.getBottom()).thenReturn(0);
+		HashMap<EnumSides, Integer> edges = new HashMap<>();
+		edges.put(EnumSides.LEFT, 0);
+		edges.put(EnumSides.TOP, 0);
+		edges.put(EnumSides.RIGHT, 1);
+		edges.put(EnumSides.BOTTOM, 0);
+		Piece pc1 = new Piece(11, edges);
+		
 		ArrayList<Piece> pcs = new ArrayList<>();
-		pcs.add(p1);
+		pcs.add(pc1);
 		errors = AnalyzeInputs.validatePiecesFormat(pcs);
 		assertFalse(errors.contains("Wrong elements format: 11"));
 
@@ -72,15 +76,15 @@ class AnalyzeinputTests {
 	void ValidatePieceFormatBadTest() {
 		// Format of edges for single piece is bad: 0,0,2,0
 		errors.clear();
-
-		Piece p1 = Mockito.mock(Piece.class);
-		Mockito.when(p1.getId()).thenReturn(13);
-		Mockito.when(p1.getLeft()).thenReturn(0);
-		Mockito.when(p1.getTop()).thenReturn(2);
-		Mockito.when(p1.getRight()).thenReturn(0);
-		Mockito.when(p1.getBottom()).thenReturn(0);
+		HashMap<EnumSides, Integer> edges = new HashMap<>();
+		edges.put(EnumSides.LEFT, 0);
+		edges.put(EnumSides.TOP, 2);
+		edges.put(EnumSides.RIGHT, 0);
+		edges.put(EnumSides.BOTTOM, 0);
+		Piece pc1 = new Piece(13, edges);
+		
 		ArrayList<Piece> pcs = new ArrayList<>();
-		pcs.add(p1);
+		pcs.add(pc1);
 		errors = AnalyzeInputs.validatePiecesFormat(pcs);
 
 		assertTrue(errors.contains("Wrong elements value on line: 13"));
@@ -90,21 +94,23 @@ class AnalyzeinputTests {
 	@Test
 	void ValidateWrongNumberOfStraightEdgesBadTest() {
 		// Less than minimum number of straight edges
-		Piece p1 = Mockito.mock(Piece.class);
-		Mockito.when(p1.getLeft()).thenReturn(0);
-		Mockito.when(p1.getTop()).thenReturn(1);
-		Mockito.when(p1.getRight()).thenReturn(1);
-		Mockito.when(p1.getBottom()).thenReturn(0);
-
-		Piece p2 = Mockito.mock(Piece.class);
-		Mockito.when(p2.getLeft()).thenReturn(0);
-		Mockito.when(p2.getTop()).thenReturn(1);
-		Mockito.when(p2.getRight()).thenReturn(0);
-		Mockito.when(p2.getBottom()).thenReturn(1);
-
+		HashMap<EnumSides, Integer> edges = new HashMap<>();
+		edges.put(EnumSides.LEFT, 0);
+		edges.put(EnumSides.TOP, 1);
+		edges.put(EnumSides.RIGHT, 1);
+		edges.put(EnumSides.BOTTOM, 0);
+		Piece pc1 = new Piece(10, edges);
+		
+		HashMap<EnumSides, Integer> edges2 = new HashMap<>();
+		edges2.put(EnumSides.LEFT, 0);
+		edges2.put(EnumSides.TOP, 1);
+		edges2.put(EnumSides.RIGHT, 0);
+		edges2.put(EnumSides.BOTTOM, 1);
+		Piece pc2 = new Piece(11, edges2); 
 		ArrayList<Piece> pcs = new ArrayList<>();
-		pcs.add(p1);
-		pcs.add(p2);
+		pcs.add(pc1);
+		pcs.add(pc2);
+	
 		assertTrue(AnalyzeInputs.validateMinimumStraightEdges(pcs).isEmpty());
 
 	}
@@ -112,21 +118,23 @@ class AnalyzeinputTests {
 	@Test
 	void ValidateNumberOfStraightEdgesGoodTest() {
 		// input has minimum+ number of straight edges
-		Piece p1 = Mockito.mock(Piece.class);
-		Mockito.when(p1.getLeft()).thenReturn(0);
-		Mockito.when(p1.getTop()).thenReturn(0);
-		Mockito.when(p1.getRight()).thenReturn(0);
-		Mockito.when(p1.getBottom()).thenReturn(0);
-
-		Piece p2 = Mockito.mock(Piece.class);
-		Mockito.when(p2.getLeft()).thenReturn(0);
-		Mockito.when(p2.getTop()).thenReturn(0);
-		Mockito.when(p2.getRight()).thenReturn(0);
-		Mockito.when(p2.getBottom()).thenReturn(0);
-
+		HashMap<EnumSides, Integer> edges = new HashMap<>();
+		edges.put(EnumSides.LEFT, 0);
+		edges.put(EnumSides.TOP, 0);
+		edges.put(EnumSides.RIGHT, 0);
+		edges.put(EnumSides.BOTTOM, 0);
+		Piece pc1 = new Piece(10, edges);
+		
+		HashMap<EnumSides, Integer> edges2 = new HashMap<>();
+		edges2.put(EnumSides.LEFT, 0);
+		edges2.put(EnumSides.TOP, 0);
+		edges2.put(EnumSides.RIGHT, 0);
+		edges2.put(EnumSides.BOTTOM, 0);
+		Piece pc2 = new Piece(11, edges2); 
 		ArrayList<Piece> pcs = new ArrayList<>();
-		pcs.add(p1);
-		pcs.add(p2);
+		pcs.add(pc1);
+		pcs.add(pc2);
+		
 		assertFalse(AnalyzeInputs.validateMinimumStraightEdges(pcs).isEmpty());
 
 	}
@@ -135,21 +143,23 @@ class AnalyzeinputTests {
 	void ValidatePiecesCornersGoodTest() {
 		// Input has minimum+ corners
 		errors.clear();
-		Piece p1 = Mockito.mock(Piece.class);
-		Mockito.when(p1.getLeft()).thenReturn(0);
-		Mockito.when(p1.getTop()).thenReturn(0);
-		Mockito.when(p1.getRight()).thenReturn(0);
-		Mockito.when(p1.getBottom()).thenReturn(0);
-
-		Piece p2 = Mockito.mock(Piece.class);
-		Mockito.when(p2.getLeft()).thenReturn(0);
-		Mockito.when(p2.getTop()).thenReturn(0);
-		Mockito.when(p2.getRight()).thenReturn(0);
-		Mockito.when(p2.getBottom()).thenReturn(0);
-
+		HashMap<EnumSides, Integer> edges = new HashMap<>();
+		edges.put(EnumSides.LEFT, 0);
+		edges.put(EnumSides.TOP, 0);
+		edges.put(EnumSides.RIGHT, 0);
+		edges.put(EnumSides.BOTTOM, 0);
+		Piece pc1 = new Piece(10, edges);
+		
+		HashMap<EnumSides, Integer> edges2 = new HashMap<>();
+		edges2.put(EnumSides.LEFT, 0);
+		edges2.put(EnumSides.TOP, 0);
+		edges2.put(EnumSides.RIGHT, 0);
+		edges2.put(EnumSides.BOTTOM, 0);
+		Piece pc2 = new Piece(11, edges2); 
 		ArrayList<Piece> pcs = new ArrayList<>();
-		pcs.add(p1);
-		pcs.add(p2);
+		pcs.add(pc1);
+		pcs.add(pc2);
+		
 		errors = AnalyzeInputs.validateMinimumCorners(pcs);
 		assertFalse(errors.contains("Cannot solve puzzle: missing corner element: "));
 
@@ -159,21 +169,24 @@ class AnalyzeinputTests {
 	void ValidatePiecesCornersBadTest() {
 		// Less than minimum corners
 		errors.clear();
-		Piece p1 = Mockito.mock(Piece.class);
-		Mockito.when(p1.getLeft()).thenReturn(0);
-		Mockito.when(p1.getTop()).thenReturn(1);
-		Mockito.when(p1.getRight()).thenReturn(1);
-		Mockito.when(p1.getBottom()).thenReturn(0);
-
-		Piece p2 = Mockito.mock(Piece.class);
-		Mockito.when(p2.getLeft()).thenReturn(0);
-		Mockito.when(p2.getTop()).thenReturn(-1);
-		Mockito.when(p2.getRight()).thenReturn(-1);
-		Mockito.when(p2.getBottom()).thenReturn(0);
-
+		
+		HashMap<EnumSides, Integer> edges = new HashMap<>();
+		edges.put(EnumSides.LEFT, 0);
+		edges.put(EnumSides.TOP, 1);
+		edges.put(EnumSides.RIGHT, 1);
+		edges.put(EnumSides.BOTTOM, 0);
+		Piece pc1 = new Piece(10, edges);
+		
+		HashMap<EnumSides, Integer> edges2 = new HashMap<>();
+		edges2.put(EnumSides.LEFT, 0);
+		edges2.put(EnumSides.TOP, -1);
+		edges2.put(EnumSides.RIGHT, -1);
+		edges2.put(EnumSides.BOTTOM, 0);
+		Piece pc2 = new Piece(11, edges2); 
 		ArrayList<Piece> pcs = new ArrayList<>();
-		pcs.add(p1);
-		pcs.add(p2);
+		pcs.add(pc1);
+		pcs.add(pc2);
+		
 		errors = AnalyzeInputs.validateMinimumCorners(pcs);
 		assertTrue(errors.contains("Cannot solve puzzle: missing corner element: BR"));
 		assertTrue(errors.contains("Cannot solve puzzle: missing corner element: TR"));
