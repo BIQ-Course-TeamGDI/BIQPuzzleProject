@@ -21,8 +21,7 @@ public class AnalyzeInputs {
 		validateEdgesSum(input);
 		validatePiecesFormat(input);
 		ArrayList<Integer> rows = validateMinimumStraightEdges(input);
-		if (!rows.isEmpty())
-			rows = validateMinimumCorners(input, rows);
+		validateMinimumCorners(input);
 
 		if (errors.isEmpty())
 			return rows;
@@ -85,12 +84,10 @@ public class AnalyzeInputs {
 	 *       corners for each structure. If found, it add this option to a list that
 	 *       will be forward to the solver
 	 */
-	public static ArrayList<Integer> validateMinimumCorners(ArrayList<Piece> input, ArrayList<Integer> rows) {
+	public static ArrayList<String>  validateMinimumCorners(ArrayList<Piece> input) {
 		// TODO Auto-generated method stub
-		ArrayList<Integer> optionalRowsForSolution = new ArrayList<>();
 		boolean leftTopCorner = false , topRightCorner = false , rightBottomCorner = false , bottomLeftCorner = false;
 
-		for (int numOfRows : rows) {
 			leftTopCorner = false;topRightCorner = false;rightBottomCorner = false;bottomLeftCorner = false;
 			for (Piece p : input) {
 				if (p.getLeft() == 0 && p.getTop() == 0)
@@ -102,23 +99,22 @@ public class AnalyzeInputs {
 				if (p.getBottom() == 0 && p.getLeft() == 0)
 					bottomLeftCorner = true;
 				if (leftTopCorner && topRightCorner && rightBottomCorner && bottomLeftCorner) {
-					optionalRowsForSolution.add(numOfRows);
 					break;
 
 				}
 			}
 
-		}
-		if (!leftTopCorner)
-			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + ": TL");
-		if (!topRightCorner)
-			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + ": TR");
-		if (!rightBottomCorner)
-			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + ": BR");
-		if (!bottomLeftCorner)
-			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + ": BL");
 
-		return optionalRowsForSolution;
+		if (!leftTopCorner)
+			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + " TL");
+		if (!topRightCorner)
+			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + " TR");
+		if (!rightBottomCorner)
+			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + " BR");
+		if (!bottomLeftCorner)
+			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + " BL");
+		return errors;
+
 
 	}
 
@@ -152,8 +148,6 @@ public class AnalyzeInputs {
 		for (Piece p : input)
 			temp += p.getRight() + p.getTop() + p.getBottom() + p.getLeft();
 		if (temp != 0) {
-			// System.out.println("Id: " + p.getId() + ". is not valid!");
-			// Logger.error(ErrorsManagment.ERROR_MISSING_ELEMENTS + " ");
 			errors.add(ErrorsManagment.ERROR_EDGES_SUM_NOT_ZERO);
 		}
 

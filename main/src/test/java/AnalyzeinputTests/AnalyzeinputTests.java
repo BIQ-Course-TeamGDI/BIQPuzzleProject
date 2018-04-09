@@ -87,37 +87,6 @@ class AnalyzeinputTests {
 
 	}
 
-	/*
-	 * @Test void ValidateWrongPiecesIdsBadTest() { // Puzzle with 2 pieces have id:
-	 * 5 errors.clear(); Piece p1 = Mockito.mock(Piece.class);
-	 * Mockito.when(p1.getId()).thenReturn(5); Piece p2 = Mockito.mock(Piece.class);
-	 * Mockito.when(p2.getId()).thenReturn(2);
-	 * 
-	 * ArrayList<Piece> pcs = new ArrayList<>(); pcs.add(p1); pcs.add(p2); errors =
-	 * AnalyzeInputs.validatePiecesIds(pcs); assertFalse(errors.isEmpty());
-	 * assertTrue(errors.get(0).contains("Wrong element IDs"));
-	 * 
-	 * }
-	 */
-
-	/*
-	 * @Test void ValidateMissingPiecesIdsBadTest() { // Puzzle with non-sequenced
-	 * ids :1,3,9
-	 * 
-	 * errors.clear();
-	 * 
-	 * Piece p1 = Mockito.mock(Piece.class); Mockito.when(p1.getId()).thenReturn(1);
-	 * Piece p2 = Mockito.mock(Piece.class); Mockito.when(p2.getId()).thenReturn(2);
-	 * Piece p3 = Mockito.mock(Piece.class); Mockito.when(p3.getId()).thenReturn(4);
-	 * 
-	 * ArrayList<Piece> pcs = new ArrayList<>(); pcs.add(p1); pcs.add(p2);
-	 * pcs.add(p3); errors = AnalyzeInputs.validatePiecesIds(pcs);
-	 * assertFalse(errors.isEmpty());
-	 * assertTrue(errors.get(0).contains("Wrong element IDs"));
-	 * 
-	 * }
-	 */
-
 	@Test
 	void ValidateWrongNumberOfStraightEdgesBadTest() {
 		// Less than minimum number of straight edges
@@ -165,6 +134,7 @@ class AnalyzeinputTests {
 	@Test
 	void ValidatePiecesCornersGoodTest() {
 		// Input has minimum+ corners
+		errors.clear();
 		Piece p1 = Mockito.mock(Piece.class);
 		Mockito.when(p1.getLeft()).thenReturn(0);
 		Mockito.when(p1.getTop()).thenReturn(0);
@@ -180,15 +150,15 @@ class AnalyzeinputTests {
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(p1);
 		pcs.add(p2);
-		ArrayList<Integer> rows = new ArrayList<Integer>();
-		rows.add(1);
-		rows.add(2);
-		assertFalse(AnalyzeInputs.validateMinimumCorners(pcs, rows).isEmpty());
+		errors = AnalyzeInputs.validateMinimumCorners(pcs);
+		assertFalse(errors.contains("Cannot solve puzzle: missing corner element: "));
+
 	}
 
 	@Test
 	void ValidatePiecesCornersBadTest() {
 		// Less than minimum corners
+		errors.clear();
 		Piece p1 = Mockito.mock(Piece.class);
 		Mockito.when(p1.getLeft()).thenReturn(0);
 		Mockito.when(p1.getTop()).thenReturn(1);
@@ -204,20 +174,19 @@ class AnalyzeinputTests {
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(p1);
 		pcs.add(p2);
-		ArrayList<Integer> rows = new ArrayList<Integer>();
-		rows.add(1);
-		rows.add(2);
-		assertTrue(AnalyzeInputs.validateMinimumCorners(pcs, rows).isEmpty());
+		errors = AnalyzeInputs.validateMinimumCorners(pcs);
+		assertTrue(errors.contains("Cannot solve puzzle: missing corner element: BR"));
+		assertTrue(errors.contains("Cannot solve puzzle: missing corner element: TR"));
+		assertTrue(errors.contains("Cannot solve puzzle: missing corner element: TL"));
 
 	}
-	
+
 	@Test
-	public void AnalyzeTest() throws IOException
-	{
-		String piecesFile = "C:\\\\BiqPassoverProject\\test1.in";
+	public void AnalyzeTest() throws IOException {
+		String piecesFile = "C:\\BiqPassoverProject\\test1.in";
 		FileManagment fileManagment = new FileManagment(piecesFile);
 		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
 		AnalyzeInputs.analyzePicesList(pieces);
-		
+
 	}
 }
