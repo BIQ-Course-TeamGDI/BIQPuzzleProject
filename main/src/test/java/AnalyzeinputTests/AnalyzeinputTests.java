@@ -197,9 +197,10 @@ class AnalyzeinputTests {
 	@Test
 	public void AnalyzeTest() throws IOException {
 		String piecesFile = "C:\\BiqPassoverProject\\test1.in";
+		String outputFile = "C:\\BiqPassoverProject\\test1.out";
 		FileManagment fileManagment = new FileManagment(piecesFile);
 		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
-		AnalyzeInputs.analyzePicesList(pieces);
+		AnalyzeInputs.analyzePicesList(pieces, outputFile);
 
 	}
 }

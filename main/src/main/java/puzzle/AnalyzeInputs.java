@@ -1,5 +1,11 @@
 package puzzle;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import infra.ErrorsManagment;
 import puzzle.PuzzleSolver;
@@ -13,10 +19,9 @@ import puzzle.PuzzleSolver;
 
 public class AnalyzeInputs {
 
-	private ArrayList<Piece> pieces = new ArrayList<Piece>();
 	private static ArrayList<String> errors = new ArrayList<>();
 
-	public static ArrayList<Integer> analyzePicesList(ArrayList<Piece> input) {
+	public static ArrayList<Integer> analyzePicesList(ArrayList<Piece> input, String outPutFile) {
 
 		validateEdgesSum(input);
 		validatePiecesFormat(input);
@@ -26,12 +31,25 @@ public class AnalyzeInputs {
 		if (errors.isEmpty())
 			return rows;
 		else {
-			// analyze errors list:
-			for (String s : errors)
-				System.out.println("ERROR :" + s);
-			return null;
+
+			File fout = new File(outPutFile);
+			FileOutputStream fos = null;
+			try {
+				fos = new FileOutputStream(fout);
+				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+
+				for (String s : errors)
+					bw.write("ERROR: " + s + "\n");
+				bw.close();
+
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
+		return null;
 	}
 
 	/**
@@ -50,7 +68,10 @@ public class AnalyzeInputs {
 		ArrayList<Integer> possibleSolutionRows = PuzzleSolver.getPossibleSolutionRows(input.size());
 		for (int numOfRows : possibleSolutionRows) {
 			int numOfColumns = input.size() / numOfRows;
-			leftZeroEdges = 0; topZeroEdges = 0; rightZeroEdges = 0; bottomZeroEdges = 0;
+			leftZeroEdges = 0;
+			topZeroEdges = 0;
+			rightZeroEdges = 0;
+			bottomZeroEdges = 0;
 			for (Piece p : input) {
 				if (p.getLeft() == 0)
 					leftZeroEdges++;
@@ -69,7 +90,7 @@ public class AnalyzeInputs {
 			}
 
 		}
-		if(optionalRowsForSolution.isEmpty())
+		if (optionalRowsForSolution.isEmpty())
 			errors.add(ErrorsManagment.ERROR_NUM_STRAIGHT_EDGES);
 		return optionalRowsForSolution;
 	}
@@ -84,26 +105,28 @@ public class AnalyzeInputs {
 	 *       corners for each structure. If found, it add this option to a list that
 	 *       will be forward to the solver
 	 */
-	public static ArrayList<String>  validateMinimumCorners(ArrayList<Piece> input) {
+	public static ArrayList<String> validateMinimumCorners(ArrayList<Piece> input) {
 		// TODO Auto-generated method stub
-		boolean leftTopCorner = false , topRightCorner = false , rightBottomCorner = false , bottomLeftCorner = false;
+		boolean leftTopCorner = false, topRightCorner = false, rightBottomCorner = false, bottomLeftCorner = false;
 
-			leftTopCorner = false;topRightCorner = false;rightBottomCorner = false;bottomLeftCorner = false;
-			for (Piece p : input) {
-				if (p.getLeft() == 0 && p.getTop() == 0)
-					leftTopCorner = true;
-				if (p.getTop() == 0 && p.getRight() == 0)
-					topRightCorner = true;
-				if (p.getRight() == 0 && p.getBottom() == 0)
-					rightBottomCorner = true;
-				if (p.getBottom() == 0 && p.getLeft() == 0)
-					bottomLeftCorner = true;
-				if (leftTopCorner && topRightCorner && rightBottomCorner && bottomLeftCorner) {
-					break;
+		leftTopCorner = false;
+		topRightCorner = false;
+		rightBottomCorner = false;
+		bottomLeftCorner = false;
+		for (Piece p : input) {
+			if (p.getLeft() == 0 && p.getTop() == 0)
+				leftTopCorner = true;
+			if (p.getTop() == 0 && p.getRight() == 0)
+				topRightCorner = true;
+			if (p.getRight() == 0 && p.getBottom() == 0)
+				rightBottomCorner = true;
+			if (p.getBottom() == 0 && p.getLeft() == 0)
+				bottomLeftCorner = true;
+			if (leftTopCorner && topRightCorner && rightBottomCorner && bottomLeftCorner) {
+				break;
 
-				}
 			}
-
+		}
 
 		if (!leftTopCorner)
 			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + " TL");
@@ -114,7 +137,6 @@ public class AnalyzeInputs {
 		if (!bottomLeftCorner)
 			errors.add(ErrorsManagment.ERROR_MISSING_CORNER_ELEMENT + " BL");
 		return errors;
-
 
 	}
 
