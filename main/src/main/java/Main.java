@@ -17,7 +17,7 @@ public class Main {
         if (pieces==null || pieces.size()==0){
             return;
         }
-        ArrayList<Integer> posibleSolutionsRows = AnalyzeInputs.analyzePicesList(pieces);
+        ArrayList<Integer> posibleSolutionsRows = AnalyzeInputs.analyzePicesList(pieces, outPutFile);
         if (posibleSolutionsRows==null || posibleSolutionsRows.size()==0){
             return;
         }
