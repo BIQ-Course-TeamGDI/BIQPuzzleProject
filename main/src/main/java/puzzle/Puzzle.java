@@ -82,34 +82,19 @@ public class Puzzle {
         return sol;
     }
 
-//    public void printSolution(){
-//        String sol="";
-//        if(solution!=null) {
-//            for (int i=0;i<solution.length;i++){
-//                for (int j=0;j<solution[0].length;j++){
-//                    System.out.print(solution[i][j]+" ");
-//                    sol+=solution[i][j]+" ";
-//                }
-//                sol+="\n";
-//                System.out.print("\n");
-//            }
-//        } else{
-//            sol = "Cannot solve puzzle: it seems that there is no proper solution";
-//            System.out.println("Cannot solve puzzle: it seems that there is no proper solution");
-//        }
-//
-//        File fout = new File("C:\\Development_Course\\Passover_Project\\AmirTests\\AdditionalPuzzleTests\\test15.out");
-//        FileOutputStream fos = null;
-//        try {
-//            fos = new FileOutputStream(fout);
-//            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-//            bw.write(sol);
-//            bw.close();
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public void save(String outPutFile) {
+        File fout = new File(outPutFile);
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(fout);
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+            bw.write(this.solutionToString());
+            bw.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

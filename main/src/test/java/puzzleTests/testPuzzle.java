@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import infra.FileManagment;
+import puzzle.AnalyzeInputs;
 import puzzle.Piece;
 import puzzle.Puzzle;
 
@@ -14,40 +15,62 @@ public class testPuzzle
 {
 
 	@Test
-	public void test_3_rows_solution_puzzle() throws IOException
+	// test17.in
+	public void test_3_rows_solution_puzzle_12_pieces() throws IOException
 	{
-		String ExpectedSolution = "[[4, 7, 3, 6], [5, 2, 9, 10], [8, 11, 12, 1]]";
-		String piecesFile = "C:\\Development_Course\\Passover_Project\\GIT_BIQ_Course\\BIQPuzzleProject\\main\\src\\test\\java\\puzzleTests\\resourcesPuzzleFiles\\_3_rows_solution_puzzle_12_pieces.txt";
+		String ExpectedSolution = "4 7 1 6 \n" +
+				                  "8 2 3 11 \n" +
+				                  "9 10 5 12 \n";
+		String piecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test17.in";
 		FileManagment fileManagment = new FileManagment(piecesFile);
 		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
-		Puzzle puzzle = new Puzzle(pieces);
+		ArrayList<Integer> possibleRows = AnalyzeInputs.analyzePicesList(pieces,"");
+		Puzzle puzzle = new Puzzle(pieces,possibleRows);
 		puzzle.solve();
-		puzzle.printSolution();
-		String puzzleSolution = Arrays.deepToString(puzzle.getSolution());
+		String puzzleSolution = puzzle.solutionToString();
 		assertEquals(puzzleSolution, ExpectedSolution);
 	}
 
 	@Test
-	public void NO_solution_puzzle() throws IOException
+	// test15.in
+	public void test_4_rows_solution_puzzle_24_pieces() throws IOException
 	{
-		String piecesFile = "C:\\Development_Course\\Passover_Project\\GIT_BIQ_Course\\BIQPuzzleProject\\main\\src\\test\\java\\puzzleTests\\resourcesPuzzleFiles\\_No_solution_puzzle_4_pieces.txt";
+		String ExpectedSolution = "16 21 2 17 \n" +
+				                  "13 1 18 9 \n" +
+				                  "19 3 5 10 \n" +
+				                  "15 7 24 6  \n" +
+				                  "8 23 4 11 \n" +
+				                  "20 14 22 12 \n";
+		String piecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test15.in";
 		FileManagment fileManagment = new FileManagment(piecesFile);
 		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
-		Puzzle puzzle = new Puzzle(pieces);
+		ArrayList<Integer> possibleRows = AnalyzeInputs.analyzePicesList(pieces,"");
+		Puzzle puzzle = new Puzzle(pieces,possibleRows);
 		puzzle.solve();
-		puzzle.printSolution();
-		assertNull(puzzle.getSolution());
+		String puzzleSolution = puzzle.solutionToString();
+		assertEquals(puzzleSolution, ExpectedSolution);
 	}
 
 	@Test
-	public void Amir_tests() throws IOException
+	// test18.in
+	public void NO_solution_puzzle() throws IOException
 	{
-		String piecesFile = "C:\\Development_Course\\Passover_Project\\AmirTests\\AdditionalPuzzleTests\\test15.in";
+		String ExpectedSolution = "Cannot solve puzzle: it seems that there is no proper solution";
+		String piecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test18.in";
 		FileManagment fileManagment = new FileManagment(piecesFile);
 		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
-		Puzzle puzzle = new Puzzle(pieces);
+		ArrayList<Integer> possibleRows = AnalyzeInputs.analyzePicesList(pieces,"");
+		Puzzle puzzle = new Puzzle(pieces,possibleRows);
 		puzzle.solve();
-		puzzle.printSolution();
+		String puzzleSolution = puzzle.solutionToString();
+		assertEquals(puzzleSolution, ExpectedSolution);
 	}
+
+    @Test
+    public void test_solution_file() throws IOException {
+        String inputPiecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test14.in";
+        String outputSolutionFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test14.out";
+        Puzzle.testPuzzleSolutions(inputPiecesFile,outputSolutionFile);
+    }
 
 }
