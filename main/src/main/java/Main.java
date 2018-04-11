@@ -16,12 +16,14 @@ public class Main {
         String outPutFile = "C:\\Development_Course\\Passover_Project\\AmirTests\\AdditionalPuzzleTests\\test1_doron.out";
         FileManagment fileManagment = new FileManagment(inputPiecesFile);
         ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
+        AnalyzeInputs analyze = new AnalyzeInputs(pieces);
         if (pieces==null || pieces.size()==0){
             return;
         }
-        ArrayList<Integer> posibleSolutionsRows = AnalyzeInputs.analyzePicesList(pieces,outPutFile);
+        ArrayList<Integer> posibleSolutionsRows = analyze.getSolutionPossibleRows();
         if (posibleSolutionsRows==null || posibleSolutionsRows.size()==0){
-            return;
+            //need to write errors to file
+        	return;
         }
         Puzzle puzzle = new Puzzle(pieces,posibleSolutionsRows);
         puzzle.solve();

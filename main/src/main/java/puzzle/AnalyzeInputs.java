@@ -30,7 +30,7 @@ public class AnalyzeInputs {
 		return errors;
 	}
 	
-	public  void analyzePicesList() {
+	public void analyzePicesList() {
 
 		validateEdgesSum();
 		validatePiecesFormat();
