@@ -1,4 +1,4 @@
-package puzzle;
+/*package puzzle;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import infra.ErrorsManagment;
 import puzzle.PuzzleSolver;
 
-/**
+*//**
  * @author iw4360
  *
  *         This class will analyze the pieces that came as input to check their
  *         validation for the solution before starting to find the solution
- */
+ *//*
 
 public class AnalyzeInputs {
 
@@ -52,14 +52,14 @@ public class AnalyzeInputs {
 		return null;
 	}
 
-	/**
+	*//**
 	 * @param input:
 	 *            ArrayList
 	 * @return rows: ArrayList
 	 * @see This method run all over the possible puzzle structure and looking for
 	 *      the minimum straight edges for each structure. If found, it add this
 	 *      option to a list that will be forward to the solver
-	 */
+	 *//*
 	public static ArrayList<Integer> validateMinimumStraightEdges(ArrayList<Piece> input) {
 		// TODO Auto-generated method stub
 		int leftZeroEdges = 0, topZeroEdges = 0, rightZeroEdges = 0, bottomZeroEdges = 0;
@@ -105,7 +105,7 @@ public class AnalyzeInputs {
 	        }
 	        return possibleSolutionRows;
 	    }
-	/**
+	*//**
 	 * @param input:ArrayList
 	 * @param rows:
 	 *            ArrayList
@@ -114,7 +114,7 @@ public class AnalyzeInputs {
 	 *       checked that it has minimum straight edges] and looking for the minimum
 	 *       corners for each structure. If found, it add this option to a list that
 	 *       will be forward to the solver
-	 */
+	 *//*
 	public static ArrayList<String> validateMinimumCorners(ArrayList<Piece> input) {
 		// TODO Auto-generated method stub
 		boolean leftTopCorner = false, topRightCorner = false, rightBottomCorner = false, bottomLeftCorner = false;
@@ -150,12 +150,12 @@ public class AnalyzeInputs {
 
 	}
 
-	/**
+	*//**
 	 * @param input:
 	 *            ArrayList
 	 * @return errors: Arraylist
 	 * @see: This method check that input pieces edges arein the range of -1 to 1
-	 */
+	 *//*
 	public static ArrayList<String> validatePiecesFormat(ArrayList<Piece> input) {
 		// TODO Auto-generated method stub
 		for (Piece p : input) {
@@ -167,13 +167,13 @@ public class AnalyzeInputs {
 		return errors;
 	}
 
-	/**
+	*//**
 	 * @param input:
 	 *            ArrayList
 	 * @return
 	 * @see: This method check that input pieces edges sum is 0 --> the the shape is
 	 *       closed
-	 */
+	 *//*
 	public static ArrayList<String> validateEdgesSum(ArrayList<Piece> input) {
 		// TODO Auto-generated method stub
 		int temp = 0;
@@ -187,3 +187,4 @@ public class AnalyzeInputs {
 	}
 
 }
+*/

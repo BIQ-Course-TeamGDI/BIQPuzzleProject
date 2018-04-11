@@ -3,14 +3,11 @@ package infra;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-
-import org.apache.log4j.Logger;
 import puzzle.Piece;
 
 /**
@@ -18,21 +15,19 @@ import puzzle.Piece;
  * @author Guy Bitan
  *
  */
-public class FileManager implements ErrorsManagment
+public class FileManager extends ErrorsManagment
 {
 	private final int SIDES = 5;
 	private final String NUM_OF_ELEMENTS_KEY = "NumElements=";
 	private final String SEPARATOR = " ";
 	private final String COMMENTLINE = "#";
-	private File inputFilePath, outputFilePath;
+	private File inputFilePath;
 	private int numElements = 0;
 	private ArrayList<Piece> pieces = new ArrayList<Piece>();
-	final static Logger logger = Logger.getLogger(FileManager.class);
 
-	public FileManager(String inputFilePath, String outputFilePath)
+	public FileManager(String inputFilePath)
 	{
 		this.inputFilePath = new File(inputFilePath);
-		this.outputFilePath = new File(outputFilePath);
 	}
 
 	public ArrayList<Piece> getPicesFromFile() throws IOException
@@ -63,8 +58,8 @@ public class FileManager implements ErrorsManagment
 		}
 		else
 		{
-			logger.error(ErrorsManagment.ERROR_MISSING_IN_FILE + inputFilePath.getAbsolutePath());
-			throw new FileNotFoundException(ErrorsManagment.ERROR_MISSING_IN_FILE + inputFilePath.getAbsolutePath());
+			add(ERROR_MISSING_IN_FILE + inputFilePath.getAbsolutePath());
+			return null;
 		}
 	}
 
@@ -90,7 +85,7 @@ public class FileManager implements ErrorsManagment
 					}
 					catch (Exception e)
 					{
-						logger.error(e.getMessage());
+						add(e.getMessage());
 						return false;
 					}
 				}
@@ -191,21 +186,20 @@ public class FileManager implements ErrorsManagment
 		}
 		else
 		{
-			logger.error(ErrorsManagment.ERROR_NUM_ELEMENTS_NOT_EQUAL_TO_ACTUAL_PIECES + numElements + " and actual is:"
-					+ pieces.size());
+			add(ERROR_NUM_ELEMENTS_NOT_EQUAL_TO_ACTUAL_PIECES + numElements + " and actual is:" + pieces.size());
 			status = false;
 		}
 		if (!missingElements.isEmpty())
 		{
 			status = false;
 			missingElements = missingElements.substring(0, missingElements.lastIndexOf(","));
-			logger.error(ErrorsManagment.ERROR_MISSING_ELEMENTS + missingElements);
+			add(ERROR_MISSING_ELEMENTS + missingElements);
 		}
 		if (!wrongElements.isEmpty())
 		{
 			status = false;
 			wrongElements = wrongElements.substring(0, wrongElements.lastIndexOf(","));
-			logger.error(ErrorsManagment.ERROR_WRONG_ELEMENT_IDS + wrongElements);
+			add(ERROR_WRONG_ELEMENT_IDS + wrongElements);
 		}
 		return status;
 	}

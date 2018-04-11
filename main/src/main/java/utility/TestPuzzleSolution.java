@@ -1,6 +1,6 @@
 package utility;
 
-import infra.FileManagment;
+import infra.FileManager;
 import puzzle.Piece;
 
 import java.io.BufferedReader;
@@ -21,7 +21,7 @@ public class TestPuzzleSolution {
 
 
     private static ArrayList<Piece> getPieces(String input) throws IOException {
-        FileManagment fileManagment = new FileManagment(input);
+    	FileManager fileManagment = new FileManager(input);
         return fileManagment.getPicesFromFile();
     }
 
