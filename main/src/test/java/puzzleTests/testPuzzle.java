@@ -1,7 +1,7 @@
 package puzzleTests;
 
 import org.junit.jupiter.api.Test;
-import infra.FileManagment;
+import infra.FileManager;
 import puzzle.Piece;
 import puzzle.Puzzle;
 
@@ -20,7 +20,7 @@ public class testPuzzle
 	{
 		String ExpectedSolution = "[[4, 7, 3, 6], [5, 2, 9, 10], [8, 11, 12, 1]]";
 		String piecesFile = "C:\\Development_Course\\Passover_Project\\GIT_BIQ_Course\\BIQPuzzleProject\\main\\src\\test\\java\\puzzleTests\\resourcesPuzzleFiles\\_3_rows_solution_puzzle_12_pieces.txt";
-		FileManagment fileManagment = new FileManagment(piecesFile,"");
+		FileManager fileManagment = new FileManager(piecesFile,"");
 		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
 		Puzzle puzzle = new Puzzle(pieces);
 		puzzle.solve();
@@ -33,7 +33,7 @@ public class testPuzzle
 	public void NO_solution_puzzle() throws IOException
 	{
 		String piecesFile = "C:\\Development_Course\\Passover_Project\\GIT_BIQ_Course\\BIQPuzzleProject\\main\\src\\test\\java\\puzzleTests\\resourcesPuzzleFiles\\_No_solution_puzzle_4_pieces.txt";
-		FileManagment fileManagment = new FileManagment(piecesFile,"");
+		FileManager fileManagment = new FileManager(piecesFile,"");
 		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
 		Puzzle puzzle = new Puzzle(pieces);
 		puzzle.solve();
@@ -45,7 +45,7 @@ public class testPuzzle
 	public void Amir_tests() throws IOException
 	{
 		String piecesFile = "C:\\Development_Course\\Passover_Project\\AmirTests\\AdditionalPuzzleTests\\test15.in";
-		FileManagment fileManagment = new FileManagment(piecesFile,"");
+		FileManager fileManagment = new FileManager(piecesFile,"");
 		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
 		Puzzle puzzle = new Puzzle(pieces);
 		puzzle.solve();

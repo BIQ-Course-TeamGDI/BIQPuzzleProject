@@ -18,33 +18,28 @@ import puzzle.Piece;
  * @author Guy Bitan
  *
  */
-public class FileManagment implements ErrorsManagment
+public class FileManager implements ErrorsManagment
 {
 	private final int SIDES = 5;
 	private final String NUM_OF_ELEMENTS_KEY = "NumElements=";
 	private final String SEPARATOR = " ";
 	private final String COMMENTLINE = "#";
-	private File inFilePath, outFilePath;
+	private File inputFilePath, outputFilePath;
 	private int numElements = 0;
 	private ArrayList<Piece> pieces = new ArrayList<Piece>();
-	final static Logger logger = Logger.getLogger(FileManagment.class);
+	final static Logger logger = Logger.getLogger(FileManager.class);
 
-	public FileManagment(String inputFilePath, String outFilePath)
+	public FileManager(String inputFilePath, String outputFilePath)
 	{
-		this.inFilePath = new File(inputFilePath);
-		this.outFilePath = new File(outFilePath);
-	}
-
-	public void setFileInput(File fileInput)
-	{
-		this.inFilePath = fileInput;
+		this.inputFilePath = new File(inputFilePath);
+		this.outputFilePath = new File(outputFilePath);
 	}
 
 	public ArrayList<Piece> getPicesFromFile() throws IOException
 	{
-		if (inFilePath.exists())
+		if (inputFilePath.exists())
 		{
-			try (FileInputStream fis = new FileInputStream(inFilePath))
+			try (FileInputStream fis = new FileInputStream(inputFilePath))
 			{
 				BufferedReader br = new BufferedReader(new InputStreamReader(fis));
 				String sCurrentLine;
@@ -68,8 +63,8 @@ public class FileManagment implements ErrorsManagment
 		}
 		else
 		{
-			logger.error(ErrorsManagment.ERROR_MISSING_IN_FILE + inFilePath.getAbsolutePath());
-			throw new FileNotFoundException(ErrorsManagment.ERROR_MISSING_IN_FILE + inFilePath.getAbsolutePath());
+			logger.error(ErrorsManagment.ERROR_MISSING_IN_FILE + inputFilePath.getAbsolutePath());
+			throw new FileNotFoundException(ErrorsManagment.ERROR_MISSING_IN_FILE + inputFilePath.getAbsolutePath());
 		}
 	}
 
