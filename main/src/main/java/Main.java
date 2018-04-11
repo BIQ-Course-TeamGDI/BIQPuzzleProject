@@ -1,4 +1,4 @@
-import infra.FileManager;
+/*import infra.FileManager;
 import puzzle.AnalyzeInputs;
 import puzzle.Piece;
 import puzzle.Puzzle;
@@ -15,7 +15,7 @@ public class Main {
         String inputPiecesFile = "C:\\Development_Course\\Passover_Project\\AmirTests\\AdditionalPuzzleTests\\test1.in";
         String outPutFile = "C:\\Development_Course\\Passover_Project\\AmirTests\\AdditionalPuzzleTests\\test1_doron.out";
         FileManager fileManagment = new FileManager(inputPiecesFile);
-        ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
+        ArrayList<Piece> pieces = fileManagment.getPices();
         if (pieces==null || pieces.size()==0){
             return;
         }
@@ -29,3 +29,4 @@ public class Main {
     }
 
 }
+*/

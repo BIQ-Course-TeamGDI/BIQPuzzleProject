@@ -30,7 +30,7 @@ public class FileManager extends ErrorsManagment
 		this.inputFilePath = new File(inputFilePath);
 	}
 
-	public ArrayList<Piece> getPicesFromFile() throws IOException
+	public ArrayList<Piece> getPices() throws IOException
 	{
 		if (inputFilePath.exists())
 		{
