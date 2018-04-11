@@ -73,6 +73,7 @@ class AnalyzeinputTests {
 	void ValidatePieceFormatBadTest() {
 		// Format of edges for single piece is bad: 0,0,2,0
 		errors.clear();
+		
 		HashMap<EnumSides, Integer> edges = new HashMap<>();
 		edges.put(EnumSides.LEFT, 0);
 		edges.put(EnumSides.TOP, 2);
@@ -82,7 +83,8 @@ class AnalyzeinputTests {
 		
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
-		errors = AnalyzeInputs.validatePiecesFormat(pcs);
+		AnalyzeInputs analyze = new AnalyzeInputs(pcs);
+		errors = analyze.validatePiecesFormat();
 
 		assertTrue(errors.contains("Wrong elements value on line: 13"));
 
@@ -91,6 +93,7 @@ class AnalyzeinputTests {
 	@Test
 	void ValidateWrongNumberOfStraightEdgesBadTest() {
 		// Less than minimum number of straight edges
+		
 		HashMap<EnumSides, Integer> edges = new HashMap<>();
 		edges.put(EnumSides.LEFT, 0);
 		edges.put(EnumSides.TOP, 1);
@@ -107,14 +110,15 @@ class AnalyzeinputTests {
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
 		pcs.add(pc2);
-	
-		assertTrue(AnalyzeInputs.validateMinimumStraightEdges(pcs).isEmpty());
+		AnalyzeInputs analyze = new AnalyzeInputs(pcs);
+		assertTrue(analyze.validateMinimumStraightEdges().isEmpty());
 
 	}
 
 	@Test
 	void ValidateNumberOfStraightEdgesGoodTest() {
 		// input has minimum+ number of straight edges
+		
 		HashMap<EnumSides, Integer> edges = new HashMap<>();
 		edges.put(EnumSides.LEFT, 0);
 		edges.put(EnumSides.TOP, 0);
@@ -131,8 +135,8 @@ class AnalyzeinputTests {
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
 		pcs.add(pc2);
-		
-		assertFalse(AnalyzeInputs.validateMinimumStraightEdges(pcs).isEmpty());
+		AnalyzeInputs analyze = new AnalyzeInputs(pcs);
+		assertFalse(analyze.validateMinimumStraightEdges().isEmpty());
 
 	}
 
@@ -140,6 +144,7 @@ class AnalyzeinputTests {
 	void ValidatePiecesCornersGoodTest() {
 		// Input has minimum+ corners
 		errors.clear();
+		
 		HashMap<EnumSides, Integer> edges = new HashMap<>();
 		edges.put(EnumSides.LEFT, 0);
 		edges.put(EnumSides.TOP, 0);
@@ -156,8 +161,8 @@ class AnalyzeinputTests {
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
 		pcs.add(pc2);
-		
-		errors = AnalyzeInputs.validateMinimumCorners(pcs);
+		AnalyzeInputs analyze = new AnalyzeInputs(pcs);
+		errors = analyze.validateMinimumCorners();
 		assertFalse(errors.contains("Cannot solve puzzle: missing corner element: "));
 
 	}
@@ -183,8 +188,8 @@ class AnalyzeinputTests {
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
 		pcs.add(pc2);
-		
-		errors = AnalyzeInputs.validateMinimumCorners(pcs);
+		AnalyzeInputs analyze = new AnalyzeInputs(pcs);
+		errors = analyze.validateMinimumCorners();
 		assertTrue(errors.contains("Cannot solve puzzle: missing corner element: BR"));
 		assertTrue(errors.contains("Cannot solve puzzle: missing corner element: TR"));
 		assertTrue(errors.contains("Cannot solve puzzle: missing corner element: TL"));
@@ -194,10 +199,10 @@ class AnalyzeinputTests {
 	@Test
 	public void AnalyzeTest() throws IOException {
 		String piecesFile = "C:\\BiqPassoverProject\\test1.in";
-		String outputFile = "C:\\BiqPassoverProject\\test1.out";
 		FileManager fileManagment = new FileManager(piecesFile);
 		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
-		AnalyzeInputs.analyzePicesList(pieces, outputFile);
+		AnalyzeInputs analyze = new AnalyzeInputs(pieces);
+		analyze.analyzePicesList();
 
 	}
 }

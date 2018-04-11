@@ -1,11 +1,5 @@
 /*package puzzle;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import infra.ErrorsManagment;
 import puzzle.PuzzleSolver;
@@ -95,8 +89,8 @@ public class AnalyzeInputs {
 		return optionalRowsForSolution;
 	}
 
-	//get all possible matrixes for solution by input size
-	  private static  ArrayList<Integer> getPossibleSolutionRows(int size) {
+	//get all possible matrixes for solution by input size   
+	  private ArrayList<Integer> getPossibleSolutionRows(int size) {
 	        ArrayList<Integer> possibleSolutionRows = new ArrayList<Integer>();
 	        for(int i = 1; i<=size;i++){
 	            if(size%i==0){

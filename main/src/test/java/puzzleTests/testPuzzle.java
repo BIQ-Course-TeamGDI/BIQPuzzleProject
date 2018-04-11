@@ -25,7 +25,8 @@ public class testPuzzle
 		String piecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test17.in";
 		FileManager fileManagment = new FileManager(piecesFile);
 		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
-		ArrayList<Integer> possibleRows = AnalyzeInputs.analyzePicesList(pieces,"");
+		AnalyzeInputs analyze = new AnalyzeInputs(pieces);
+		ArrayList<Integer> possibleRows = analyze.getSolutionPossibleRows();
 		Puzzle puzzle = new Puzzle(pieces,possibleRows);
 		puzzle.solve();
 		String puzzleSolution = puzzle.solutionToString();
@@ -45,7 +46,8 @@ public class testPuzzle
 		String piecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test15.in";
 		FileManager fileManagment = new FileManager(piecesFile);
 		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
-		ArrayList<Integer> possibleRows = AnalyzeInputs.analyzePicesList(pieces,"");
+		AnalyzeInputs analyze = new AnalyzeInputs(pieces);
+		ArrayList<Integer> possibleRows = analyze.getSolutionPossibleRows();
 		Puzzle puzzle = new Puzzle(pieces,possibleRows);
 		puzzle.solve();
 		String puzzleSolution = puzzle.solutionToString();
@@ -60,7 +62,8 @@ public class testPuzzle
 		String piecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test18.in";
 		FileManager fileManagment = new FileManager(piecesFile);
 		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
-		ArrayList<Integer> possibleRows = AnalyzeInputs.analyzePicesList(pieces,"");
+		AnalyzeInputs analyze = new AnalyzeInputs(pieces);
+		ArrayList<Integer> possibleRows = analyze.getSolutionPossibleRows();
 		Puzzle puzzle = new Puzzle(pieces,possibleRows);
 		puzzle.solve();
 		String puzzleSolution = puzzle.solutionToString();
