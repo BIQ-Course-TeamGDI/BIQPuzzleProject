@@ -1,14 +1,7 @@
 package puzzle;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import infra.ErrorsManagment;
-import puzzle.PuzzleSolver;
 
 /**
  * @author iw4360
@@ -19,37 +12,30 @@ import puzzle.PuzzleSolver;
 
 public class AnalyzeInputs {
 
-	private static ArrayList<String> errors = new ArrayList<>();
+	private ArrayList<String> errors = new ArrayList<>();
+	private ArrayList<Integer> rows = new ArrayList<>();
+	private ArrayList<Piece> input = new ArrayList<>();
+	
+	public AnalyzeInputs(ArrayList<Piece> input) {
+		this.input = input;				
+		
+	}
+	//getter for possible solution rows
+	public ArrayList<Integer> getSolutionPossibleRows(){
+		return rows;
+	}
+	
+	//getter for errors
+	public ArrayList<String> getErrorsList(){
+		return errors;
+	}
+	
+	public  void analyzePicesList() {
 
-	public static ArrayList<Integer> analyzePicesList(ArrayList<Piece> input, String outPutFile) {
-
-		validateEdgesSum(input);
-		validatePiecesFormat(input);
-		ArrayList<Integer> rows = validateMinimumStraightEdges(input);
-		validateMinimumCorners(input);
-
-		if (errors.isEmpty())
-			return rows;
-		else {
-
-			File fout = new File(outPutFile);
-			FileOutputStream fos = null;
-			try {
-				fos = new FileOutputStream(fout);
-				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-
-				for (String s : errors)
-					bw.write("ERROR: " + s + "\n");
-				bw.close();
-
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return null;
+		validateEdgesSum();
+		validatePiecesFormat();
+		rows = validateMinimumStraightEdges();
+		validateMinimumCorners();		
 	}
 
 	/**
@@ -60,8 +46,8 @@ public class AnalyzeInputs {
 	 *      the minimum straight edges for each structure. If found, it add this
 	 *      option to a list that will be forward to the solver
 	 */
-	public static ArrayList<Integer> validateMinimumStraightEdges(ArrayList<Piece> input) {
-		// TODO Auto-generated method stub
+	public ArrayList<Integer> validateMinimumStraightEdges() {
+
 		int leftZeroEdges = 0, topZeroEdges = 0, rightZeroEdges = 0, bottomZeroEdges = 0;
 
 		ArrayList<Integer> optionalRowsForSolution = new ArrayList<>();
@@ -95,8 +81,8 @@ public class AnalyzeInputs {
 		return optionalRowsForSolution;
 	}
 
-	//get all possible matrixes for solution by input size
-	  private static  ArrayList<Integer> getPossibleSolutionRows(int size) {
+	//get all possible matrixes for solution by input size   
+	  private ArrayList<Integer> getPossibleSolutionRows(int size) {
 	        ArrayList<Integer> possibleSolutionRows = new ArrayList<Integer>();
 	        for(int i = 1; i<=size;i++){
 	            if(size%i==0){
@@ -115,8 +101,7 @@ public class AnalyzeInputs {
 	 *       corners for each structure. If found, it add this option to a list that
 	 *       will be forward to the solver
 	 */
-	public static ArrayList<String> validateMinimumCorners(ArrayList<Piece> input) {
-		// TODO Auto-generated method stub
+	public  ArrayList<String> validateMinimumCorners() {
 		boolean leftTopCorner = false, topRightCorner = false, rightBottomCorner = false, bottomLeftCorner = false;
 
 		leftTopCorner = false;
@@ -156,8 +141,7 @@ public class AnalyzeInputs {
 	 * @return errors: Arraylist
 	 * @see: This method check that input pieces edges arein the range of -1 to 1
 	 */
-	public static ArrayList<String> validatePiecesFormat(ArrayList<Piece> input) {
-		// TODO Auto-generated method stub
+	public ArrayList<String> validatePiecesFormat() {
 		for (Piece p : input) {
 			if (!(p.getRight() >= -1 && p.getRight() <= 1 && p.getTop() >= -1 && p.getTop() <= 1 && p.getBottom() >= -1
 					&& p.getBottom() <= 1 && p.getLeft() >= -1 && p.getLeft() <= 1)) {
@@ -174,8 +158,7 @@ public class AnalyzeInputs {
 	 * @see: This method check that input pieces edges sum is 0 --> the the shape is
 	 *       closed
 	 */
-	public static ArrayList<String> validateEdgesSum(ArrayList<Piece> input) {
-		// TODO Auto-generated method stub
+	public ArrayList<String> validateEdgesSum() {
 		int temp = 0;
 		for (Piece p : input)
 			temp += p.getRight() + p.getTop() + p.getBottom() + p.getLeft();
