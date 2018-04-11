@@ -65,7 +65,7 @@ public class AnalyzeInputs {
 		int leftZeroEdges = 0, topZeroEdges = 0, rightZeroEdges = 0, bottomZeroEdges = 0;
 
 		ArrayList<Integer> optionalRowsForSolution = new ArrayList<>();
-		ArrayList<Integer> possibleSolutionRows = PuzzleSolver.getPossibleSolutionRows(input.size());
+		ArrayList<Integer> possibleSolutionRows = getPossibleSolutionRows(input.size());
 		for (int numOfRows : possibleSolutionRows) {
 			int numOfColumns = input.size() / numOfRows;
 			leftZeroEdges = 0;
@@ -95,6 +95,16 @@ public class AnalyzeInputs {
 		return optionalRowsForSolution;
 	}
 
+	//get all possible matrixes for solution by input size
+	  private static  ArrayList<Integer> getPossibleSolutionRows(int size) {
+	        ArrayList<Integer> possibleSolutionRows = new ArrayList<Integer>();
+	        for(int i = 1; i<=size;i++){
+	            if(size%i==0){
+	                possibleSolutionRows.add(i);
+	            }
+	        }
+	        return possibleSolutionRows;
+	    }
 	/**
 	 * @param input:ArrayList
 	 * @param rows:

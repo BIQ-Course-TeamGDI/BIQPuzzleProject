@@ -2,24 +2,21 @@ package AnalyzeinputTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-
-import org.mockito.Mockito;
 
 import infra.EnumSides;
 import infra.FileManagment;
 import puzzle.AnalyzeInputs;
 import puzzle.Piece;
-import puzzle.Puzzle;
 
 class AnalyzeinputTests {
 	ArrayList<String> errors = new ArrayList<>();
 
 	@Test
+	//@ParameterizedTest(name = "fiboTest{index}: Values:{0}")
+	//@CsvSource({ "13", "31", "133", "541", "1" })
 	void ValidateSumOfEdgesGoodTest() {
 		// Sum of edges for a single piece and assert is zero
 
