@@ -58,7 +58,7 @@ public class FileManager extends ErrorsManagment
 		}
 		else
 		{
-			add(ERROR_MISSING_IN_FILE + inputFilePath.getAbsolutePath());
+			addError(ERROR_MISSING_IN_FILE + inputFilePath.getAbsolutePath());
 			return null;
 		}
 	}
@@ -85,7 +85,7 @@ public class FileManager extends ErrorsManagment
 					}
 					catch (Exception e)
 					{
-						add(e.getMessage());
+						addError(e.getMessage());
 						return false;
 					}
 				}
@@ -186,20 +186,20 @@ public class FileManager extends ErrorsManagment
 		}
 		else
 		{
-			add(ERROR_NUM_ELEMENTS_NOT_EQUAL_TO_ACTUAL_PIECES + numElements + " and actual is:" + pieces.size());
+			addError(ERROR_NUM_ELEMENTS_NOT_EQUAL_TO_ACTUAL_PIECES + numElements + " and actual is:" + pieces.size());
 			status = false;
 		}
 		if (!missingElements.isEmpty())
 		{
 			status = false;
 			missingElements = missingElements.substring(0, missingElements.lastIndexOf(","));
-			add(ERROR_MISSING_ELEMENTS + missingElements);
+			addError(ERROR_MISSING_ELEMENTS + missingElements);
 		}
 		if (!wrongElements.isEmpty())
 		{
 			status = false;
 			wrongElements = wrongElements.substring(0, wrongElements.lastIndexOf(","));
-			add(ERROR_WRONG_ELEMENT_IDS + wrongElements);
+			addError(ERROR_WRONG_ELEMENT_IDS + wrongElements);
 		}
 		return status;
 	}

@@ -22,7 +22,7 @@ public abstract class ErrorsManagment
 
 	private ArrayList<String> errorsList = new ArrayList<String>();
 
-	public void add(String errorMsg)
+	public void addError(String errorMsg)
 	{
 		errorsList.add(errorMsg);
 	}
@@ -32,11 +32,8 @@ public abstract class ErrorsManagment
 		errorsList.clear();
 	}
 
-	public void printErrors()
+	public ArrayList<String> getAllErrors()
 	{
-		for (String error : errorsList)
-		{
-			System.out.println(error);
-		}
+		return errorsList;
 	}
 }
