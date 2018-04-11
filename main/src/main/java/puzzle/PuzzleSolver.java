@@ -1,7 +1,5 @@
 package puzzle;
 
-import puzzle.Piece;
-import puzzle.Puzzle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +30,8 @@ public class PuzzleSolver {
      * @param puzzle This is the puzzle we wish to solve
      */
     public  static Piece[][] solve(Puzzle puzzle){
-        ArrayList<Integer> possibleSolutionRows = getPossibleSolutionRows(puzzle.size());
-        for(int numOfRows : possibleSolutionRows) {
+        //ArrayList<Integer> possibleSolutionRows = getPossibleSolutionRows(puzzle.size());
+        for(int numOfRows : puzzle.getPosibleSolutionRows()) {
             if (!isSolved) {
                 int columns = puzzle.size() / numOfRows;
                 solution = new Piece[numOfRows][columns];
@@ -178,6 +176,18 @@ public class PuzzleSolver {
             }
         }
         return possibleSolutionRows;
+    }
+
+    public static boolean checkSolution(Piece[][] sol){
+        solution=sol;
+        for (int i=0;i<solution.length;i++){
+            for (int j=0;j<solution[0].length;j++){
+                if(!isPieceFit(solution[i][j],i,j)){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }
