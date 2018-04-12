@@ -201,13 +201,5 @@ public class AnalyzeinputTests {
 
     }
 
-    @Test
-    public void AnalyzeTest() throws IOException {
-        String piecesFile = "./src/test/java/AnalyzeinputTests/resourcesFiles/test1.in";
-        FileManager fileManagment = new FileManager(piecesFile);
-        ArrayList<Piece> pieces = fileManagment.setPiecesFromFile();
-        AnalyzeInputs analyze = new AnalyzeInputs(pieces);
-        analyze.analyzePicesList();
-
-    }
+    
 }
