@@ -15,7 +15,7 @@ import puzzle.Piece;
  * @author Guy Bitan
  *
  */
-public class FileManager extends ErrorsManagment
+public class FileManager extends ErrorsManager
 {
 	private final int SIDES = 5;
 	private final String NUM_OF_ELEMENTS_KEY = "NumElements=";

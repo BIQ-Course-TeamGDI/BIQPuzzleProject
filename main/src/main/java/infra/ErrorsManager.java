@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author Guy Bitan
  *
  */
-public abstract class ErrorsManagment
+public abstract class ErrorsManager
 {
 	public final static String ERROR_MISSING_IN_FILE = "Input file doesn't exist in: ";
 	public final static String ERROR_NUM_ELEMENTS_NOT_EQUAL_TO_ACTUAL_PIECES = "Number of elements is not equal to actual pieces NumElements=";
