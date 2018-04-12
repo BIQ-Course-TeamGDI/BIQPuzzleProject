@@ -13,7 +13,6 @@ import infra.FileManager;
 
 public class AnalyzeInputs{
 
-	//private ArrayList<String> errors = new ArrayList<>();
 	private ArrayList<Integer> rows = new ArrayList<>();
 	private ArrayList<Piece> input;
 	private FileManager fileManager = new FileManager();
@@ -27,6 +26,14 @@ public class AnalyzeInputs{
 		return rows;
 	}
 
+	/**
+	 * @see This method check the validation of input pieces by:
+	 * 1. correct edges sum
+	 * 2. correct pieces format
+	 * 3. minimum straight edges for each possible row matrix
+	 * 4. minimum corners for each possible row matrix
+	 * The method add errors in there any in errorList
+	 */
 	public void analyzePicesList() {
 
 		validateEdgesSum();
