@@ -30,10 +30,14 @@ public class FileManager extends ErrorsManager
 		this.inputFilePath = new File(inputFilePath);
 	}
 
-	public ArrayList<Piece> getPiecesList(){
-		return pieces;
+	public FileManager()
+	{
 	}
 
+	public ArrayList<Piece> getPiecesList()
+	{
+		return pieces;
+	}
 
 	public ArrayList<Piece> setPiecesFromFile() throws IOException
 	{

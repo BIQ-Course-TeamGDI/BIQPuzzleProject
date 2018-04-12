@@ -23,25 +23,48 @@ public abstract class ErrorsManager
 
 	private ArrayList<String> errorsList = new ArrayList<String>();
 
+	/**
+	 * Add error to list
+	 * 
+	 * @param errorMsg
+	 */
 	public void addError(String errorMsg)
 	{
-		errorsList.add(errorMsg);
+		this.errorsList.add(errorMsg);
 	}
 
+	/**
+	 * Clear all errors from list
+	 */
 	public void clear()
 	{
-		errorsList.clear();
+		this.errorsList.clear();
 	}
 
+	/**
+	 * Get all errors from list
+	 * 
+	 * @return
+	 */
 	public ArrayList<String> getAllErrors()
 	{
-		return errorsList;
+		return this.errorsList;
 	}
 
-	public void printErrorsToFile(String outPutFile) throws IOException {
+	/**
+	 * Print errors to file
+	 * 
+	 * @param outPutFile
+	 * @throws IOException
+	 */
+	public void printErrorsToFile(String outPutFile) throws IOException
+	{
 		File fout = new File(outPutFile);
-		try (FileOutputStream fos = new FileOutputStream(fout) ;BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos)) ){
-			for (String error : errorsList){
+		try (FileOutputStream fos = new FileOutputStream(fout);
+				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos)))
+		{
+			for (String error : errorsList)
+			{
 				bw.write(error);
 			}
 		}
