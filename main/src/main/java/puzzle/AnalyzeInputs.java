@@ -1,7 +1,7 @@
 package puzzle;
 
 import java.util.ArrayList;
-import infra.ErrorsManagment;
+import infra.ErrorsManager;
 
 /**
  * @author iw4360
@@ -10,7 +10,7 @@ import infra.ErrorsManagment;
  *         validation for the solution before starting to find the solution
  */
 
-public class AnalyzeInputs extends ErrorsManagment{
+public class AnalyzeInputs extends ErrorsManager{
 
 	//private ArrayList<String> errors = new ArrayList<>();
 	private ArrayList<Integer> rows = new ArrayList<>();
