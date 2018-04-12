@@ -1,6 +1,6 @@
 package puzzle;
 
-import utility.TestPuzzleSolution;
+import puzzle.utility.TestPuzzleSolution;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -36,7 +36,8 @@ public class Puzzle {
      * This method is call to solve method in PuzzleSolver class.
      */
     public void solve(){
-        solution = PuzzleSolver.solve(this);
+        PuzzleSolver puzzleSolver = new PuzzleSolver();
+        solution = puzzleSolver.solve(this);
     }
 
     public int size(){
@@ -55,12 +56,15 @@ public class Puzzle {
         return posibleSolutionRows;
     }
 
-    public static void testPuzzleSolutions(String input, String solutionFile) throws IOException {
+    public static boolean checkSolutionFile(String input, String solutionFile) throws IOException {
         Piece[][] solutionToCheck = TestPuzzleSolution.testPuzzleSolutions(input,solutionFile);
-       if(PuzzleSolver.checkSolution(solutionToCheck)){
+        PuzzleSolver puzzleSolver = new PuzzleSolver();
+        if(puzzleSolver.checkSolution(solutionToCheck)){
            System.out.println("Solution is good");
+           return true;
        } else{
            System.out.println("Solution is incorrect");
+           return false;
        }
     }
 
@@ -82,19 +86,13 @@ public class Puzzle {
         return sol;
     }
 
-    public void save(String outPutFile) {
+    public void save(String outPutFile) throws IOException {
         File fout = new File(outPutFile);
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(fout);
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+        try (FileOutputStream fos = new FileOutputStream(fout);
+             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos)))
+        {
             bw.write(this.solutionToString());
             bw.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

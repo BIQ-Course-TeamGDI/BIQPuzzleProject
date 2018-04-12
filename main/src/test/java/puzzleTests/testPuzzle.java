@@ -1,19 +1,37 @@
-/*package puzzleTests;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import org.junit.jupiter.api.Test;
+package puzzleTests;
 
 import infra.FileManager;
+import org.junit.Test;
 import puzzle.AnalyzeInputs;
 import puzzle.Piece;
 import puzzle.Puzzle;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 public class testPuzzle
 {
+
+//	@Test
+//	// test17.in
+//	public void test() throws IOException
+//	{
+//		String piecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test17.in";
+//		String origOutputFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test17.out";
+//		String OutputFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test17.SolutionOut";
+//		FileManagment fileManagment = new FileManagment(piecesFile);
+//		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
+//		ArrayList<Integer> possibleRows = AnalyzeInputs.analyzePicesList(pieces,"");
+//		Puzzle puzzle = new Puzzle(pieces,possibleRows);
+//		puzzle.solve();
+//		puzzle.save(OutputFile);
+//	}
+
+
 
 	@Test
 	// test17.in
@@ -24,10 +42,9 @@ public class testPuzzle
 				                  "9 10 5 12 \n";
 		String piecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test17.in";
 		FileManager fileManagment = new FileManager(piecesFile);
-		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
-		AnalyzeInputs analyze = new AnalyzeInputs(pieces);
-		ArrayList<Integer> possibleRows = analyze.getSolutionPossibleRows();
-		Puzzle puzzle = new Puzzle(pieces,possibleRows);
+		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManagment.setPiecesFromFile());
+		analyzeInputs.analyzePicesList();
+		Puzzle puzzle = new Puzzle(fileManagment.getPiecesList(),analyzeInputs.getSolutionPossibleRows());
 		puzzle.solve();
 		String puzzleSolution = puzzle.solutionToString();
 		assertEquals(puzzleSolution, ExpectedSolution);
@@ -40,15 +57,14 @@ public class testPuzzle
 		String ExpectedSolution = "16 21 2 17 \n" +
 				                  "13 1 18 9 \n" +
 				                  "19 3 5 10 \n" +
-				                  "15 7 24 6  \n" +
+				                  "15 7 6 24 \n" +
 				                  "8 23 4 11 \n" +
 				                  "20 14 22 12 \n";
 		String piecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test15.in";
 		FileManager fileManagment = new FileManager(piecesFile);
-		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
-		AnalyzeInputs analyze = new AnalyzeInputs(pieces);
-		ArrayList<Integer> possibleRows = analyze.getSolutionPossibleRows();
-		Puzzle puzzle = new Puzzle(pieces,possibleRows);
+		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManagment.setPiecesFromFile());
+		analyzeInputs.analyzePicesList();
+		Puzzle puzzle = new Puzzle(fileManagment.getPiecesList(),analyzeInputs.getSolutionPossibleRows());
 		puzzle.solve();
 		String puzzleSolution = puzzle.solutionToString();
 		assertEquals(puzzleSolution, ExpectedSolution);
@@ -61,10 +77,9 @@ public class testPuzzle
 		String ExpectedSolution = "Cannot solve puzzle: it seems that there is no proper solution";
 		String piecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test18.in";
 		FileManager fileManagment = new FileManager(piecesFile);
-		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
-		AnalyzeInputs analyze = new AnalyzeInputs(pieces);
-		ArrayList<Integer> possibleRows = analyze.getSolutionPossibleRows();
-		Puzzle puzzle = new Puzzle(pieces,possibleRows);
+		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManagment.setPiecesFromFile());
+		analyzeInputs.analyzePicesList();
+		Puzzle puzzle = new Puzzle(fileManagment.getPiecesList(),analyzeInputs.getSolutionPossibleRows());
 		puzzle.solve();
 		String puzzleSolution = puzzle.solutionToString();
 		assertEquals(puzzleSolution, ExpectedSolution);
@@ -74,8 +89,15 @@ public class testPuzzle
     public void test_solution_file() throws IOException {
         String inputPiecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test14.in";
         String outputSolutionFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test14.out";
-        Puzzle.testPuzzleSolutions(inputPiecesFile,outputSolutionFile);
+        assertTrue(Puzzle.checkSolutionFile(inputPiecesFile,outputSolutionFile));
+        //assertTrue(Puzzle.checkSolutionFile(inputPiecesFile,outputSolutionFile));
     }
 
+	@Test
+	public void test_not_good_solution_file() throws IOException {
+		String inputPiecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test14.in";
+		String outputSolutionFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test15.out";
+		assertFalse(Puzzle.checkSolutionFile(inputPiecesFile,outputSolutionFile));
+	}
+
 }
-*/

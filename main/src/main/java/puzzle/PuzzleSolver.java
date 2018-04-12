@@ -13,15 +13,19 @@ import java.util.List;
 public class PuzzleSolver {
 
     /**
-     * Class static fields:
+     * Class fields:
      * solution - Two dimensional array that represent the puzzle solution.
      * fitPieces - List of the puzzle pieces that are already inside the solution array.
      * isSolved - this field set to true in case there is a solution for the given puzzle.
      */
-    private static Piece[][] solution;
-    private static List<Piece> fitPieces = new ArrayList<Piece>();
-    private static boolean isSolved = false;
+    private Piece[][] solution;
+    private List<Piece> fitPieces = new ArrayList<Piece>();
+    private boolean isSolved = false;
 
+
+    public PuzzleSolver() {
+
+    }
 
     /**
      * This method is used to calculate the number of possible solutions rows numbers
@@ -29,8 +33,7 @@ public class PuzzleSolver {
      *
      * @param puzzle This is the puzzle we wish to solve
      */
-    public  static Piece[][] solve(Puzzle puzzle){
-        //ArrayList<Integer> possibleSolutionRows = getPossibleSolutionRows(puzzle.size());
+    public Piece[][] solve(Puzzle puzzle){
         for(int numOfRows : puzzle.getPosibleSolutionRows()) {
             if (!isSolved) {
                 int columns = puzzle.size() / numOfRows;
@@ -50,7 +53,7 @@ public class PuzzleSolver {
      *
      * @param puzzle This is the puzzle we wish to solve
      */
-    private static void findSolution(Puzzle puzzle){
+    private void findSolution(Puzzle puzzle){
         // Loop over all puzzle pieces
         for (Piece p : puzzle.getPuzzlePieces()){
             if(isSolved){ // if isSolve flag is true the puzzle is solve and no need to continue checking.
@@ -87,7 +90,7 @@ public class PuzzleSolver {
      *
      * @return true if piece fit to the current puzzle status else return false.
      */
-    public static boolean isPieceFit(Piece piece, int row , int col ) {
+    private boolean isPieceFit(Piece piece, int row , int col ) {
         int numOfRows = solution.length - 1;
         int numOfColumns = solution[0].length - 1;
         if (row == 0) {  //Top row in the solution array.
@@ -129,7 +132,7 @@ public class PuzzleSolver {
      *
      * @param piece This is the piece we want to remove from the puzzle (the last piece that was entered)
      */
-    private static void removeLastPieceFromPuzzle(Piece piece) {
+    private void removeLastPieceFromPuzzle(Piece piece) {
         for (int i=0;i<solution.length;i++){
             for (int j=0;j<solution[0].length;j++){
                 if(piece.equals(solution[i][j])){
@@ -145,7 +148,7 @@ public class PuzzleSolver {
      *
      * @return int[2] {row number, column number} - the next empty place in the solution array.
      */
-    private static int[] getNextPlaceInThePuzzle() {
+    private int[] getNextPlaceInThePuzzle() {
         for (int i=0;i<solution.length;i++){
             for (int j=0;j<solution[0].length;j++){
                 if(solution[i][j]==null){
@@ -161,24 +164,24 @@ public class PuzzleSolver {
      *
      * @return true if the sum is zero else return false.
      */
-    private static boolean isSumZero(int side1, int side2) {
+    private boolean isSumZero(int side1, int side2) {
         if (side1+side2==0){
             return true;
         }
         return false;
     }
 
-    public static ArrayList<Integer> getPossibleSolutionRows(int size) {
-        ArrayList<Integer> possibleSolutionRows = new ArrayList<Integer>();
-        for(int i = 1; i<=size;i++){
-            if(size%i==0){
-                possibleSolutionRows.add(i);
-            }
-        }
-        return possibleSolutionRows;
-    }
+//    public ArrayList<Integer> getPossibleSolutionRows(int size) {
+//        ArrayList<Integer> possibleSolutionRows = new ArrayList<Integer>();
+//        for(int i = 1; i<=size;i++){
+//            if(size%i==0){
+//                possibleSolutionRows.add(i);
+//            }
+//        }
+//        return possibleSolutionRows;
+//    }
 
-    public static boolean checkSolution(Piece[][] sol){
+    public boolean checkSolution(Piece[][] sol){
         solution=sol;
         for (int i=0;i<solution.length;i++){
             for (int j=0;j<solution[0].length;j++){

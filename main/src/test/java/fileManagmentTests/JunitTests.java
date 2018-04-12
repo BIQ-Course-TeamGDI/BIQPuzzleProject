@@ -2,22 +2,20 @@ package fileManagmentTests;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import infra.FileManager;
+import org.junit.Test;
 import puzzle.Piece;
 
 public class JunitTests
 {
 	ArrayList<Piece> pieces;
-	FileManager fileManagment;
+	FileManager fileManager;
 
 	@Test
-	@DisplayName("1")
 	public void testFileManagment() throws IOException
 	{
-		fileManagment = new FileManager("./resources/files/test6.in");
-		pieces = fileManagment.getPices();
+		fileManager = new FileManager("./resources/files/test6.in");
+		fileManager.setPiecesFromFile();
 	}
 
 }

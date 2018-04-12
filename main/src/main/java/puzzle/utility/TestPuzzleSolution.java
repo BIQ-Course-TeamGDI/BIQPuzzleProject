@@ -1,4 +1,4 @@
-package utility;
+package puzzle.utility;
 
 import infra.FileManager;
 import puzzle.Piece;
@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class TestPuzzleSolution {
 
@@ -21,9 +20,9 @@ public class TestPuzzleSolution {
 
 
     private static ArrayList<Piece> getPieces(String input) throws IOException {
-    	FileManager fileManagment = new FileManager(input);
-    	fileManagment.setPiecesFromFile();
-    	return fileManagment.getPiecesList();
+        FileManager fileManager = new FileManager(input);
+        fileManager.setPiecesFromFile();
+        return fileManager.getPiecesList();
     }
 
 
