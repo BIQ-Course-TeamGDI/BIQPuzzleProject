@@ -20,7 +20,7 @@ public class PuzzleManager {
         if (fileManager.getPiecesList().size()!=0){
             fileManager.printErrorsToFile(outPutFile);
         }
-        AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManager.getPiecesList());
+        AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManager.getPiecesList(),fileManager);
         analyzeInputs.analyzePicesList();
         if (analyzeInputs.getSolutionPossibleRows().size()==0){
             fileManager.printErrorsToFile(outPutFile);

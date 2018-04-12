@@ -2,6 +2,7 @@ package puzzle;
 
 import java.util.ArrayList;
 import infra.ErrorsManager;
+import infra.FileManager;
 
 /**
  * @author iw4360
@@ -10,25 +11,21 @@ import infra.ErrorsManager;
  *         validation for the solution before starting to find the solution
  */
 
-public class AnalyzeInputs extends ErrorsManager{
+public class AnalyzeInputs{
 
 	//private ArrayList<String> errors = new ArrayList<>();
 	private ArrayList<Integer> rows = new ArrayList<>();
 	private ArrayList<Piece> input;
-
-	public AnalyzeInputs(ArrayList<Piece> input) {
+	private FileManager fileManager = new FileManager();
+	public AnalyzeInputs(ArrayList<Piece> input, FileManager manager) {
 		this.input = input;
+		this.fileManager = manager;
 
 	}
 	//getter for possible solution rows
 	public ArrayList<Integer> getSolutionPossibleRows(){
 		return rows;
 	}
-
-//	//getter for errors
-//	public ArrayList<String> getErrorsList(){
-//		return errors;
-//	}
 
 	public void analyzePicesList() {
 
@@ -77,7 +74,7 @@ public class AnalyzeInputs extends ErrorsManager{
 
 		}
 		if (optionalRowsForSolution.isEmpty())
-			addError(ERROR_NUM_STRAIGHT_EDGES);
+			fileManager.addError(ErrorsManager.ERROR_NUM_STRAIGHT_EDGES);
 		return optionalRowsForSolution;
 	}
 
@@ -124,13 +121,13 @@ public class AnalyzeInputs extends ErrorsManager{
 		}
 
 		if (!leftTopCorner)
-			addError(ERROR_MISSING_CORNER_ELEMENT + " TL");
+			fileManager.addError(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT + " TL");
 		if (!topRightCorner)
-			addError(ERROR_MISSING_CORNER_ELEMENT + " TR");
+			fileManager.addError(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT + " TR");
 		if (!rightBottomCorner)
-			addError(ERROR_MISSING_CORNER_ELEMENT + " BR");
+			fileManager.addError(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT + " BR");
 		if (!bottomLeftCorner)
-			addError(ERROR_MISSING_CORNER_ELEMENT + " BL");
+			fileManager.addError(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT + " BL");
 
 	}
 
@@ -144,7 +141,7 @@ public class AnalyzeInputs extends ErrorsManager{
 		for (Piece p : input) {
 			if (!(p.getRight() >= -1 && p.getRight() <= 1 && p.getTop() >= -1 && p.getTop() <= 1 && p.getBottom() >= -1
 					&& p.getBottom() <= 1 && p.getLeft() >= -1 && p.getLeft() <= 1)) {
-				addError(ERROR_WRONG_ELEMENTS_VALUES + p.getId());
+				fileManager.addError(ErrorsManager.ERROR_WRONG_ELEMENTS_VALUES + p.getId());
 			}
 		}
 	}
@@ -161,7 +158,7 @@ public class AnalyzeInputs extends ErrorsManager{
 		for (Piece p : input)
 			temp += p.getRight() + p.getTop() + p.getBottom() + p.getLeft();
 		if (temp != 0) {
-			addError(ERROR_EDGES_SUM_NOT_ZERO);
+			fileManager.addError(ErrorsManager.ERROR_EDGES_SUM_NOT_ZERO);
 		}
 	}
 

@@ -2,7 +2,6 @@ package AnalyzeinputTests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,9 +16,7 @@ public class AnalyzeinputTests {
 
 
     @Test
-        //@ParameterizedTest(name = "ValidateSumOfEdgesGoodTest{index}: Values:{0}")
-        //@CsvSource({ "13", "31", "133", "541", "1" })
-    public void ValidateSumOfEdgesGoodTest() {
+       public void ValidateSumOfEdgesGoodTest() {
         // Sum of edges for a single piece and assert is zero
 
         HashMap<EnumSides, Integer> edges = new HashMap<>();
@@ -30,8 +27,8 @@ public class AnalyzeinputTests {
         Piece pc1 = new Piece(10, edges);
         ArrayList<Piece> pcs = new ArrayList<>();
         pcs.add(pc1);
-        FileManager fileManager = new FileManager("");
-        AnalyzeInputs analyze = new AnalyzeInputs(pcs);
+        FileManager fileManager = new FileManager();
+        AnalyzeInputs analyze = new AnalyzeInputs(pcs, fileManager);
 
         analyze.validateEdgesSum();
         assertFalse(fileManager.getAllErrors().contains("Number of straight edges is invalid:10"));
@@ -49,8 +46,8 @@ public class AnalyzeinputTests {
 
         ArrayList<Piece> pcs = new ArrayList<>();
         pcs.add(pc1);
-        AnalyzeInputs analyze = new AnalyzeInputs(pcs);
-        FileManager fileManager = new FileManager("");
+        FileManager fileManager = new FileManager();
+        AnalyzeInputs analyze = new AnalyzeInputs(pcs, fileManager);
         analyze.validateEdgesSum();
         assertTrue(fileManager.getAllErrors().contains("Cannot solve puzzle: edges sum is not zero"));
     }
@@ -67,8 +64,9 @@ public class AnalyzeinputTests {
 
         ArrayList<Piece> pcs = new ArrayList<>();
         pcs.add(pc1);
-        AnalyzeInputs analyze = new AnalyzeInputs(pcs);
-        FileManager fileManager = new FileManager("");
+        FileManager fileManager = new FileManager();
+        AnalyzeInputs analyze = new AnalyzeInputs(pcs, fileManager);
+
         analyze.validatePiecesFormat();
         assertFalse(fileManager.getAllErrors().contains("Wrong elements format: 11"));
 
@@ -87,8 +85,8 @@ public class AnalyzeinputTests {
 
         ArrayList<Piece> pcs = new ArrayList<>();
         pcs.add(pc1);
-        FileManager fileManager = new FileManager("");
-        AnalyzeInputs analyze = new AnalyzeInputs(pcs);
+        FileManager fileManager = new FileManager();
+        AnalyzeInputs analyze = new AnalyzeInputs(pcs, fileManager);
         analyze.validatePiecesFormat();
 
         assertTrue(fileManager.getAllErrors().contains("Wrong elements value on line: 13"));
@@ -115,7 +113,9 @@ public class AnalyzeinputTests {
         ArrayList<Piece> pcs = new ArrayList<>();
         pcs.add(pc1);
         pcs.add(pc2);
-        AnalyzeInputs analyze = new AnalyzeInputs(pcs);
+        FileManager fileManager = new FileManager();
+        AnalyzeInputs analyze = new AnalyzeInputs(pcs, fileManager);
+
         assertTrue(analyze.validateMinimumStraightEdges().isEmpty());
 
     }
@@ -140,7 +140,9 @@ public class AnalyzeinputTests {
         ArrayList<Piece> pcs = new ArrayList<>();
         pcs.add(pc1);
         pcs.add(pc2);
-        AnalyzeInputs analyze = new AnalyzeInputs(pcs);
+        FileManager fileManager = new FileManager();
+        AnalyzeInputs analyze = new AnalyzeInputs(pcs, fileManager);
+
         assertFalse(analyze.validateMinimumStraightEdges().isEmpty());
 
     }
@@ -165,8 +167,9 @@ public class AnalyzeinputTests {
         ArrayList<Piece> pcs = new ArrayList<>();
         pcs.add(pc1);
         pcs.add(pc2);
-        AnalyzeInputs analyze = new AnalyzeInputs(pcs);
-        FileManager fileManager = new FileManager("");
+        FileManager fileManager = new FileManager();
+        AnalyzeInputs analyze = new AnalyzeInputs(pcs, fileManager);
+
         analyze.validateMinimumCorners();
         assertFalse(fileManager.getAllErrors().contains("Cannot solve puzzle: missing corner element: "));
 
@@ -192,8 +195,8 @@ public class AnalyzeinputTests {
         ArrayList<Piece> pcs = new ArrayList<>();
         pcs.add(pc1);
         pcs.add(pc2);
-        AnalyzeInputs analyze = new AnalyzeInputs(pcs);
-        FileManager fileManager = new FileManager("");
+        FileManager fileManager = new FileManager();
+        AnalyzeInputs analyze = new AnalyzeInputs(pcs, fileManager);
         analyze.validateMinimumCorners();
         assertTrue(fileManager.getAllErrors().contains("Cannot solve puzzle: missing corner element: BR"));
         assertTrue(fileManager.getAllErrors().contains("Cannot solve puzzle: missing corner element: TR"));
