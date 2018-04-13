@@ -81,7 +81,7 @@ public class Puzzle {
                 System.out.print("\n");
             }
         } else{
-            sol = "Cannot solve puzzle: it seems that there is no proper solution";
+            sol = "Cannot solve puzzle: it seems that there is no proper solution\n";
             System.out.println("Cannot solve puzzle: it seems that there is no proper solution");
         }
         return sol;

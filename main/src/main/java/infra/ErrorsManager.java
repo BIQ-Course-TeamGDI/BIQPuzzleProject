@@ -1,6 +1,9 @@
 package infra;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 /**
@@ -59,9 +62,11 @@ public abstract class ErrorsManager
 	 */
 	public void printErrorsToFile(String outPutFile) throws IOException
 	{
+
 		File fout = new File(outPutFile);
+		//BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos))
 		try (FileOutputStream fos = new FileOutputStream(fout);
-				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos)))
+			 final BufferedWriter bw= Files.newBufferedWriter(fout.toPath(),StandardCharsets.UTF_8))
 		{
 			for (String error : errorsList)
 			{
