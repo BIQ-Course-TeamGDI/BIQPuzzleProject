@@ -1,3 +1,4 @@
+package puzzle;
 import puzzle.PuzzleManager;
 
 import java.io.IOException;
