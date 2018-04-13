@@ -76,6 +76,7 @@ public class Puzzle {
                     System.out.print(solution[i][j]+" ");
                     sol+=solution[i][j]+" ";
                 }
+                sol = sol.trim();
                 sol+="\n";
                 System.out.print("\n");
             }

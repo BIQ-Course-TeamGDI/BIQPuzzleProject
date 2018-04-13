@@ -65,7 +65,7 @@ public abstract class ErrorsManager
 		{
 			for (String error : errorsList)
 			{
-				bw.write(error);
+				bw.write(error + "\n");
 			}
 		}
 	}
