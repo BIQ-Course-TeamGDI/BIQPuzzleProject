@@ -27,7 +27,7 @@ public class AnalyzeInputs{
 	}
 
 	/**
-	 * @see This method check the validation of input pieces by:
+	 * This method check the validation of input pieces by:
 	 * 1. correct edges sum
 	 * 2. correct pieces format
 	 * 3. minimum straight edges for each possible row matrix
@@ -46,7 +46,7 @@ public class AnalyzeInputs{
 	 * @param input:
 	 *            ArrayList
 	 * @return rows: ArrayList
-	 * @see This method run all over the possible puzzle structure and looking for
+	 * This method run all over the possible puzzle structure and looking for
 	 *      the minimum straight edges for each structure. If found, it add this
 	 *      option to a list that will be forward to the solver
 	 */
@@ -100,7 +100,7 @@ public class AnalyzeInputs{
 	 * @param rows:
 	 *            ArrayList
 	 * @return optionalRows: ArrayList
-	 * @see: This method run all over the possible puzzle structure [after it was
+	 * This method run all over the possible puzzle structure [after it was
 	 *       checked that it has minimum straight edges] and looking for the minimum
 	 *       corners for each structure. If found, it add this option to a list that
 	 *       will be forward to the solver
@@ -142,7 +142,7 @@ public class AnalyzeInputs{
 	 * @param input:
 	 *            ArrayList
 	 * @return errors: Arraylist
-	 * @see: This method check that input pieces edges arein the range of -1 to 1
+	 * This method check that input pieces edges arein the range of -1 to 1
 	 */
 	public void validatePiecesFormat() {
 		for (Piece p : input) {
@@ -157,7 +157,7 @@ public class AnalyzeInputs{
 	 * @param input:
 	 *            ArrayList
 	 * @return
-	 * @see: This method check that input pieces edges sum is 0 --> the the shape is
+	 * This method check that input pieces edges sum is 0 --> the the shape is
 	 *       closed
 	 */
 	public void validateEdgesSum() {
