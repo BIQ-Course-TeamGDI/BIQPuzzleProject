@@ -208,7 +208,6 @@ public class AnalyzeinputTests {
 	public void GetPiecesFromFileAndAnalayzeBadFileTest() throws IOException {
 		String piecesFile = "./resources/analyzedInputTestsFiles/test1.in";
 		FileManager fileManager = new FileManager(piecesFile);
-		fileManager.getPiecesFromFile();
 		AnalyzeInputs analyze = new AnalyzeInputs(fileManager.getPiecesFromFile(), fileManager);
 		analyze.analyzePicesList();
 		assertTrue(fileManager.getAllErrors().contains("Cannot solve puzzle: wrong number of straight edges"));
@@ -218,10 +217,9 @@ public class AnalyzeinputTests {
 	}
 
 	@Test
-	public void GetPiecesFromFileAndAnalayzegoodFileTest() throws IOException {
+	public void GetPiecesFromFileAndAnalayzeGoodFileTest() throws IOException {
 		String piecesFile = "./resources/analyzedInputTestsFiles/test2.in";
 		FileManager fileManager = new FileManager(piecesFile);
-		fileManager.getPiecesFromFile();
 		AnalyzeInputs analyze = new AnalyzeInputs(fileManager.getPiecesFromFile(),fileManager);
 		analyze.analyzePicesList();
 		assertTrue(fileManager.getAllErrors().isEmpty());
