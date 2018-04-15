@@ -177,7 +177,7 @@ public class FileManager extends ErrorsManager
 	}
 
 	/**
-	 * check if ids and size are valid
+	 * check if id's & size are valid
 	 * 
 	 * @return
 	 */
