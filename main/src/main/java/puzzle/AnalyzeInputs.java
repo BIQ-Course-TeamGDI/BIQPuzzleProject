@@ -5,7 +5,7 @@ import infra.ErrorsManager;
 import infra.FileManager;
 
 /**
- * @author iw4360
+ * @author ilan Wallerstein
  *
  *         This class will analyze the pieces that came as input to check their
  *         validation for the solution before starting to find the solution

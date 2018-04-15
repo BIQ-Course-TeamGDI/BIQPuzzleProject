@@ -1,4 +1,4 @@
-package AnalyzeinputTests;
+package analyzeinputtests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -31,7 +31,7 @@ public class AnalyzeinputTests {
 		AnalyzeInputs analyze = new AnalyzeInputs(pcs, fileManager);
 
 		analyze.validateEdgesSum();
-		assertFalse(fileManager.getAllErrors().contains("Number of straight edges is invalid:10"));
+		assertTrue(fileManager.getAllErrors().isEmpty());
 	}
 
 	@Test
@@ -205,7 +205,7 @@ public class AnalyzeinputTests {
 	}
 
 	@Test
-	public void AnalyzeTest() throws IOException {
+	public void GetPiecesFromFileAndAnalayzeBadFileTest() throws IOException {
 		String piecesFile = "./resources/analyzedInputTestsFiles/test1.in";
 		FileManager fileManager = new FileManager(piecesFile);
 		fileManager.getPiecesFromFile();
@@ -218,7 +218,7 @@ public class AnalyzeinputTests {
 	}
 
 	@Test
-	public void AnalyzeTest2() throws IOException {
+	public void GetPiecesFromFileAndAnalayzegoodFileTest() throws IOException {
 		String piecesFile = "./resources/analyzedInputTestsFiles/test2.in";
 		FileManager fileManager = new FileManager(piecesFile);
 		fileManager.getPiecesFromFile();
