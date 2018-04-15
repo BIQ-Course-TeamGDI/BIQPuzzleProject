@@ -12,5 +12,4 @@ public class Main
 		PuzzleManager puzzleManager = new PuzzleManager(args[0], args[1]);
 		puzzleManager.solvePuzzle();
 	}
-
 }

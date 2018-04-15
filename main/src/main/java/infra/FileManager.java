@@ -112,6 +112,7 @@ public class FileManager extends ErrorsManager
 
 	private int[] convertLineToArr(String sCurrentLine)
 	{
+		sCurrentLine = "1 -1 -1 -1";
 		int[] goodPiece = new int[SIDES];
 
 		if (sCurrentLine.startsWith(NUM_OF_ELEMENTS_KEY))
