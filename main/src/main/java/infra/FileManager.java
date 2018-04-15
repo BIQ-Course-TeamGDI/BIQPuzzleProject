@@ -33,6 +33,12 @@ public class FileManager extends ErrorsManager
 	{
 	}
 
+	/**
+	 * get pieces from file input
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	public ArrayList<Piece> getPiecesFromFile() throws IOException
 	{
 		if (inputFilePath.exists())
@@ -73,6 +79,13 @@ public class FileManager extends ErrorsManager
 		}
 	}
 
+	/**
+	 * Check if the NumElements variable is a valid format
+	 * 
+	 * @param sCurrentLine
+	 * @return
+	 * @throws IOException
+	 */
 	private boolean isNumElementsValid(String sCurrentLine) throws IOException
 	{
 		if (numElements == 0)
@@ -111,6 +124,12 @@ public class FileManager extends ErrorsManager
 		}
 	}
 
+	/**
+	 * Convert line string to integer array
+	 * 
+	 * @param sCurrentLine
+	 * @return
+	 */
 	private int[] convertLineToArr(String sCurrentLine)
 	{
 		int[] goodPiece = new int[SIDES];
@@ -141,6 +160,11 @@ public class FileManager extends ErrorsManager
 		return goodPiece;
 	}
 
+	/**
+	 * Add piece to ArrayList
+	 * 
+	 * @param pieceArr
+	 */
 	private void addPiece(int[] pieceArr)
 	{
 		int id = pieceArr[0];
@@ -152,6 +176,11 @@ public class FileManager extends ErrorsManager
 		pieces.add(new Piece(id, pieceMap));
 	}
 
+	/**
+	 * check if ids and size are valid
+	 * 
+	 * @return
+	 */
 	private boolean isIdsAndSizeAreValids()
 	{
 		String missingElements = "", wrongElements = "";

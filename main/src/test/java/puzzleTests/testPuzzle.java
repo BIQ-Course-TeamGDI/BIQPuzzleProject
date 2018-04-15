@@ -12,23 +12,6 @@ import static org.junit.Assert.assertTrue;
 public class testPuzzle
 {
 
-//	@Test
-//	// test17.in
-//	public void test() throws IOException
-//	{
-//		String piecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test17.in";
-//		String origOutputFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test17.out";
-//		String OutputFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test17.SolutionOut";
-//		FileManagment fileManagment = new FileManagment(piecesFile);
-//		ArrayList<Piece> pieces = fileManagment.getPicesFromFile();
-//		ArrayList<Integer> possibleRows = AnalyzeInputs.analyzePicesList(pieces,"");
-//		Puzzle puzzle = new Puzzle(pieces,possibleRows);
-//		puzzle.solve();
-//		puzzle.save(OutputFile);
-//	}
-
-
-
 	@Test
 	// test17.in
 	public void test_3_rows_solution_puzzle_12_pieces() throws IOException

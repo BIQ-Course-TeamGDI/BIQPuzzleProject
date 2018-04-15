@@ -63,7 +63,6 @@ public abstract class ErrorsManager
 	{
 
 		File fout = new File(outPutFile);
-		//BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos))
 		try (FileOutputStream fos = new FileOutputStream(fout);
 			 final BufferedWriter bw= Files.newBufferedWriter(fout.toPath(),StandardCharsets.UTF_8))
 		{
