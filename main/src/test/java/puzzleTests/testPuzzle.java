@@ -1,6 +1,7 @@
 package puzzleTests;
 
 import infra.FileManager;
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import puzzle.AnalyzeInputs;
 import puzzle.Puzzle;
@@ -50,15 +51,15 @@ public class testPuzzle
 	// test15.in
 	public void test_4_rows_solution_puzzle_24_pieces() throws IOException
 	{
-		String ExpectedSolution = "16 21 2 17 \n" +
-				                  "13 1 18 9 \n" +
-				                  "19 3 5 10 \n" +
-				                  "15 7 6 24 \n" +
-				                  "8 23 4 11 \n" +
-				                  "20 14 22 12 \n";
-		String piecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test15.in";
+		String ExpectedSolution = "16 21 2 17\n" +
+				                  "13 1 18 9\n" +
+				                  "19 3 5 10\n" +
+				                  "15 7 6 24\n" +
+				                  "8 23 4 11\n" +
+				                  "20 14 22 12\n";
+		String piecesFile = "./resources/puzzleFilesTests/test15.in";
 		FileManager fileManagment = new FileManager(piecesFile);
-		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManagment.getPiecesFromFile(),fileManagment);
+		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManagment.setPiecesFromFile(),fileManagment);
 		analyzeInputs.analyzePicesList();
 		Puzzle puzzle = new Puzzle(fileManagment.getPiecesFromFile(),analyzeInputs.getSolutionPossibleRows());
 		puzzle.solve();
