@@ -13,12 +13,13 @@ import infra.FileManager;
 
 public class AnalyzeInputs{
 
+	private ArrayList<String> errors = new ArrayList<>();
 	private ArrayList<Integer> rows = new ArrayList<>();
 	private ArrayList<Piece> input;
-	private FileManager fileManager = new FileManager();
-	public AnalyzeInputs(ArrayList<Piece> input, FileManager manager) {
+	//private FileManager fileManager = new FileManager();
+	public AnalyzeInputs(ArrayList<Piece> input) {;//, FileManager manager) {
 		this.input = input;
-		this.fileManager = manager;
+	//	this.fileManager = manager;
 
 	}
 	//getter for possible solution rows
@@ -26,6 +27,10 @@ public class AnalyzeInputs{
 		return rows;
 	}
 
+	//getter for errors
+		public ArrayList<String> getErrorsList(){
+			return errors;
+		}
 	/**
 	 * This method check the validation of input pieces by:
 	 * 1. correct edges sum
@@ -81,7 +86,7 @@ public class AnalyzeInputs{
 
 		}
 		if (optionalRowsForSolution.isEmpty())
-			fileManager.addError(ErrorsManager.ERROR_NUM_STRAIGHT_EDGES);
+			errors.add(ErrorsManager.ERROR_NUM_STRAIGHT_EDGES);
 		return optionalRowsForSolution;
 	}
 
@@ -128,13 +133,13 @@ public class AnalyzeInputs{
 		}
 
 		if (!leftTopCorner)
-			fileManager.addError(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT + " TL");
+			errors.add(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT + " TL");
 		if (!topRightCorner)
-			fileManager.addError(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT + " TR");
+			errors.add(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT + " TR");
 		if (!rightBottomCorner)
-			fileManager.addError(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT + " BR");
+			errors.add(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT + " BR");
 		if (!bottomLeftCorner)
-			fileManager.addError(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT + " BL");
+			errors.add(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT + " BL");
 
 	}
 
@@ -148,7 +153,7 @@ public class AnalyzeInputs{
 		for (Piece p : input) {
 			if (!(p.getRight() >= -1 && p.getRight() <= 1 && p.getTop() >= -1 && p.getTop() <= 1 && p.getBottom() >= -1
 					&& p.getBottom() <= 1 && p.getLeft() >= -1 && p.getLeft() <= 1)) {
-				fileManager.addError(ErrorsManager.ERROR_WRONG_ELEMENTS_VALUES + p.getId());
+				errors.add(ErrorsManager.ERROR_WRONG_ELEMENTS_VALUES + p.getId());
 			}
 		}
 	}
@@ -165,7 +170,7 @@ public class AnalyzeInputs{
 		for (Piece p : input)
 			temp += p.getRight() + p.getTop() + p.getBottom() + p.getLeft();
 		if (temp != 0) {
-			fileManager.addError(ErrorsManager.ERROR_EDGES_SUM_NOT_ZERO);
+			errors.add(ErrorsManager.ERROR_EDGES_SUM_NOT_ZERO);
 		}
 	}
 
