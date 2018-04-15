@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import puzzle.Piece;
 
@@ -34,12 +33,7 @@ public class FileManager extends ErrorsManager
 	{
 	}
 
-	public ArrayList<Piece> getPiecesList()
-	{
-		return pieces;
-	}
-
-	public ArrayList<Piece> setPiecesFromFile() throws IOException
+	public ArrayList<Piece> getPiecesFromFile() throws IOException
 	{
 		if (inputFilePath.exists())
 		{
@@ -63,7 +57,14 @@ public class FileManager extends ErrorsManager
 					}
 				}
 			}
-			return getAllPieces();
+			if (isIdsAndSizeAreValids())
+			{
+				return pieces;
+			}
+			else
+			{
+				return null;
+			}
 		}
 		else
 		{
@@ -112,7 +113,6 @@ public class FileManager extends ErrorsManager
 
 	private int[] convertLineToArr(String sCurrentLine)
 	{
-		sCurrentLine = "1 -1 -1 -1";
 		int[] goodPiece = new int[SIDES];
 
 		if (sCurrentLine.startsWith(NUM_OF_ELEMENTS_KEY))
@@ -131,7 +131,7 @@ public class FileManager extends ErrorsManager
 					{
 						goodPiece[i++] = Integer.parseInt(str);
 					}
-					catch (Exception e)
+					catch (NumberFormatException nfe)
 					{
 						return null;
 					}
@@ -152,27 +152,14 @@ public class FileManager extends ErrorsManager
 		pieces.add(new Piece(id, pieceMap));
 	}
 
-	private ArrayList<Piece> getAllPieces()
-	{
-		if (isIdsAndSizeAreValids())
-		{
-			Collections.sort(pieces);
-			return pieces;
-		}
-		else
-		{
-			return null;
-		}
-	}
-
 	private boolean isIdsAndSizeAreValids()
 	{
 		String missingElements = "", wrongElements = "";
 		boolean status = true;
-		int[] arr = new int[numElements];
 
 		if (pieces.size() == numElements)
 		{
+			int[] arr = new int[numElements];
 			for (int i = 0; i < numElements; i++)
 			{
 				int id = pieces.get(i).getId();

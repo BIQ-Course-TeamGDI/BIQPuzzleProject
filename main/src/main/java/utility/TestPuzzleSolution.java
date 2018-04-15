@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class TestPuzzleSolution {
 
@@ -22,8 +21,8 @@ public class TestPuzzleSolution {
 
     private static ArrayList<Piece> getPieces(String input) throws IOException {
     	FileManager fileManagment = new FileManager(input);
-    	fileManagment.setPiecesFromFile();
-    	return fileManagment.getPiecesList();
+    	fileManagment.getPiecesFromFile();
+    	return fileManagment.getPiecesFromFile();
     }
 
 

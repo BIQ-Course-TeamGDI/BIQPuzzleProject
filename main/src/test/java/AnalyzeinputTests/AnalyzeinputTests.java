@@ -208,7 +208,7 @@ public class AnalyzeinputTests {
 	public void AnalyzeTest() throws IOException {
 		String piecesFile = "./src/test/java/AnalyzeinputTests/resourcesFiles/test1.in";
 		FileManager fileManagment = new FileManager(piecesFile);
-		ArrayList<Piece> pieces = fileManagment.setPiecesFromFile();
+		ArrayList<Piece> pieces = fileManagment.getPiecesFromFile();
 		FileManager fileManager = new FileManager();
 		AnalyzeInputs analyze = new AnalyzeInputs(pieces, fileManager);
 		analyze.analyzePicesList();
@@ -222,7 +222,7 @@ public class AnalyzeinputTests {
 	public void AnalyzeTest2() throws IOException {
 		String piecesFile = "./src/test/java/AnalyzeinputTests/resourcesFiles/test2.in";
 		FileManager fileManagment = new FileManager(piecesFile);
-		ArrayList<Piece> pieces = fileManagment.setPiecesFromFile();
+		ArrayList<Piece> pieces = fileManagment.getPiecesFromFile();
 		FileManager fileManager = new FileManager();
 		AnalyzeInputs analyze = new AnalyzeInputs(pieces, fileManager);
 		analyze.analyzePicesList();

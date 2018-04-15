@@ -21,8 +21,8 @@ public class TestPuzzleSolution {
 
     private static ArrayList<Piece> getPieces(String input) throws IOException {
         FileManager fileManager = new FileManager(input);
-        fileManager.setPiecesFromFile();
-        return fileManager.getPiecesList();
+        fileManager.getPiecesFromFile();
+        return fileManager.getPiecesFromFile();
     }
 
 

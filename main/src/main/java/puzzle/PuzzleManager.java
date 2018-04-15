@@ -16,18 +16,18 @@ public class PuzzleManager {
 
     public void solvePuzzle() throws IOException {
         FileManager fileManager = new FileManager(inputPiecesFile);
-        fileManager.setPiecesFromFile();
+        fileManager.getPiecesFromFile();
         if (fileManager.getAllErrors().size()!=0){
             fileManager.printErrorsToFile(outPutFile);
             return;
         }
-        AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManager.getPiecesList(),fileManager);
+        AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManager.getPiecesFromFile(),fileManager);
         analyzeInputs.analyzePicesList();
         if (fileManager.getAllErrors().size()!=0){
             fileManager.printErrorsToFile(outPutFile);
             return;
         }
-        Puzzle puzzle = new Puzzle(fileManager.getPiecesList(),analyzeInputs.getSolutionPossibleRows());
+        Puzzle puzzle = new Puzzle(fileManager.getPiecesFromFile(),analyzeInputs.getSolutionPossibleRows());
         puzzle.solve();
         puzzle.save(outPutFile);
     }

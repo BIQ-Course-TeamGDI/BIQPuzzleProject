@@ -3,12 +3,8 @@ package puzzleTests;
 import infra.FileManager;
 import org.junit.Test;
 import puzzle.AnalyzeInputs;
-import puzzle.Piece;
 import puzzle.Puzzle;
-
 import java.io.IOException;
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -42,9 +38,9 @@ public class testPuzzle
 				                  "9 10 5 12 \n";
 		String piecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test17.in";
 		FileManager fileManagment = new FileManager(piecesFile);
-		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManagment.setPiecesFromFile(),fileManagment);
+		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManagment.getPiecesFromFile(),fileManagment);
 		analyzeInputs.analyzePicesList();
-		Puzzle puzzle = new Puzzle(fileManagment.getPiecesList(),analyzeInputs.getSolutionPossibleRows());
+		Puzzle puzzle = new Puzzle(fileManagment.getPiecesFromFile(),analyzeInputs.getSolutionPossibleRows());
 		puzzle.solve();
 		String puzzleSolution = puzzle.solutionToString();
 		assertEquals(puzzleSolution, ExpectedSolution);
@@ -62,9 +58,9 @@ public class testPuzzle
 				                  "20 14 22 12 \n";
 		String piecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test15.in";
 		FileManager fileManagment = new FileManager(piecesFile);
-		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManagment.setPiecesFromFile(),fileManagment);
+		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManagment.getPiecesFromFile(),fileManagment);
 		analyzeInputs.analyzePicesList();
-		Puzzle puzzle = new Puzzle(fileManagment.getPiecesList(),analyzeInputs.getSolutionPossibleRows());
+		Puzzle puzzle = new Puzzle(fileManagment.getPiecesFromFile(),analyzeInputs.getSolutionPossibleRows());
 		puzzle.solve();
 		String puzzleSolution = puzzle.solutionToString();
 		assertEquals(puzzleSolution, ExpectedSolution);
@@ -77,9 +73,9 @@ public class testPuzzle
 		String ExpectedSolution = "Cannot solve puzzle: it seems that there is no proper solution";
 		String piecesFile = "./src/test/java/puzzleTests/resourcesPuzzleFiles/test18.in";
 		FileManager fileManagment = new FileManager(piecesFile);
-		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManagment.setPiecesFromFile(),fileManagment);
+		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManagment.getPiecesFromFile(),fileManagment);
 		analyzeInputs.analyzePicesList();
-		Puzzle puzzle = new Puzzle(fileManagment.getPiecesList(),analyzeInputs.getSolutionPossibleRows());
+		Puzzle puzzle = new Puzzle(fileManagment.getPiecesFromFile(),analyzeInputs.getSolutionPossibleRows());
 		puzzle.solve();
 		String puzzleSolution = puzzle.solutionToString();
 		assertEquals(puzzleSolution, ExpectedSolution);
