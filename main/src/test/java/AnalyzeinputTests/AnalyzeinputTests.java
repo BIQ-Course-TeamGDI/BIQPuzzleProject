@@ -208,8 +208,8 @@ public class AnalyzeinputTests {
 	public void AnalyzeTest() throws IOException {
 		String piecesFile = "./resources/analyzedInputTestsFiles/test1.in";
 		FileManager fileManager = new FileManager(piecesFile);
-		fileManager.setPiecesFromFile();
-		AnalyzeInputs analyze = new AnalyzeInputs(fileManager.getPiecesList(), fileManager);
+		fileManager.getPiecesFromFile();
+		AnalyzeInputs analyze = new AnalyzeInputs(fileManager.getPiecesFromFile(), fileManager);
 		analyze.analyzePicesList();
 		assertTrue(fileManager.getAllErrors().contains("Cannot solve puzzle: wrong number of straight edges"));
 		assertTrue(fileManager.getAllErrors().contains("Cannot solve puzzle: missing corner element: BR"));
@@ -221,8 +221,8 @@ public class AnalyzeinputTests {
 	public void AnalyzeTest2() throws IOException {
 		String piecesFile = "./resources/analyzedInputTestsFiles/test2.in";
 		FileManager fileManager = new FileManager(piecesFile);
-		fileManager.setPiecesFromFile();
-		AnalyzeInputs analyze = new AnalyzeInputs(fileManager.getPiecesList(),fileManager);
+		fileManager.getPiecesFromFile();
+		AnalyzeInputs analyze = new AnalyzeInputs(fileManager.getPiecesFromFile(),fileManager);
 		analyze.analyzePicesList();
 		assertTrue(fileManager.getAllErrors().isEmpty());
 

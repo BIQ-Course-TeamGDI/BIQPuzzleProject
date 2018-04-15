@@ -1,7 +1,6 @@
 package puzzleTests;
 
 import infra.FileManager;
-import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import puzzle.AnalyzeInputs;
 import puzzle.Puzzle;
@@ -59,7 +58,7 @@ public class testPuzzle
 				                  "20 14 22 12\n";
 		String piecesFile = "./resources/puzzleFilesTests/test15.in";
 		FileManager fileManagment = new FileManager(piecesFile);
-		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManagment.setPiecesFromFile(),fileManagment);
+		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManagment.getPiecesFromFile(),fileManagment);
 		analyzeInputs.analyzePicesList();
 		Puzzle puzzle = new Puzzle(fileManagment.getPiecesFromFile(),analyzeInputs.getSolutionPossibleRows());
 		puzzle.solve();
