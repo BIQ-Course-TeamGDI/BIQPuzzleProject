@@ -1,6 +1,5 @@
 package AnalyzeinputTests;
 
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -110,7 +109,6 @@ public class AnalyzeinputTests {
 		pcs.add(pc1);
 		pcs.add(pc2);
 		AnalyzeInputs analyze = new AnalyzeInputs(pcs);
-
 		assertTrue(analyze.validateMinimumStraightEdges().isEmpty());
 
 	}
@@ -172,10 +170,10 @@ public class AnalyzeinputTests {
 	public void ValidatePiecesCornersBadTest() {
 		// Less than minimum corners
 		int[] edges = new int[4];
-		edges[0]=0;
-		edges[1]=1;
-		edges[2]=1;
-		edges[3]=0;
+		edges[0] = 0;
+		edges[1] = 1;
+		edges[2] = 1;
+		edges[3] = 0;
 		Piece pc1 = new Piece(10, edges);
 
 		HashMap<Integer, Integer> edges2 = new HashMap<>();
@@ -199,7 +197,7 @@ public class AnalyzeinputTests {
 	public void GetPiecesFromFileAndAnalayzeBadFileTest() throws IOException {
 		String piecesFile = "./resources/analyzedInputTestsFiles/test1.in";
 		FileManager fileManager = new FileManager(piecesFile);
-		AnalyzeInputs analyze = new AnalyzeInputs(fileManager.getPiecesFromFile());
+		AnalyzeInputs analyze = new AnalyzeInputs(fileManager.getPieces());
 		analyze.analyzePicesList();
 		assertTrue(analyze.getErrorsList().contains("Cannot solve puzzle: wrong number of straight edges"));
 		assertTrue(analyze.getErrorsList().contains("Cannot solve puzzle: missing corner element: BR"));
@@ -211,7 +209,7 @@ public class AnalyzeinputTests {
 	public void GetPiecesFromFileAndAnalayzeGoodFileTest() throws IOException {
 		String piecesFile = "./resources/analyzedInputTestsFiles/test2.in";
 		FileManager fileManager = new FileManager(piecesFile);
-		AnalyzeInputs analyze = new AnalyzeInputs(fileManager.getPiecesFromFile());
+		AnalyzeInputs analyze = new AnalyzeInputs(fileManager.getPieces());
 		analyze.analyzePicesList();
 		assertTrue(analyze.getErrorsList().isEmpty());
 
