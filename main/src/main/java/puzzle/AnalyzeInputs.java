@@ -2,7 +2,6 @@ package puzzle;
 
 import java.util.ArrayList;
 import infra.ErrorsManager;
-import infra.FileManager;
 
 /**
  * @author ilan Wallerstein
@@ -11,33 +10,32 @@ import infra.FileManager;
  *         validation for the solution before starting to find the solution
  */
 
-public class AnalyzeInputs{
+public class AnalyzeInputs {
 
 	private ArrayList<String> errors = new ArrayList<>();
 	private ArrayList<Integer> rows = new ArrayList<>();
 	private ArrayList<Piece> input;
-	//private FileManager fileManager = new FileManager();
-	public AnalyzeInputs(ArrayList<Piece> input) {;//, FileManager manager) {
+
+	public AnalyzeInputs(ArrayList<Piece> input) {
 		this.input = input;
-	//	this.fileManager = manager;
 
 	}
-	//getter for possible solution rows
-	public ArrayList<Integer> getSolutionPossibleRows(){
+
+	// getter for possible solution rows
+	public ArrayList<Integer> getSolutionPossibleRows() {
 		return rows;
 	}
 
-	//getter for errors
-		public ArrayList<String> getErrorsList(){
-			return errors;
-		}
+	// getter for errors
+	public ArrayList<String> getErrorsList() {
+		return errors;
+	}
+
 	/**
-	 * This method check the validation of input pieces by:
-	 * 1. correct edges sum
-	 * 2. correct pieces format
-	 * 3. minimum straight edges for each possible row matrix
-	 * 4. minimum corners for each possible row matrix
-	 * The method add errors in there any in errorList
+	 * This method check the validation of input pieces by: 1. correct edges sum 2.
+	 * correct pieces format 3. minimum straight edges for each possible row matrix
+	 * 4. minimum corners for each possible row matrix The method add errors in
+	 * there any in errorList
 	 */
 	public void analyzePicesList() {
 
@@ -50,10 +48,10 @@ public class AnalyzeInputs{
 	/**
 	 * @param input:
 	 *            ArrayList
-	 * @return rows: ArrayList
-	 * This method run all over the possible puzzle structure and looking for
-	 *      the minimum straight edges for each structure. If found, it add this
-	 *      option to a list that will be forward to the solver
+	 * @return rows: ArrayList This method run all over the possible puzzle
+	 *         structure and looking for the minimum straight edges for each
+	 *         structure. If found, it add this option to a list that will be
+	 *         forward to the solver
 	 */
 	public ArrayList<Integer> validateMinimumStraightEdges() {
 
@@ -90,25 +88,25 @@ public class AnalyzeInputs{
 		return optionalRowsForSolution;
 	}
 
-	//get all possible matrixes for solution by input size
+	// get all possible matrixes for solution by input size
 	private ArrayList<Integer> getPossibleSolutionRows(int size) {
 		ArrayList<Integer> possibleSolutionRows = new ArrayList<Integer>();
-		for(int i = 1; i<=size;i++){
-			if(size%i==0){
+		for (int i = 1; i <= size; i++) {
+			if (size % i == 0) {
 				possibleSolutionRows.add(i);
 			}
 		}
 		return possibleSolutionRows;
 	}
+
 	/**
 	 * @param input:ArrayList
 	 * @param rows:
 	 *            ArrayList
-	 * @return optionalRows: ArrayList
-	 * This method run all over the possible puzzle structure [after it was
-	 *       checked that it has minimum straight edges] and looking for the minimum
-	 *       corners for each structure. If found, it add this option to a list that
-	 *       will be forward to the solver
+	 * @return optionalRows: ArrayList This method run all over the possible puzzle
+	 *         structure [after it was checked that it has minimum straight edges]
+	 *         and looking for the minimum corners for each structure. If found, it
+	 *         add this option to a list that will be forward to the solver
 	 */
 	public void validateMinimumCorners() {
 		boolean leftTopCorner = false, topRightCorner = false, rightBottomCorner = false, bottomLeftCorner = false;
@@ -146,8 +144,8 @@ public class AnalyzeInputs{
 	/**
 	 * @param input:
 	 *            ArrayList
-	 * @return errors: Arraylist
-	 * This method check that input pieces edges arein the range of -1 to 1
+	 * @return errors: Arraylist This method check that input pieces edges arein the
+	 *         range of -1 to 1
 	 */
 	public void validatePiecesFormat() {
 		for (Piece p : input) {
@@ -161,9 +159,8 @@ public class AnalyzeInputs{
 	/**
 	 * @param input:
 	 *            ArrayList
-	 * @return
-	 * This method check that input pieces edges sum is 0 --> the the shape is
-	 *       closed
+	 * @return This method check that input pieces edges sum is 0 --> the the shape
+	 *         is closed
 	 */
 	public void validateEdgesSum() {
 		int temp = 0;

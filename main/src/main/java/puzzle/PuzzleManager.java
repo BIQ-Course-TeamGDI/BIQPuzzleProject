@@ -21,7 +21,7 @@ public class PuzzleManager {
             fileManager.printErrorsToFile(outPutFile);
             return;
         }
-        AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManager.getPiecesFromFile(),fileManager);
+        AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManager.getPiecesFromFile());
         analyzeInputs.analyzePicesList();
         if (fileManager.getAllErrors().size()!=0){
             fileManager.printErrorsToFile(outPutFile);

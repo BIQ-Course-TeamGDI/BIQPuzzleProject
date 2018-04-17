@@ -1,4 +1,5 @@
-package analyzeinputtests;
+package AnalyzeinputTests;
+
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -7,7 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import infra.EnumSides;
 import infra.FileManager;
 import org.junit.Test;
 import puzzle.AnalyzeInputs;
@@ -19,11 +19,11 @@ public class AnalyzeinputTests {
 	public void ValidateSumOfEdgesGoodTest() {
 		// Sum of edges for a single piece and assert is zero
 
-		HashMap<EnumSides, Integer> edges = new HashMap<>();
-		edges.put(EnumSides.LEFT, 0);
-		edges.put(EnumSides.TOP, 0);
-		edges.put(EnumSides.RIGHT, 0);
-		edges.put(EnumSides.BOTTOM, 0);
+		HashMap<Integer, Integer> edges = new HashMap<>();
+		edges.put(0, 0);
+		edges.put(1, 0);
+		edges.put(2, 0);
+		edges.put(3, 0);
 		Piece pc1 = new Piece(10, edges);
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
@@ -36,11 +36,11 @@ public class AnalyzeinputTests {
 	@Test
 	public void ValidateSumOfEdgesBadTest() {
 		// Sum of edges for single piece is not zero
-		HashMap<EnumSides, Integer> edges = new HashMap<>();
-		edges.put(EnumSides.LEFT, 1);
-		edges.put(EnumSides.TOP, -1);
-		edges.put(EnumSides.RIGHT, 1);
-		edges.put(EnumSides.BOTTOM, 1);
+		HashMap<Integer, Integer> edges = new HashMap<>();
+		edges.put(0, 1);
+		edges.put(1, -1);
+		edges.put(2, 1);
+		edges.put(3, 1);
 		Piece pc1 = new Piece(10, edges);
 
 		ArrayList<Piece> pcs = new ArrayList<>();
@@ -53,11 +53,11 @@ public class AnalyzeinputTests {
 	@Test
 	public void ValidatePieceFormatGoodTest() {
 		// Format of edges for single piece is good: 0,0,1,0
-		HashMap<EnumSides, Integer> edges = new HashMap<>();
-		edges.put(EnumSides.LEFT, 0);
-		edges.put(EnumSides.TOP, 0);
-		edges.put(EnumSides.RIGHT, 1);
-		edges.put(EnumSides.BOTTOM, 0);
+		HashMap<Integer, Integer> edges = new HashMap<>();
+		edges.put(0, 0);
+		edges.put(1, 0);
+		edges.put(2, 1);
+		edges.put(3, 0);
 		Piece pc1 = new Piece(11, edges);
 
 		ArrayList<Piece> pcs = new ArrayList<>();
@@ -73,11 +73,11 @@ public class AnalyzeinputTests {
 	public void ValidatePieceFormatBadTest() {
 		// Format of edges for single piece is bad: 0,0,2,0
 
-		HashMap<EnumSides, Integer> edges = new HashMap<>();
-		edges.put(EnumSides.LEFT, 0);
-		edges.put(EnumSides.TOP, 2);
-		edges.put(EnumSides.RIGHT, 0);
-		edges.put(EnumSides.BOTTOM, 0);
+		HashMap<Integer, Integer> edges = new HashMap<>();
+		edges.put(0, 0);
+		edges.put(1, 2);
+		edges.put(2, 0);
+		edges.put(3, 0);
 		Piece pc1 = new Piece(13, edges);
 
 		ArrayList<Piece> pcs = new ArrayList<>();
@@ -93,18 +93,18 @@ public class AnalyzeinputTests {
 	public void ValidateWrongNumberOfStraightEdgesBadTest() {
 		// Less than minimum number of straight edges
 
-		HashMap<EnumSides, Integer> edges = new HashMap<>();
-		edges.put(EnumSides.LEFT, 0);
-		edges.put(EnumSides.TOP, 1);
-		edges.put(EnumSides.RIGHT, 1);
-		edges.put(EnumSides.BOTTOM, 0);
+		HashMap<Integer, Integer> edges = new HashMap<>();
+		edges.put(0, 0);
+		edges.put(1, 1);
+		edges.put(2, 1);
+		edges.put(3, 0);
 		Piece pc1 = new Piece(10, edges);
 
-		HashMap<EnumSides, Integer> edges2 = new HashMap<>();
-		edges2.put(EnumSides.LEFT, 0);
-		edges2.put(EnumSides.TOP, 1);
-		edges2.put(EnumSides.RIGHT, 0);
-		edges2.put(EnumSides.BOTTOM, 1);
+		HashMap<Integer, Integer> edges2 = new HashMap<>();
+		edges2.put(0, 0);
+		edges2.put(1, 1);
+		edges2.put(2, 0);
+		edges2.put(3, 1);
 		Piece pc2 = new Piece(11, edges2);
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
@@ -119,18 +119,18 @@ public class AnalyzeinputTests {
 	public void ValidateNumberOfStraightEdgesGoodTest() {
 		// input has minimum+ number of straight edges
 
-		HashMap<EnumSides, Integer> edges = new HashMap<>();
-		edges.put(EnumSides.LEFT, 0);
-		edges.put(EnumSides.TOP, 0);
-		edges.put(EnumSides.RIGHT, 0);
-		edges.put(EnumSides.BOTTOM, 0);
+		HashMap<Integer, Integer> edges = new HashMap<>();
+		edges.put(0, 0);
+		edges.put(1, 0);
+		edges.put(2, 0);
+		edges.put(3, 0);
 		Piece pc1 = new Piece(10, edges);
 
-		HashMap<EnumSides, Integer> edges2 = new HashMap<>();
-		edges2.put(EnumSides.LEFT, 0);
-		edges2.put(EnumSides.TOP, 0);
-		edges2.put(EnumSides.RIGHT, 0);
-		edges2.put(EnumSides.BOTTOM, 0);
+		HashMap<Integer, Integer> edges2 = new HashMap<>();
+		edges2.put(0, 0);
+		edges2.put(1, 0);
+		edges2.put(2, 0);
+		edges2.put(3, 0);
 		Piece pc2 = new Piece(11, edges2);
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
@@ -145,18 +145,18 @@ public class AnalyzeinputTests {
 	public void ValidatePiecesCornersGoodTest() {
 		// Input has minimum+ corners
 
-		HashMap<EnumSides, Integer> edges = new HashMap<>();
-		edges.put(EnumSides.LEFT, 0);
-		edges.put(EnumSides.TOP, 0);
-		edges.put(EnumSides.RIGHT, 0);
-		edges.put(EnumSides.BOTTOM, 0);
+		HashMap<Integer, Integer> edges = new HashMap<>();
+		edges.put(0, 0);
+		edges.put(1, 0);
+		edges.put(2, 0);
+		edges.put(3, 0);
 		Piece pc1 = new Piece(10, edges);
 
-		HashMap<EnumSides, Integer> edges2 = new HashMap<>();
-		edges2.put(EnumSides.LEFT, 0);
-		edges2.put(EnumSides.TOP, 0);
-		edges2.put(EnumSides.RIGHT, 0);
-		edges2.put(EnumSides.BOTTOM, 0);
+		HashMap<Integer, Integer> edges2 = new HashMap<>();
+		edges2.put(0, 0);
+		edges2.put(1, 0);
+		edges2.put(2, 0);
+		edges2.put(3, 0);
 		Piece pc2 = new Piece(11, edges2);
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
@@ -171,19 +171,18 @@ public class AnalyzeinputTests {
 	@Test
 	public void ValidatePiecesCornersBadTest() {
 		// Less than minimum corners
-
-		HashMap<EnumSides, Integer> edges = new HashMap<>();
-		edges.put(EnumSides.LEFT, 0);
-		edges.put(EnumSides.TOP, 1);
-		edges.put(EnumSides.RIGHT, 1);
-		edges.put(EnumSides.BOTTOM, 0);
+		int[] edges = new int[4];
+		edges[0]=0;
+		edges[1]=1;
+		edges[2]=1;
+		edges[3]=0;
 		Piece pc1 = new Piece(10, edges);
 
-		HashMap<EnumSides, Integer> edges2 = new HashMap<>();
-		edges2.put(EnumSides.LEFT, 0);
-		edges2.put(EnumSides.TOP, -1);
-		edges2.put(EnumSides.RIGHT, -1);
-		edges2.put(EnumSides.BOTTOM, 0);
+		HashMap<Integer, Integer> edges2 = new HashMap<>();
+		edges2.put(0, 0);
+		edges2.put(1, -1);
+		edges2.put(2, -1);
+		edges2.put(3, 0);
 		Piece pc2 = new Piece(11, edges2);
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
