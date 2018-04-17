@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import puzzle.Piece;
 
 /**
@@ -168,12 +167,7 @@ public class FileManager extends ErrorsManager
 	private void addPiece(int[] pieceArr)
 	{
 		int id = pieceArr[0];
-		HashMap<EnumSides, Integer> pieceMap = new HashMap<EnumSides, Integer>();
-		pieceMap.put(EnumSides.LEFT, pieceArr[1]);
-		pieceMap.put(EnumSides.TOP, pieceArr[2]);
-		pieceMap.put(EnumSides.RIGHT, pieceArr[3]);
-		pieceMap.put(EnumSides.BOTTOM, pieceArr[4]);
-		pieces.add(new Piece(id, pieceMap));
+		pieces.add(new Piece(id, pieceArr));
 	}
 
 	/**
