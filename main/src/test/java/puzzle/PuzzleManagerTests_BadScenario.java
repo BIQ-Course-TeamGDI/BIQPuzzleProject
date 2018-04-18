@@ -3,7 +3,6 @@ package puzzle;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import puzzle.Puzzle;
 import puzzle.utility.validatePuzzleSolution;
 
 import java.io.IOException;
