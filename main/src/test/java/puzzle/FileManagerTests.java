@@ -15,7 +15,7 @@ public class FileManagerTests
 	public void testFileManager() throws IOException
 	{
 		fileManager = new FileManager("./resources/testsInputFiles/test6.in");
-		fileManager.getPieces();
+		fileManager.setPiecesFromFile();
 	}
 
 }

@@ -30,10 +30,9 @@ public class FileManager extends ErrorsManager {
 	public FileManager() {
 	}
 
-	public ArrayList<Piece> getPuzzlePieces(){
+	public ArrayList<Piece> getPieces() {
 		return pieces;
 	}
-
 
 	/**
 	 * get pieces from file input
@@ -41,7 +40,7 @@ public class FileManager extends ErrorsManager {
 	 * @return
 	 * @throws IOException
 	 */
-	public ArrayList<Piece> getPieces() throws IOException {
+	public void setPiecesFromFile() throws IOException {
 		if (inputFilePath.exists()) {
 			try (FileInputStream fis = new FileInputStream(inputFilePath)) {
 				BufferedReader br = new BufferedReader(new InputStreamReader(fis));
@@ -58,14 +57,8 @@ public class FileManager extends ErrorsManager {
 					}
 				}
 			}
-			if (isIdsAndSizeAreValids()) {
-				return pieces;
-			} else {
-				return null;
-			}
 		} else {
 			addError(ERROR_MISSING_IN_FILE + inputFilePath.getAbsolutePath());
-			return null;
 		}
 	}
 

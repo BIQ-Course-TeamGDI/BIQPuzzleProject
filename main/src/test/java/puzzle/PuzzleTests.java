@@ -70,10 +70,10 @@ public class PuzzleTests
 				                  "20 14 22 12\n";
 		String piecesFile = inputFilesPath +"test15.in";
 		FileManager fileManager = new FileManager(piecesFile);
-		fileManager.getPieces();
-		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManager.getPuzzlePieces());
+		fileManager.setPiecesFromFile();
+		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManager.getPieces());
 		analyzeInputs.analyzePicesList();
-		Puzzle puzzle = new Puzzle(fileManager.getPuzzlePieces(),analyzeInputs.getSolutionPossibleRows());
+		Puzzle puzzle = new Puzzle(fileManager.getPieces(),analyzeInputs.getSolutionPossibleRows());
 		puzzle.solve();
 		String puzzleSolution = puzzle.solutionToString();
 		assertEquals(puzzleSolution, ExpectedSolution);
@@ -85,10 +85,10 @@ public class PuzzleTests
 		String ExpectedSolution = "Cannot solve puzzle: it seems that there is no proper solution\n";
 		String piecesFile = inputFilesPath +"test18.in";
 		FileManager fileManager = new FileManager(piecesFile);
-		fileManager.getPieces();
-		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManager.getPuzzlePieces());
+		fileManager.setPiecesFromFile();
+		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManager.getPieces());
 		analyzeInputs.analyzePicesList();
-		Puzzle puzzle = new Puzzle(fileManager.getPuzzlePieces(),analyzeInputs.getSolutionPossibleRows());
+		Puzzle puzzle = new Puzzle(fileManager.getPieces(),analyzeInputs.getSolutionPossibleRows());
 		puzzle.solve();
 		String puzzleSolution = puzzle.solutionToString();
 		assertEquals(puzzleSolution, ExpectedSolution);
