@@ -21,6 +21,8 @@ public class PuzzleSolver {
     private Piece[][] solution;
     private List<Piece> fitPieces = new ArrayList<Piece>();
     private boolean isSolved = false;
+    private int[] nextEmptyPlace = {0,0};
+    private int[] prevPiecePlace = new int[2];
 
 
     public PuzzleSolver() {
@@ -59,12 +61,11 @@ public class PuzzleSolver {
             if(isSolved){ // if isSolve flag is true the puzzle is solve and no need to continue checking.
                 return;
             }
-            // the next empty row/column number in the solution array.
-            int[] rowAndCol = getNextPlaceInThePuzzle();
-            if(!fitPieces.contains(p) ){ // Check if current piece is already inside the solution array.
-                if (isPieceFit(p, rowAndCol[0], rowAndCol[1])) { // Check if current piece fit to the current place in the puzzle solution array.
+            if(!fitPieces.contains(p) ){  // Check if current piece is already inside the solution array.
+                if (isPieceFit(p, nextEmptyPlace[0], nextEmptyPlace[1])) { // Check if current piece fit to the current place in the puzzle solution array.
                     fitPieces.add(p);
-                    solution[rowAndCol[0]][rowAndCol[1]] = p;
+                    solution[nextEmptyPlace[0]][nextEmptyPlace[1]] = p;
+                    setNextEmptyPlace();  // the next empty place (row/column number) in the solution array.
                     findSolution(puzzle);
                 }
             }
@@ -75,7 +76,8 @@ public class PuzzleSolver {
             isSolved=true;
         } else {
             if(fitPieces.size()>0) {
-                removeLastPieceFromPuzzle(fitPieces.get(fitPieces.size() - 1));
+                //removeLastPieceFromPuzzle(fitPieces.get(fitPieces.size() - 1));
+                removeLastPieceFromPuzzle();
                 fitPieces.remove(fitPieces.size() - 1);
             }
         }
@@ -99,7 +101,7 @@ public class PuzzleSolver {
             }
         }
         //Check if current piece top value fit to above piece bottom value (sum is zero).
-        else if(!(isSumZero(solution[row-1][col].getBottom() , piece.getTop()))){
+        else if(!(isPieceFitTopBottom(piece,solution[row-1][col]))){
             return false; // if sum not zero return false
         }
 
@@ -115,7 +117,7 @@ public class PuzzleSolver {
             }
         }
         //Check if current piece left value fit to left piece right value (sum is zero).
-        else if (!(isSumZero(solution[row][col-1].getRight() , piece.getLeft()))){
+        else if (!(isPieceFitRightLeft(piece,solution[row][col-1]))){
             return false; // if sum not zero return false
         }
         if (col == numOfColumns){ //Left (last) row in the solution array.
@@ -127,59 +129,64 @@ public class PuzzleSolver {
         return true;
     }
 
-    /**
-     * This method remove given piece from the puzzle solution array.
-     *
-     * @param piece This is the piece we want to remove from the puzzle (the last piece that was entered)
-     */
-    private void removeLastPieceFromPuzzle(Piece piece) {
-        for (int i=0;i<solution.length;i++){
-            for (int j=0;j<solution[0].length;j++){
-                if(piece.equals(solution[i][j])){
-                    solution[i][j]=null;
-                    return;
-                }
-            }
+
+    private void setNextEmptyPlace() {
+        prevPiecePlace[0]=nextEmptyPlace[0];
+        prevPiecePlace[1]=nextEmptyPlace[1];
+        if(nextEmptyPlace[1] < solution[0].length-1){
+            nextEmptyPlace[1]++;
+        } else if (nextEmptyPlace[0]<solution.length-1){
+            nextEmptyPlace[0]++;
+            nextEmptyPlace[1]=0;
         }
     }
 
     /**
-     * This method return array in the size of 2 with the next empty place in the solution array (solution[row][col]).
-     *
-     * @return int[2] {row number, column number} - the next empty place in the solution array.
+     * This method remove the last piece piece that set in the puzzle solution array.
      */
-    private int[] getNextPlaceInThePuzzle() {
-        for (int i=0;i<solution.length;i++){
-            for (int j=0;j<solution[0].length;j++){
-                if(solution[i][j]==null){
-                    return new int[]{i,j};
-                }
-            }
+    private void removeLastPieceFromPuzzle() {
+        nextEmptyPlace[0]=prevPiecePlace[0];
+        nextEmptyPlace[1]=prevPiecePlace[1];
+        solution[prevPiecePlace[0]][prevPiecePlace[1]]=null;
+        if(prevPiecePlace[1] > 0){
+            prevPiecePlace[1]--;
+        } else if (prevPiecePlace[0]>0){
+            prevPiecePlace[0]--;
+            prevPiecePlace[1]=solution[0].length-1;
         }
-        return null;
     }
 
     /**
-     * This method get two pieces side value and check if the sum of the values is zero.
+     * This method get two pieces and check if the sum of current piece top value and the top piece bottom values is zero.
+     *
+     * @param currPiece - the current piece.
+     * @param topPiece - the piece that is top of the current piece.
      *
      * @return true if the sum is zero else return false.
      */
-    private boolean isSumZero(int side1, int side2) {
-        if (side1+side2==0){
+    private boolean isPieceFitTopBottom(Piece currPiece,Piece topPiece ){
+        if (currPiece.getTop()+topPiece.getBottom()==0){
             return true;
         }
         return false;
     }
 
-//    public ArrayList<Integer> getPossibleSolutionRows(int size) {
-//        ArrayList<Integer> possibleSolutionRows = new ArrayList<Integer>();
-//        for(int i = 1; i<=size;i++){
-//            if(size%i==0){
-//                possibleSolutionRows.add(i);
-//            }
-//        }
-//        return possibleSolutionRows;
-//    }
+
+    /**
+     * This method get two pieces and check if the sum of current piece left value and the left piece right values is zero.
+     *
+     * @param currPiece - the current piece.
+     * @param leftPiece - the piece that in the left side of the current piece.
+     *
+     * @return true if the sum is zero else return false.
+     */
+    private boolean isPieceFitRightLeft(Piece currPiece,Piece leftPiece ){
+        if (currPiece.getLeft()+leftPiece.getRight()==0){
+            return true;
+        }
+        return false;
+    }
+
 
     public boolean checkSolution(Piece[][] sol){
         solution=sol;

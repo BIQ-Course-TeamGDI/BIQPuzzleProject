@@ -46,35 +46,9 @@ public class Puzzle {
         return puzzlePieces;
     }
 
-    public Piece[][] getSolution() {
-        return solution;
-    }
-
     public ArrayList<Integer> getPosibleSolutionRows() {
         return posibleSolutionRows;
     }
-
-//    public static boolean checkSolutionFile(String input, String solutionFile) throws IOException {
-//        Piece[][] solutionToCheck = validatePuzzleSolution.testPuzzleSolutions(input,solutionFile);
-//        PuzzleSolver puzzleSolver = new PuzzleSolver();
-//        if(puzzleSolver.checkSolution(solutionToCheck)){
-//           System.out.println("Solution is good");
-//           return true;
-//       } else{
-//           System.out.println("Solution is incorrect");
-//           return false;
-//       }
-//    }
-
-//    public static boolean validateSolution(String input, String solutionFile) throws IOException {
-//        Piece[][] solutionToCheck = validatePuzzleSolution.testPuzzleSolutions(input,solutionFile);
-//        PuzzleSolver puzzleSolver = new PuzzleSolver();
-//        if(solutionToCheck !=null && puzzleSolver.checkSolution(solutionToCheck)){
-//            return true;
-//        } else{
-//            return false;
-//        }
-//    }
 
     public String solutionToString(){
         String sol="";

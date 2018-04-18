@@ -33,7 +33,7 @@ public class validatePuzzleSolution {
     private static ArrayList<Piece> getPieces(String input) throws IOException {
         FileManager fileManager = new FileManager(input);
         fileManager.getPieces();
-        return fileManager.getPieces();
+        return fileManager.getPuzzlePieces();
     }
 
 

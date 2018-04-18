@@ -12,9 +12,9 @@ public class FileManagerTests
 	FileManager fileManager;
 
 	@Test
-	public void testFileManagment() throws IOException
+	public void testFileManager() throws IOException
 	{
-		fileManager = new FileManager("./resources/files/test6.in");
+		fileManager = new FileManager("./resources/testsInputFiles/test6.in");
 		fileManager.getPieces();
 	}
 

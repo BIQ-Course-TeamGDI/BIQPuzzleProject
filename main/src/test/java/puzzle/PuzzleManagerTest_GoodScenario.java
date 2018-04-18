@@ -4,8 +4,6 @@ package puzzle;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import puzzle.Puzzle;
-import puzzle.PuzzleManager;
 import puzzle.utility.validatePuzzleSolution;
 
 import java.io.IOException;
@@ -16,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
 public class PuzzleManagerTest_GoodScenario {
-    private String pathToFilesFolder="./resources/endToEndTestsFiles/GoodPuzzleFiles/";
+    private String pathToFilesFolder="./resources/PuzzleManagerTest_GoodScenarioFiles/";
     private String piecesInputFile;
     private String testOutputFile;
 

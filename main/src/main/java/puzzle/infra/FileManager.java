@@ -30,6 +30,11 @@ public class FileManager extends ErrorsManager {
 	public FileManager() {
 	}
 
+	public ArrayList<Piece> getPuzzlePieces(){
+		return pieces;
+	}
+
+
 	/**
 	 * get pieces from file input
 	 * 

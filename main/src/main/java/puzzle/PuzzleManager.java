@@ -21,13 +21,13 @@ public class PuzzleManager {
             fileManager.printErrorsToFile(outPutFile);
             return;
         }
-        AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManager.getPieces());
+        AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManager.getPuzzlePieces());
         analyzeInputs.analyzePicesList();
         if (fileManager.getAllErrors().size()!=0){
             fileManager.printErrorsToFile(outPutFile);
             return;
         }
-        Puzzle puzzle = new Puzzle(fileManager.getPieces(),analyzeInputs.getSolutionPossibleRows());
+        Puzzle puzzle = new Puzzle(fileManager.getPuzzlePieces(),analyzeInputs.getSolutionPossibleRows());
         puzzle.solve();
         puzzle.saveSolutionToFile(outPutFile);
     }

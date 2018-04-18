@@ -12,11 +12,10 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
 public class PuzzleManagerTests_BadScenario {
-    private String pathToFilesFolder="./resources/endToEndTestsFiles/BadPuzzleSolutionFiles/";
+    private String pathToFilesFolder="./resources/PuzzleManagerTests_BadScenarioFiles/";
     private String piecesInputFile;
     private String testOutputFile;
 
@@ -34,10 +33,9 @@ public class PuzzleManagerTests_BadScenario {
     }
 
     @Test
-    public void testGoodFilesSolution() throws IOException
+    public void testBadFilesSolution() throws IOException
     {
         assertFalse(validatePuzzleSolution.validate(piecesInputFile, testOutputFile));
-        //assertFalse(Puzzle.validateSolution(piecesInputFile,testOutputFile));
     }
 
 
