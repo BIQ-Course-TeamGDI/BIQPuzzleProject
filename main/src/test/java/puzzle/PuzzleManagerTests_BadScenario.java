@@ -1,6 +1,5 @@
 package puzzle;
 
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -15,28 +14,23 @@ import static org.junit.Assert.assertFalse;
 
 @RunWith(Parameterized.class)
 public class PuzzleManagerTests_BadScenario {
-    private String pathToFilesFolder="./resources/PuzzleManagerTests_BadScenarioFiles/";
-    private String piecesInputFile;
-    private String testOutputFile;
+	private String pathToFilesFolder = "./resources/PuzzleManagerTests_BadScenarioFiles/";
+	private String piecesInputFile;
+	private String testOutputFile;
 
-    @Parameterized.Parameters
-    public static Collection<Object[]> data (){
-        return Arrays.asList(new Object[][] {
-                {"test1.in","test1.testOut"},
-                {"test14.in","test14.testOut"},
-        });
-    }
+	@Parameterized.Parameters
+	public static Collection<Object[]> data() {
+		return Arrays.asList(new Object[][] { { "test1.in", "test1.testOut" }, { "test14.in", "test14.testOut" }, });
+	}
 
-    public PuzzleManagerTests_BadScenario(String piecesInputFile, String testOutputFile) {
-        this.piecesInputFile=pathToFilesFolder + piecesInputFile;
-        this.testOutputFile=pathToFilesFolder + testOutputFile;
-    }
+	public PuzzleManagerTests_BadScenario(String piecesInputFile, String testOutputFile) {
+		this.piecesInputFile = pathToFilesFolder + piecesInputFile;
+		this.testOutputFile = pathToFilesFolder + testOutputFile;
+	}
 
-    @Test
-    public void testBadFilesSolution() throws IOException
-    {
-        assertFalse(validatePuzzleSolution.validate(piecesInputFile, testOutputFile));
-    }
-
+	@Test
+	public void testBadFilesSolution() throws IOException {
+		assertFalse(validatePuzzleSolution.validate(piecesInputFile, testOutputFile));
+	}
 
 }
