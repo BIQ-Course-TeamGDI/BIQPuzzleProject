@@ -1,7 +1,6 @@
 package puzzle;
 
 import java.util.ArrayList;
-import puzzle.infra.ErrorsManager;
 
 /**
  * @author ilan Wallerstein
