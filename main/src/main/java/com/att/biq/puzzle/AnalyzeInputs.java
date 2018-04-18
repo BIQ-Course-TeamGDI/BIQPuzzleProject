@@ -1,8 +1,8 @@
-package puzzle;
+package com.att.biq.puzzle;
 
 import java.util.ArrayList;
 
-import puzzle.infra.ErrorsManager;
+import com.att.biq.puzzle.infra.ErrorsManager;
 
 /**
  * @author ilan Wallerstein

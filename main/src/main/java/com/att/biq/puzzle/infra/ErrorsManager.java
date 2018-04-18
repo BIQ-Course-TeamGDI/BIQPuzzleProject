@@ -1,4 +1,4 @@
-package puzzle.infra;
+package com.att.biq.puzzle.infra;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

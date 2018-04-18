@@ -1,8 +1,13 @@
 package puzzle;
 
-import puzzle.infra.FileManager;
 import org.junit.Test;
-import puzzle.utility.validatePuzzleSolution;
+
+import com.att.biq.puzzle.AnalyzeInputs;
+import com.att.biq.puzzle.Piece;
+import com.att.biq.puzzle.Puzzle;
+import com.att.biq.puzzle.infra.FileManager;
+import com.att.biq.puzzle.utility.validatePuzzleSolution;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import static org.junit.Assert.*;

@@ -1,8 +1,8 @@
-package puzzle;
-
-import puzzle.infra.FileManager;
+package com.att.biq.puzzle;
 
 import java.io.IOException;
+
+import com.att.biq.puzzle.infra.FileManager;
 
 public class PuzzleManager {
 

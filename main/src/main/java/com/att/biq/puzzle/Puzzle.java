@@ -1,4 +1,4 @@
-package puzzle;
+package com.att.biq.puzzle;
 
 import java.io.*;
 import java.util.ArrayList;

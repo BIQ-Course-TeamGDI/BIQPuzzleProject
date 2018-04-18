@@ -3,7 +3,9 @@ package puzzle;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import puzzle.utility.validatePuzzleSolution;
+
+import com.att.biq.puzzle.PuzzleManager;
+import com.att.biq.puzzle.utility.validatePuzzleSolution;
 
 import java.io.IOException;
 import java.util.Arrays;

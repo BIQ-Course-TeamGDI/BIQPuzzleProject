@@ -1,14 +1,14 @@
-package puzzle.utility;
-
-import puzzle.PuzzleSolver;
-import puzzle.infra.FileManager;
-import puzzle.Piece;
+package com.att.biq.puzzle.utility;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import com.att.biq.puzzle.Piece;
+import com.att.biq.puzzle.PuzzleSolver;
+import com.att.biq.puzzle.infra.FileManager;
 
 public class validatePuzzleSolution {
 

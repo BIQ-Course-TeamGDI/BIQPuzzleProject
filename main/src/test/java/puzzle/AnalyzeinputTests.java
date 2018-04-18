@@ -5,10 +5,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import puzzle.infra.FileManager;
+
 import org.junit.Test;
-import puzzle.AnalyzeInputs;
-import puzzle.Piece;
+
+import com.att.biq.puzzle.AnalyzeInputs;
+import com.att.biq.puzzle.Piece;
+import com.att.biq.puzzle.infra.FileManager;
 
 public class AnalyzeinputTests {
 
