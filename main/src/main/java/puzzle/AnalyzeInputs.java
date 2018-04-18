@@ -1,7 +1,7 @@
 package puzzle;
 
 import java.util.ArrayList;
-import infra.ErrorsManager;
+import puzzle.infra.ErrorsManager;
 
 /**
  * @author ilan Wallerstein
@@ -46,9 +46,8 @@ public class AnalyzeInputs {
 	}
 
 	/**
-	 * @param input:
-	 *            ArrayList
-	 * @return rows: ArrayList This method run all over the possible puzzle
+	 * @return rows: ArrayList 
+	 * This method run all over the possible puzzle
 	 *         structure and looking for the minimum straight edges for each
 	 *         structure. If found, it add this option to a list that will be
 	 *         forward to the solver
@@ -100,10 +99,7 @@ public class AnalyzeInputs {
 	}
 
 	/**
-	 * @param input:ArrayList
-	 * @param rows:
-	 *            ArrayList
-	 * @return optionalRows: ArrayList This method run all over the possible puzzle
+	 * This method run all over the possible puzzle
 	 *         structure [after it was checked that it has minimum straight edges]
 	 *         and looking for the minimum corners for each structure. If found, it
 	 *         add this option to a list that will be forward to the solver
@@ -142,9 +138,7 @@ public class AnalyzeInputs {
 	}
 
 	/**
-	 * @param input:
-	 *            ArrayList
-	 * @return errors: Arraylist This method check that input pieces edges arein the
+	 *  This method check that input pieces edges are in the
 	 *         range of -1 to 1
 	 */
 	public void validatePiecesFormat() {
@@ -157,9 +151,7 @@ public class AnalyzeInputs {
 	}
 
 	/**
-	 * @param input:
-	 *            ArrayList
-	 * @return This method check that input pieces edges sum is 0 --> the the shape
+	 *  This method check that input pieces edges sum is 0 --> the the shape
 	 *         is closed
 	 */
 	public void validateEdgesSum() {

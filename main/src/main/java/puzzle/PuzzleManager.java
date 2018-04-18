@@ -1,6 +1,6 @@
 package puzzle;
 
-import infra.FileManager;
+import puzzle.infra.FileManager;
 
 import java.io.IOException;
 
@@ -29,6 +29,6 @@ public class PuzzleManager {
         }
         Puzzle puzzle = new Puzzle(fileManager.getPieces(),analyzeInputs.getSolutionPossibleRows());
         puzzle.solve();
-        puzzle.save(outPutFile);
+        puzzle.saveSolutionToFile(outPutFile);
     }
 }

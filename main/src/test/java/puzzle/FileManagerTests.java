@@ -1,12 +1,12 @@
-package fileManagmentTests;
+package puzzle;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import infra.FileManager;
+import puzzle.infra.FileManager;
 import org.junit.Test;
 import puzzle.Piece;
 
-public class JunitTests
+public class FileManagerTests
 {
 	ArrayList<Piece> pieces;
 	FileManager fileManager;

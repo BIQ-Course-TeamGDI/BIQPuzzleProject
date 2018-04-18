@@ -1,7 +1,5 @@
 package puzzle;
 
-import puzzle.utility.TestPuzzleSolution;
-
 import java.io.*;
 import java.util.ArrayList;
 
@@ -56,17 +54,27 @@ public class Puzzle {
         return posibleSolutionRows;
     }
 
-    public static boolean checkSolutionFile(String input, String solutionFile) throws IOException {
-        Piece[][] solutionToCheck = TestPuzzleSolution.testPuzzleSolutions(input,solutionFile);
-        PuzzleSolver puzzleSolver = new PuzzleSolver();
-        if(puzzleSolver.checkSolution(solutionToCheck)){
-           System.out.println("Solution is good");
-           return true;
-       } else{
-           System.out.println("Solution is incorrect");
-           return false;
-       }
-    }
+//    public static boolean checkSolutionFile(String input, String solutionFile) throws IOException {
+//        Piece[][] solutionToCheck = validatePuzzleSolution.testPuzzleSolutions(input,solutionFile);
+//        PuzzleSolver puzzleSolver = new PuzzleSolver();
+//        if(puzzleSolver.checkSolution(solutionToCheck)){
+//           System.out.println("Solution is good");
+//           return true;
+//       } else{
+//           System.out.println("Solution is incorrect");
+//           return false;
+//       }
+//    }
+
+//    public static boolean validateSolution(String input, String solutionFile) throws IOException {
+//        Piece[][] solutionToCheck = validatePuzzleSolution.testPuzzleSolutions(input,solutionFile);
+//        PuzzleSolver puzzleSolver = new PuzzleSolver();
+//        if(solutionToCheck !=null && puzzleSolver.checkSolution(solutionToCheck)){
+//            return true;
+//        } else{
+//            return false;
+//        }
+//    }
 
     public String solutionToString(){
         String sol="";
@@ -87,7 +95,7 @@ public class Puzzle {
         return sol;
     }
 
-    public void save(String outPutFile) throws IOException {
+    public void saveSolutionToFile(String outPutFile) throws IOException {
         File fout = new File(outPutFile);
         try (FileOutputStream fos = new FileOutputStream(fout);
              BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos)))
