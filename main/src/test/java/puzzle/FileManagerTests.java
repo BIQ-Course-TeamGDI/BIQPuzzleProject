@@ -14,8 +14,10 @@ public class FileManagerTests
 	@Test
 	public void testFileManager() throws IOException
 	{
-		fileManager = new FileManager("./resources/testsInputFiles/test6.in");
+		fileManager = new FileManager("./resources/testsInputFiles/test4.in");
 		fileManager.setPiecesFromFile();
+		fileManager.getPieces();
+		fileManager.getAllErrors();
 	}
 
 }
