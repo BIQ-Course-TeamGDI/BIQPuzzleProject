@@ -1,11 +1,11 @@
-package analyzeinputtests;
+package puzzle;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import infra.FileManager;
+import puzzle.infra.FileManager;
 import org.junit.Test;
 import puzzle.AnalyzeInputs;
 import puzzle.Piece;
