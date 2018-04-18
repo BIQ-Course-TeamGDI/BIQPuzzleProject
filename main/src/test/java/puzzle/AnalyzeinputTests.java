@@ -195,7 +195,7 @@ public class AnalyzeinputTests {
 	}
 
 	@Test
-	public void GetPiecesFromFileAndAnalayzeBadFileTest() throws IOException {
+	public void GetPiecesFromFileAndAnalayzeBadFileTest1() throws IOException {
 		String piecesFile = "./resources/analyzedInputTestsFiles/test1.in";
 		FileManager fileManager = new FileManager(piecesFile);
 		fileManager.setPiecesFromFile();
@@ -204,9 +204,16 @@ public class AnalyzeinputTests {
 		assertTrue(analyze.getErrorsList().contains("Cannot solve puzzle: wrong number of straight edges"));
 		assertTrue(analyze.getErrorsList().contains("Cannot solve puzzle: missing corner element: BR"));
 		assertTrue(analyze.getErrorsList().contains("Cannot solve puzzle: missing corner element: BL"));
-
 	}
-
+	@Test
+	public void GetPiecesFromFileAndAnalayzeBadFileTest2() throws IOException {
+		String piecesFile = "./resources/analyzedInputTestsFiles/test3.in";
+		FileManager fileManager = new FileManager(piecesFile);
+		fileManager.setPiecesFromFile();
+		AnalyzeInputs analyze = new AnalyzeInputs(fileManager.getPieces());
+		analyze.analyzePicesList();
+		assertTrue(analyze.getErrorsList().isEmpty());
+	}
 	@Test
 	public void GetPiecesFromFileAndAnalayzeGoodFileTest() throws IOException {
 		String piecesFile = "./resources/analyzedInputTestsFiles/test2.in";
@@ -215,7 +222,5 @@ public class AnalyzeinputTests {
 		AnalyzeInputs analyze = new AnalyzeInputs(fileManager.getPieces());
 		analyze.analyzePicesList();
 		assertTrue(analyze.getErrorsList().isEmpty());
-
 	}
-
 }

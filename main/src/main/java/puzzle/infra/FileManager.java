@@ -89,7 +89,7 @@ public class FileManager extends ErrorsManager
 	{
 		if (numElements == 0)
 		{
-			if (sCurrentLine.replaceAll(" ", "").startsWith(NUM_OF_ELEMENTS_KEY))
+			if (sCurrentLine.replaceAll("\\s", "").startsWith(NUM_OF_ELEMENTS_KEY))
 			{
 				String[] numElementsArr = sCurrentLine.split("=");
 				String value = numElementsArr[1].trim();

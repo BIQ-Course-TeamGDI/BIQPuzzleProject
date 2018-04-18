@@ -107,5 +107,13 @@ public class PuzzleTests
 		String outputSolutionFile = "./resources/puzzleTests_outputFiles/test14.testOut";
 		assertFalse(validatePuzzleSolution.validate(inputPiecesFile,outputSolutionFile));
 	}
-
+	@Test
+	public void GetPiecesFromFileAndAnalayzeFileWithErrors() throws IOException
+	{
+		FileManager fileManager = new FileManager("./resources/analyzedInputTestsFiles/test3.in");
+		fileManager.setPiecesFromFile();
+		AnalyzeInputs analyze = new AnalyzeInputs(fileManager.getPieces());
+		analyze.analyzePicesList();
+		assertTrue(!analyze.getErrorsList().isEmpty());
+	}
 }
