@@ -13,7 +13,7 @@ public class Main
 		while (!msg.equals("stop"))
 		{
 			System.out.println("Enter your group/chain");
-			
+
 			msg = sc.nextLine();
 		}
 		sc.close();
