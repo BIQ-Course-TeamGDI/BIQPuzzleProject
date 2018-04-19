@@ -1,4 +1,4 @@
-package puzzle;
+package com.att.biq.puzzle;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
