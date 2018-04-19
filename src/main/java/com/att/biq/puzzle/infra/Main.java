@@ -9,7 +9,7 @@ import com.att.biq.puzzle.PuzzleManager;
  * @author Guy Bitan
  *
  */
-public class Menu
+public class Main
 {
 	public static String inputFile = "";
 	public static String outputFile = "";
