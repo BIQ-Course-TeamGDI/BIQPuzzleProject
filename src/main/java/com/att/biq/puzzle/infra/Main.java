@@ -18,7 +18,7 @@ public class Main
 
 	public static void main(String[] a) throws IOException
 	{
-		if (a.length == 0)
+		if (a.length < 2)
 		{
 			showHelp();
 		}
