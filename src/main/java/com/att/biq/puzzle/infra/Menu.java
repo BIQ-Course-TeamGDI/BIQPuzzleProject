@@ -1,4 +1,9 @@
 package com.att.biq.puzzle.infra;
+
+import java.io.IOException;
+
+import com.att.biq.puzzle.PuzzleManager;
+
 /**
  * 
  * @author Guy Bitan
@@ -11,7 +16,7 @@ public class Menu
 	public static boolean isRotate = false;
 	public static int numOfThreads = 1;
 
-	public static void main(String[] a)
+	public static void main(String[] a) throws IOException
 	{
 		if (a.length == 0)
 		{
@@ -42,6 +47,8 @@ public class Menu
 					numOfThreads = Integer.parseInt(a[++i]);
 				}
 			}
+			PuzzleManager puzzleManager = new PuzzleManager(inputFile, outputFile, isRotate, numOfThreads);
+			puzzleManager.solvePuzzle();
 		}
 	}
 
@@ -64,6 +71,6 @@ public class Menu
 		System.out.println("\t-threads <num_threads>");
 		System.out.println("\t\tOptional - indicating number of threads to use (including main)\r\n");
 		System.out.println("");
-		System.exit(1); 
+		System.exit(1);
 	}
 }
