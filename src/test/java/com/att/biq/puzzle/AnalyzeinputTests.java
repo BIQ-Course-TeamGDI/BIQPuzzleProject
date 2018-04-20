@@ -18,13 +18,7 @@ public class AnalyzeinputTests {
 	public void ValidateSumOfEdgesGoodTest() {
 		// Sum of edges for a single piece and assert is zero
 
-		int[] edges = new int[4];
-		edges[0] = 0;
-		edges[1] = 0;
-		edges[2] = 0;
-		edges[3] = 0;
-		Piece pc1 = new Piece(10, edges);
-
+		Piece pc1 =  new Piece(10,new int[]{0,0,0,0});
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
 		AnalyzeInputs analyze = new AnalyzeInputs(pcs);
@@ -36,13 +30,8 @@ public class AnalyzeinputTests {
 	@Test
 	public void ValidateSumOfEdgesBadTest() {
 		// Sum of edges for single piece is not zero
-		int[] edges = new int[4];
-		edges[0] = 1;
-		edges[1] = -1;
-		edges[2] = 1;
-		edges[3] = 1;
-		Piece pc1 = new Piece(11, edges);
-
+		
+		Piece pc1 = new Piece(11,new int[]{1,-1,1,1});
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
 		AnalyzeInputs analyze = new AnalyzeInputs(pcs);
@@ -53,13 +42,7 @@ public class AnalyzeinputTests {
 	@Test
 	public void ValidatePieceFormatGoodTest() {
 		// Format of edges for single piece is good: 0,0,1,0
-		int[] edges = new int[4];
-		edges[0] = 0;
-		edges[1] = 0;
-		edges[2] = 1;
-		edges[3] = 0;
-		Piece pc1 = new Piece(11, edges);
-
+		Piece pc1 =  new Piece(11,new int[]{0,0,1,0});
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
 		AnalyzeInputs analyze = new AnalyzeInputs(pcs);
@@ -73,13 +56,7 @@ public class AnalyzeinputTests {
 	public void ValidatePieceFormatBadTest() {
 		// Format of edges for single piece is bad: 0,0,2,0
 
-		int[] edges = new int[4];
-		edges[0] = 0;
-		edges[1] = 2;
-		edges[2] = 0;
-		edges[3] = 0;
-		Piece pc1 = new Piece(13, edges);
-
+		Piece pc1 =  new Piece(13,new int[]{0,2,0,0});
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
 		AnalyzeInputs analyze = new AnalyzeInputs(pcs);
@@ -92,19 +69,8 @@ public class AnalyzeinputTests {
 	@Test
 	public void ValidateWrongNumberOfStraightEdgesBadTest() {
 		// Less than minimum number of straight edges
-		int[] edges = new int[4];
-		edges[0] = 0;
-		edges[1] = 1;
-		edges[2] = 1;
-		edges[3] = 0;
-		Piece pc1 = new Piece(10, edges);
-
-		int[] edges2 = new int[4];
-		edges2[0] = 0;
-		edges2[1] = 1;
-		edges2[2] = 0;
-		edges2[3] = 1;
-		Piece pc2 = new Piece(11, edges2);
+		Piece pc1 =  new Piece(10,new int[]{0,1,1,0});
+		Piece pc2 =  new Piece(11,new int[]{0,1,0,1});
 
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
@@ -118,19 +84,8 @@ public class AnalyzeinputTests {
 	public void ValidateNumberOfStraightEdgesGoodTest() {
 		// input has minimum+ number of straight edges
 
-		int[] edges = new int[4];
-		edges[0] = 0;
-		edges[1] = 0;
-		edges[2] = 0;
-		edges[3] = 0;
-		Piece pc1 = new Piece(10, edges);
-
-		int[] edges2 = new int[4];
-		edges[0] = 0;
-		edges[1] = 0;
-		edges[2] = 0;
-		edges[3] = 0;
-		Piece pc2 = new Piece(11, edges2);
+		Piece pc1 =  new Piece(10,new int[]{0,0,0,0});
+		Piece pc2 =  new Piece(11,new int[]{0,0,0,0});
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
 		pcs.add(pc2);
@@ -144,45 +99,23 @@ public class AnalyzeinputTests {
 	public void ValidatePiecesCornersGoodTest() {
 		// Input has minimum+ corners
 
-		int[] edges = new int[4];
-		edges[0] = 0;
-		edges[1] = 0;
-		edges[2] = 0;
-		edges[3] = 0;
-		Piece pc1 = new Piece(10, edges);
-
-		int[] edges2 = new int[4];
-		edges[0] = 0;
-		edges[1] = 0;
-		edges[2] = 0;
-		edges[3] = 0;
-		Piece pc2 = new Piece(11, edges2);
+		Piece pc1 =  new Piece(10,new int[]{0,0,0,0});
+		Piece pc2 =  new Piece(11,new int[]{0,0,0,0});
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
 		pcs.add(pc2);
 		AnalyzeInputs analyze = new AnalyzeInputs(pcs);
 
 		analyze.validateMinimumCorners();
-		assertFalse(analyze.getErrorsList().contains("Cannot solve puzzle: missing corner element: "));
+		assertTrue(analyze.getErrorsList().isEmpty());
 
 	}
 
 	@Test
 	public void ValidatePiecesCornersBadTest() {
 		// Less than minimum corners
-		int[] edges = new int[4];
-		edges[0] = 0;
-		edges[1] = 1;
-		edges[2] = 1;
-		edges[3] = 0;
-		Piece pc1 = new Piece(10, edges);
-
-		int[] edges2 = new int[4];
-		edges2[0] = 0;
-		edges2[1] = -1;
-		edges2[2] = -1;
-		edges2[3] = 0;
-		Piece pc2 = new Piece(11, edges2);
+		Piece pc1 =  new Piece(10,new int[]{0,1,1,0});
+		Piece pc2 =  new Piece(11,new int[]{0,-1,-1,0});
 		ArrayList<Piece> pcs = new ArrayList<>();
 		pcs.add(pc1);
 		pcs.add(pc2);
