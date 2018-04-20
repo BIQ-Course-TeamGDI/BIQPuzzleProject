@@ -58,7 +58,7 @@ public class PuzzleTests
 		String ExpectedSolution = "4 7 1 6\n" +
 				                  "8 2 3 11\n" +
 				                  "9 10 5 12\n";
-		String puzzleSolution = puzzle.solutionToString();
+		String puzzleSolution = puzzle.solution2String();
 		assertEquals(puzzleSolution, ExpectedSolution);
 	}
 
@@ -80,7 +80,7 @@ public class PuzzleTests
 		analyzeInputs.analyzePicesList();
 		Puzzle puzzle = new Puzzle(fileManager.getPieces(),analyzeInputs.getSolutionPossibleRows());
 		puzzle.solve();
-		String puzzleSolution = puzzle.solutionToString();
+		String puzzleSolution = puzzle.solution2String();
 		assertEquals(puzzleSolution, ExpectedSolution);
 	}
 
@@ -95,7 +95,7 @@ public class PuzzleTests
 		analyzeInputs.analyzePicesList();
 		Puzzle puzzle = new Puzzle(fileManager.getPieces(),analyzeInputs.getSolutionPossibleRows());
 		puzzle.solve();
-		String puzzleSolution = puzzle.solutionToString();
+		String puzzleSolution = puzzle.solution2String();
 		assertEquals(puzzleSolution, ExpectedSolution);
 	}
 

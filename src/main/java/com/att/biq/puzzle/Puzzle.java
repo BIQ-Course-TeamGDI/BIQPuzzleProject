@@ -50,7 +50,7 @@ public class Puzzle {
         return posibleSolutionRows;
     }
 
-    public String solutionToString(){
+    public String solution2String(){
         String sol="";
         if(solution!=null) {
             for (int i=0;i<solution.length;i++){
@@ -69,12 +69,12 @@ public class Puzzle {
         return sol;
     }
 
-    public void saveSolutionToFile(String outPutFile) throws IOException {
+    public void saveSolution2File(String outPutFile) throws IOException {
         File fout = new File(outPutFile);
         try (FileOutputStream fos = new FileOutputStream(fout);
              BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos)))
         {
-            bw.write(this.solutionToString());
+            bw.write(this.solution2String());
             bw.close();
         }
     }

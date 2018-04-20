@@ -40,6 +40,6 @@ public class PuzzleManager
 		}
 		Puzzle puzzle = new Puzzle(fileManager.getPieces(), analyzeInputs.getSolutionPossibleRows());
 		puzzle.solve();
-		puzzle.saveSolutionToFile(outPutFile);
+		puzzle.saveSolution2File(outPutFile);
 	}
 }
