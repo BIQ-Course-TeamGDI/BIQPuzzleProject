@@ -206,7 +206,7 @@ public class FileManager extends ErrorsManager
 			{
 				if (arr[i] != 1)
 				{
-					missingElements += i + ",";
+					missingElements += i+1 + ",";
 				}
 			}
 		}
