@@ -36,7 +36,7 @@ public class AnalyzeinputTests {
 		pcs.add(pc1);
 		AnalyzeInputs analyze = new AnalyzeInputs(pcs);
 		analyze.validateEdgesSum();
-		assertTrue(analyze.getErrorsList().contains("Cannot solve puzzle: edges sum is not zero"));
+		assertTrue(analyze.getErrorsList().contains("Can't solve puzzle: edges sum is not zero"));
 	}
 
 	@Test
@@ -121,9 +121,9 @@ public class AnalyzeinputTests {
 		pcs.add(pc2);
 		AnalyzeInputs analyze = new AnalyzeInputs(pcs);
 		analyze.validateMinimumCorners();
-		assertTrue(analyze.getErrorsList().contains("Cannot solve puzzle: missing corner element: BR"));
-		assertTrue(analyze.getErrorsList().contains("Cannot solve puzzle: missing corner element: TR"));
-		assertTrue(analyze.getErrorsList().contains("Cannot solve puzzle: missing corner element: TL"));
+		assertTrue(analyze.getErrorsList().contains("Can't solve puzzle: missing corner element: BR"));
+		assertTrue(analyze.getErrorsList().contains("Can't solve puzzle: missing corner element: TR"));
+		assertTrue(analyze.getErrorsList().contains("Can't solve puzzle: missing corner element: TL"));
 
 	}
 
@@ -134,9 +134,9 @@ public class AnalyzeinputTests {
 		fileManager.setPiecesFromFile();
 		AnalyzeInputs analyze = new AnalyzeInputs(fileManager.getPieces());
 		analyze.analyzePicesList();
-		assertTrue(analyze.getErrorsList().contains("Cannot solve puzzle: wrong number of straight edges"));
-		assertTrue(analyze.getErrorsList().contains("Cannot solve puzzle: missing corner element: BR"));
-		assertTrue(analyze.getErrorsList().contains("Cannot solve puzzle: missing corner element: BL"));
+		assertTrue(analyze.getErrorsList().contains("Can't solve puzzle: wrong number of straight edges"));
+		assertTrue(analyze.getErrorsList().contains("Can't solve puzzle: missing corner element: BR"));
+		assertTrue(analyze.getErrorsList().contains("Can't solve puzzle: missing corner element: BL"));
 	}
 
 	@Test

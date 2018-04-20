@@ -45,7 +45,7 @@ public class FileManagerTests {
 		String piecesFile = "./resources/FileManagerTestsFiles/test3.in";
 		FileManager fileManager = new FileManager(piecesFile);
 		fileManager.setPiecesFromFile();
-		assertTrue(fileManager.getAllErrors().get(0).contains("Wrong elements format:"));
+		assertTrue(fileManager.getAllErrors().contains("Wrong elements format:"));
 	}
 	
 	@Test
@@ -54,7 +54,7 @@ public class FileManagerTests {
 		String piecesFile = "./resources/FileManagerTestsFiles/test4.in";
 		FileManager fileManager = new FileManager(piecesFile);
 		fileManager.setPiecesFromFile();
-		assertTrue(fileManager.getAllErrors().get(0).contains("Wrong elements format:"));
+		assertTrue(fileManager.getAllErrors().contains("Wrong elements format:"));
 	}
 	
 	@Test
@@ -63,7 +63,7 @@ public class FileManagerTests {
 		String piecesFile = "./resources/FileManagerTestsFiles/test5.in";
 		FileManager fileManager = new FileManager(piecesFile);
 		fileManager.setPiecesFromFile();
-		assertTrue(fileManager.getAllErrors().get(0).contains("Wrong elements format:"));
+		assertTrue(fileManager.getAllErrors().contains("Wrong elements format:"));
 	}
 	
 	@Test
@@ -72,7 +72,7 @@ public class FileManagerTests {
 		String piecesFile = "./resources/FileManagerTestsFiles/test6.in";
 		FileManager fileManager = new FileManager(piecesFile);
 		fileManager.setPiecesFromFile();
-		assertTrue(fileManager.getAllErrors().get(0).contains("Wrong elements format:"));
+		assertTrue(fileManager.getAllErrors().contains("Wrong elements format:"));
 	}
 	
 }
