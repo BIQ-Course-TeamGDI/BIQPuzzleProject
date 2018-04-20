@@ -152,6 +152,7 @@ public class FileManager extends ErrorsManager
 					}
 					catch (NumberFormatException nfe)
 					{
+						addError(ERROR_BAD_INPUT_FORMAT + sCurrentLine);
 						return null;
 					}
 				}

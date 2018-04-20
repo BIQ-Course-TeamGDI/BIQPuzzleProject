@@ -44,7 +44,6 @@ public class AnalyzeInputs
 	 */
 	public void analyzePicesList()
 	{
-
 		validateEdgesSum();
 		validatePiecesFormat();
 		rows = validateMinimumStraightEdges();
