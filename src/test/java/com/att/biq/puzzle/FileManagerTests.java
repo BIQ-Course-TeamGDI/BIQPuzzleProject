@@ -16,7 +16,7 @@ public class FileManagerTests {
 		String piecesFile = "./resources/FileManagerTestsFiles/testKuku.in";
 		FileManager fileManager = new FileManager(piecesFile);
 		fileManager.setPiecesFromFile();
-		assertTrue(fileManager.getAllErrors().get(0).contains("Input file doesn't exist"));
+		assertTrue(fileManager.getAllErrors().toString().contains("Input file doesn't exist"));
 		assertTrue(fileManager.getAllErrors().size() == 1);
 
 	}
@@ -27,7 +27,7 @@ public class FileManagerTests {
 		String piecesFile = "./resources/FileManagerTestsFiles/test1.in";
 		FileManager fileManager = new FileManager(piecesFile);
 		fileManager.setPiecesFromFile();
-		assertTrue(fileManager.getAllErrors().contains("Number of elements is not equal to actual pieces NumElements=10 and actual is:9"));
+		assertTrue(fileManager.getAllErrors().toString().contains("Number of elements is not equal to actual pieces NumElements=10 and actual is:9"));
 	}
 	
 	@Test
@@ -36,8 +36,8 @@ public class FileManagerTests {
 		String piecesFile = "./resources/FileManagerTestsFiles/test2.in";
 		FileManager fileManager = new FileManager(piecesFile);
 		fileManager.setPiecesFromFile();
-		assertTrue(fileManager.getAllErrors().contains("Missing puzzle element(s) with the following IDs: 2,8"));
-		assertTrue(fileManager.getAllErrors().contains("Wrong element IDs: 10"));
+		assertTrue(fileManager.getAllErrors().toString().contains("Missing puzzle element(s) with the following IDs: 2,8"));
+		assertTrue(fileManager.getAllErrors().toString().contains("Wrong element IDs: 10"));
 	}
 	
 	@Test
@@ -46,7 +46,7 @@ public class FileManagerTests {
 		String piecesFile = "./resources/FileManagerTestsFiles/test3.in";
 		FileManager fileManager = new FileManager(piecesFile);
 		fileManager.setPiecesFromFile();
-		assertTrue(fileManager.getAllErrors().contains(ErrorsManager.ERROR_WRONG_ELEMENTS_FORMAT));
+		assertTrue(fileManager.getAllErrors().toString().contains(ErrorsManager.ERROR_WRONG_ELEMENTS_FORMAT));
 	}
 	
 	@Test
@@ -55,7 +55,7 @@ public class FileManagerTests {
 		String piecesFile = "./resources/FileManagerTestsFiles/test4.in";
 		FileManager fileManager = new FileManager(piecesFile);
 		fileManager.setPiecesFromFile();
-		assertTrue(fileManager.getAllErrors().contains(ErrorsManager.ERROR_WRONG_ELEMENTS_FORMAT));
+		assertTrue(fileManager.getAllErrors().toString().contains(ErrorsManager.ERROR_WRONG_ELEMENTS_FORMAT));
 	}
 	
 	@Test
@@ -64,7 +64,7 @@ public class FileManagerTests {
 		String piecesFile = "./resources/FileManagerTestsFiles/test5.in";
 		FileManager fileManager = new FileManager(piecesFile);
 		fileManager.setPiecesFromFile();
-		assertTrue(fileManager.getAllErrors().get(0).contains("Bad input file format in line: 3"));
+		assertTrue(fileManager.getAllErrors().toString().contains("Bad input file format in line: 3"));
 	}
 	
 	@Test
@@ -73,7 +73,7 @@ public class FileManagerTests {
 		String piecesFile = "./resources/FileManagerTestsFiles/test6.in";
 		FileManager fileManager = new FileManager(piecesFile);
 		fileManager.setPiecesFromFile();
-		assertTrue(fileManager.getAllErrors().get(0).contains("Bad input file format in line: S"));
+		assertTrue(fileManager.getAllErrors().toString().contains("Bad input file format in line: S"));
 	}
 	
 }
