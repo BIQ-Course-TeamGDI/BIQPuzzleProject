@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import org.junit.Test;
 
+import com.att.biq.puzzle.infra.ErrorsManager;
 import com.att.biq.puzzle.infra.FileManager;
 
 public class FileManagerTests {
@@ -45,7 +46,7 @@ public class FileManagerTests {
 		String piecesFile = "./resources/FileManagerTestsFiles/test3.in";
 		FileManager fileManager = new FileManager(piecesFile);
 		fileManager.setPiecesFromFile();
-		assertTrue(fileManager.getAllErrors().contains("Wrong elements format:"));
+		assertTrue(fileManager.getAllErrors().contains(ErrorsManager.ERROR_WRONG_ELEMENTS_FORMAT));
 	}
 	
 	@Test
@@ -54,7 +55,7 @@ public class FileManagerTests {
 		String piecesFile = "./resources/FileManagerTestsFiles/test4.in";
 		FileManager fileManager = new FileManager(piecesFile);
 		fileManager.setPiecesFromFile();
-		assertTrue(fileManager.getAllErrors().contains("Wrong elements format:"));
+		assertTrue(fileManager.getAllErrors().contains(ErrorsManager.ERROR_WRONG_ELEMENTS_FORMAT));
 	}
 	
 	@Test

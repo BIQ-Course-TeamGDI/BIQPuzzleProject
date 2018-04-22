@@ -157,6 +157,11 @@ public class FileManager extends ErrorsManager
 					}
 				}
 			}
+			else
+			{
+				addError(ERROR_WRONG_ELEMENTS_FORMAT + sCurrentLine);
+				return null;
+			}
 		}
 		return goodPiece;
 	}
@@ -207,7 +212,7 @@ public class FileManager extends ErrorsManager
 			{
 				if (arr[i] != 1)
 				{
-					missingElements += i+1 + ",";
+					missingElements += i + 1 + ",";
 				}
 			}
 		}
