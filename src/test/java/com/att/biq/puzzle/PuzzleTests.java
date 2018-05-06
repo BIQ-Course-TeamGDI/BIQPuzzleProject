@@ -17,6 +17,7 @@ public class PuzzleTests
 
 	private String inputFilesPath = "./resources/testsInputFiles/";
 
+	//Need to adjust
 	@Test
 	public void test_3_rows_solution_puzzle_12_pieces(){
 		// create 12 pieces
@@ -52,7 +53,7 @@ public class PuzzleTests
 		sol.add(3);
 		sol.add(12);
 
-		Puzzle puzzle = new Puzzle(pieces,sol);
+		Puzzle puzzle = new Puzzle(pieces,sol.get(2));
 		puzzle.solve();
 
 		String ExpectedSolution = "4 7 1 6\n" +
@@ -63,6 +64,7 @@ public class PuzzleTests
 	}
 
 
+	//Need to adjust
 
 	@Test
 	// test15.in
@@ -78,12 +80,12 @@ public class PuzzleTests
 		fileManager.setPiecesFromFile();
 		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManager.getPieces());
 		analyzeInputs.analyzePicesList();
-		Puzzle puzzle = new Puzzle(fileManager.getPieces(),analyzeInputs.getSolutionPossibleRows());
+		Puzzle puzzle = new Puzzle(fileManager.getPieces(),analyzeInputs.getSolutionPossibleRows().get(0));
 		puzzle.solve();
 		String puzzleSolution = puzzle.solution2String();
 		assertEquals(puzzleSolution, ExpectedSolution);
 	}
-
+	//Need to adjust
 	@Test
 	// test18.in
 	public void NO_solution_puzzle() throws IOException {
@@ -93,7 +95,7 @@ public class PuzzleTests
 		fileManager.setPiecesFromFile();
 		AnalyzeInputs analyzeInputs = new AnalyzeInputs(fileManager.getPieces());
 		analyzeInputs.analyzePicesList();
-		Puzzle puzzle = new Puzzle(fileManager.getPieces(),analyzeInputs.getSolutionPossibleRows());
+		Puzzle puzzle = new Puzzle(fileManager.getPieces(),analyzeInputs.getSolutionPossibleRows().get(0));
 		puzzle.solve();
 		String puzzleSolution = puzzle.solution2String();
 		assertEquals(puzzleSolution, ExpectedSolution);
