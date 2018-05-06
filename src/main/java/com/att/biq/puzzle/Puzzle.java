@@ -10,75 +10,64 @@ import java.util.ArrayList;
  */
 public class Puzzle implements Runnable {
 
-	/**
+    /**
 	 * Class fields: puzzlePieces - List of puzzle pieces. solution - Two
 	 * dimensional array that represent the puzzle solution.
 	 */
-	private ArrayList<Piece> puzzlePieces;
-	private ArrayList<Integer> posibleSolutionRows;
+    private PuzzleIndexer indexerPieces;
 	private Piece[][] solution;
-	private int solutionByRow;
+    private int numOfRows;
+    private int numOfColumns;
 	public boolean iSolved = false;
 	
 	/**
 	 * This constructor initialize new Puzzle with a list of all his pieces.
 	 */
-	public Puzzle(ArrayList<Piece> puzzlePieces, int solutionByRow) {
-		this.puzzlePieces = puzzlePieces;
-		this.solutionByRow = solutionByRow;
-	}
-	
-	public Puzzle(ArrayList<Piece> puzzlePieces) {
-		this.puzzlePieces = puzzlePieces;
-	}
+ 	public Puzzle(PuzzleIndexer indexerPieces , int numOfRows ,int numOfColumns ){
+	    this.indexerPieces=indexerPieces;
+	    this.numOfRows=numOfRows;
+	    this.numOfColumns=numOfColumns;
+    }
 
-	public int getSolutionByRow() {
-		return solutionByRow;
-	}
+    public Piece[][] getSolution() {
+        return solution;
+    }
 
-	/**
-	 * This method is call to solve method in PuzzleSolver class.
-	 */
-	public boolean solve() {
-		PuzzleSolver puzzleSolver = new PuzzleSolver();
-		solution = puzzleSolver.solve(this);
-		if (solution != null)
-			return true;
-		return false;
 
-	}
+    public boolean solve(){
+        PuzzleSolver puzzleSolver = new PuzzleSolver(indexerPieces,numOfRows,numOfColumns);
+        System.out.println("try to solve puzzle in "+ numOfRows+"x"+numOfColumns+"solution");
+        solution = puzzleSolver.solve();
+        return solution != null;
+    }
 
-	public int size() {
-		return puzzlePieces.size();
-	}
+//    public int size(){
+//        return puzzlePieces.size();
+//    }
 
-	public ArrayList<Piece> getPuzzlePieces() {
-		return puzzlePieces;
-	}
 
-	public ArrayList<Integer> getPosibleSolutionRows() {
-		return posibleSolutionRows;
-	}
-
-	public String solution2String() {
-		String sol = "";
-
-		if (solution != null) {
-			for (int i = 0; i < solution.length; i++) {
-				for (int j = 0; j < solution[0].length; j++) {
-					System.out.print(solution[i][j] + " ");
-					sol += solution[i][j] + " ";
-				}
-				sol = sol.trim();
-				sol += "\n";
-				System.out.print("\n");
-			}
-		} else {
-			sol = "Cannot solve puzzle: it seems that there is no proper solution\n";
-			System.out.println("Cannot solve puzzle: it seems that there is no proper solution");
-		}
-		return sol;
-	}
+    public String solution2String(){
+        String sol="";
+        if(solution!=null) {
+            for (int i=0;i<solution.length;i++){
+                for (int j=0;j<solution[0].length;j++){
+                    //System.out.print(solution[i][j]+" ");
+                    if(solution[i][j].getRotation()==0) {
+                        sol += solution[i][j] + " ";
+                    } else {
+                        sol += solution[i][j]+"[" +(solution[i][j].getRotation()*90)+"] ";
+                    }
+                }
+                sol = sol.trim();
+                sol+="\n";
+                System.out.print("\n");
+            }
+        } else{
+            sol = "Cannot solve puzzle: it seems that there is no proper solution\n";
+            System.out.println("Cannot solve puzzle: it seems that there is no proper solution");
+        }
+        return sol;
+    }
 
 	public synchronized void saveSolution2File(String outPutFile) throws IOException {
 		File fout = new File(outPutFile);
@@ -87,11 +76,6 @@ public class Puzzle implements Runnable {
 			bw.write(this.solution2String());
 			bw.close();
 		}
-	}
-
-	public Piece[][] getSolution() {
-		// TODO Auto-generated method stub
-		return solution;
 	}
 
 	@Override

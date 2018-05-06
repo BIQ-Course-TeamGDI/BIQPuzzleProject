@@ -1,5 +1,6 @@
 package com.att.biq.puzzle;
 
+
 /**
  * 
  * @author Guy Bitan
@@ -7,38 +8,41 @@ package com.att.biq.puzzle;
  */
 public class Piece implements Comparable<Piece> {
 
-	public static int numOfElements = 0;
 	private int id;
-	int[] piece = new int[4];
+	private int rotation=0;
+	private Shape edges;
 
-	public Piece(int id, int[] piece) {
+	public Piece(int id, int[] edges) {
 		this.id = id;
-		this.piece = piece;
+		this.edges = new Shape(edges);
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(int id) {
+	public Piece(int id, Shape edges, int rotation) {
 		this.id = id;
+		this.edges = edges;
+		this.rotation = rotation;
 	}
 
-	public int getBottom() {
-		return piece[3];
+	public Shape getEdges() {
+		return edges;
 	}
 
-	public int getTop() {
-		return piece[1];
+	public Integer getId() { return id; }
+
+	public int getRotation() {
+		return rotation;
 	}
 
-	public int getLeft() {
-		return piece[0];
-	}
+	public int getLeft() { return edges.getLeft(); }
+
+	public int getTop() { return edges.getTop(); }
 
 	public int getRight() {
-		return piece[2];
+		return edges.getRight();
 	}
+
+	public int getBottom() { return edges.getBottom(); }
+
 
 	@Override
 	public int compareTo(Piece piece) {
@@ -47,11 +51,24 @@ public class Piece implements Comparable<Piece> {
 
 	@Override
 	public boolean equals(Object obj) {
-		return id == ((Piece) obj).id;
+		return id==((Piece)obj).id;
 	}
 
 	@Override
 	public String toString() {
 		return String.valueOf(id);
+	}
+
+	public Piece[] rotations() {
+		Piece[] pieces = new Piece[4];
+		pieces[0] = this;
+		pieces[1] = pieces[0].createRotatedClockWise();
+		pieces[2] = pieces[1].createRotatedClockWise();
+		pieces[3] = pieces[2].createRotatedClockWise();
+		return pieces;
+	}
+
+	public Piece createRotatedClockWise() {
+		return new Piece(this.id, this.edges.createRotatedClockWise(), rotation+1);
 	}
 }

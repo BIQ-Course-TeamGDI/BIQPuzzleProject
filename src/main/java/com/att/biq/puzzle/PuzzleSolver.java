@@ -1,213 +1,194 @@
 package com.att.biq.puzzle;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static com.att.biq.puzzle.PieceRequirement.JOKER;
 
 /**
- * This is the PuzzleSolver class. This class try to solve a given puzzle.
+ *  This is the PuzzleSolver class.
+ *  This class try to solve a given puzzle.
  *
- * Author: Doron Niv Date: 01/04/2018
+ *  Author: Doron Niv
+ *  Date:   01/04/2018
  */
 public class PuzzleSolver {
 
-	/**
-	 * Class fields: solution - Two dimensional array that represent the puzzle
-	 * solution. fitPieces - List of the puzzle pieces that are already inside the
-	 * solution array. isSolved - this field set to true in case there is a solution
-	 * for the given puzzle.
-	 */
-	private Piece[][] solution;
-	private List<Piece> fitPieces = new ArrayList<Piece>();
-	private boolean isSolved = false;
-	private int[] nextEmptyPlace = { 0, 0 };
-	private int[] prevPiecePlace = new int[2];
+    /**
+     * Class fields:
+     * solution - Two dimensional array that represent the puzzle solution.
+     * fitPieces - List of the puzzle pieces that are already inside the solution array.
+     * isSolved - this field set to true in case there is a solution for the given puzzle.
+     */
+    private int numOfRows;
+    private int numOfColumns;
+    private Piece[][] solution;
+    private PuzzleIndexer puzzleIndexer;
+    //private Set<Integer> usedIds = new TreeSet<>();
+    private List<Integer> usedIds = new ArrayList<>();
+    private boolean isSolved = false;
+    private int[] nextEmptyPlace = {0,0};
+    private int[] prevPiecePlace = new int[2];
 
-	public PuzzleSolver() {
 
-	}
+    public PuzzleSolver() {
 
-	/**
-	 * This method is used to calculate the number of possible solutions rows
-	 * numbers and call to to the findSolution recursive method with all
-	 * possibilities.
-	 *
-	 * @param puzzle
-	 *            This is the puzzle we wish to solve
-	 */
-	public Piece[][] solve(Puzzle puzzle) {
-		if (!isSolved) {
-			int columns = puzzle.size() / puzzle.getSolutionByRow();
-			solution = new Piece[puzzle.getSolutionByRow()][columns];
-			findSolution(puzzle);
-		}
-		if (isSolved) {
-			return solution;
-		}
+    }
 
-		return null;
-	}
+    public PuzzleSolver(PuzzleIndexer puzzleIndexer , int numOfRows, int numOfColumns) {
+        this.puzzleIndexer = puzzleIndexer;
+        this.numOfRows=numOfRows;
+        this.numOfColumns=numOfColumns;
+        this.solution=new Piece[numOfRows][numOfColumns];
+    }
 
-	/**
-	 * This method is recursive method for finding puzzle solution.
-	 *
-	 * @param puzzle
-	 *            This is the puzzle we wish to solve
-	 */
-	private void findSolution(Puzzle puzzle) {
-		// Loop over all puzzle pieces
-		for (Piece p : puzzle.getPuzzlePieces()) {
+    /**
+     * This method is used to calculate the number of possible solutions rows numbers
+     * and call to to the findSolution recursive method with all possibilities.
+     *
+     */
+//    public Piece[][] solve(Puzzle puzzle){
+//        for(int numOfRows : puzzle.getPosibleSolutionRows()) {
+//            if (!isSolved) {
+//                int columns = puzzle.size() / numOfRows;
+//                solution = new Piece[numOfRows][columns];
+//                findSolution();
+//            }
+//        }
+//        if (isSolved) {
+//            return solution;
+//        }
+//        return null;
+//    }
 
-			if (isSolved) { // if isSolve flag is true the puzzle is solve and no need to continue checking.
-				// System.out.println("Thread: "+Thread.currentThread().getName());
-				return;
-			}
-			if (!fitPieces.contains(p)) { // Check if current piece is already inside the solution array.
-				if (isPieceFit(p, nextEmptyPlace[0], nextEmptyPlace[1])) { // Check if current piece fit to the current
-																			// place in the puzzle solution array.
-					fitPieces.add(p);
-					solution[nextEmptyPlace[0]][nextEmptyPlace[1]] = p;
-					setNextEmptyPlace(); // the next empty place (row/column number) in the solution array.
-					findSolution(puzzle);
-				}
-			}
-		}
-		if (puzzle.getPuzzlePieces().size() == fitPieces.size()) {
-			// All puzzle pieces are inside the solution array and fit each other.
-			// In this case the puzzle is solved
-			isSolved = true;
-		} else {
-			if (fitPieces.size() > 0) {
-				removeLastPieceFromPuzzle();
-				fitPieces.remove(fitPieces.size() - 1);
-			}
-		}
-	}
+    public Piece[][] solve(){
+        findSolution();
+        if (isSolved) {
+            return solution;
+        }
+        return null;
+    }
 
-	/**
-	 * This method is recursive method for finding puzzle solution.
-	 *
-	 * @param piece
-	 *            This is the current piece we want to check if fit in the given
-	 *            place in the solution array.
-	 * @param row
-	 *            The row number (solution[row][col]).
-	 * @param col
-	 *            The column number (solution[row][col]).
-	 *
-	 * @return true if piece fit to the current puzzle status else return false.
-	 */
-	private boolean isPieceFit(Piece piece, int row, int col) {
-		int numOfRows = solution.length - 1;
-		int numOfColumns = solution[0].length - 1;
-		if (row == 0) { // Top row in the solution array.
-			if (piece.getTop() != 0) { // in this case top value must be zero (if not return false).
-				return false;
-			}
-		}
-		// Check if current piece top value fit to above piece bottom value (sum is
-		// zero).
-		else if (!(isPieceFitTopBottom(piece, solution[row - 1][col]))) {
-			return false; // if sum not zero return false
-		}
 
-		if (row == numOfRows) { // Bottom row in the solution array.
-			if (piece.getBottom() != 0) { // in this case bottom value must be zero (if not return false).
-				return false;
-			}
-		}
+    /**
+     * This method is recursive method for finding puzzle solution.
+     *
+     */
+    private void findSolution(){
+        if(isSolved){ // if isSolve flag is true the puzzle is solve and no need to continue checking.
+            return;
+        }
+        PieceRequirement reqPiece = getFitPiece(nextEmptyPlace[0], nextEmptyPlace[1]);
+        Collection<Piece> fitPieces = puzzleIndexer.getMatchingPieces(reqPiece,usedIds);
+        for (Piece p : fitPieces){
+            if (!isSolved) {
+                solution[nextEmptyPlace[0]][nextEmptyPlace[1]] = p;
+                usedIds.add(p.getId());
+                if (usedIds.size() < numOfRows * numOfColumns) {  // not all puzzle pieces are in use
+                    setNextEmptyPlace();  // the next empty place (row/column number) in the solution array.
+                    findSolution();
+                }
+            }
+        }
+        if (usedIds.size()==numOfRows*numOfColumns){
+            // All puzzle pieces are inside the solution array and fit each other.
+            // In this case the puzzle is solved
+            isSolved=true;
+        } else {
+            if(usedIds.size()>0) {
+                //remove the last piece from usedIds set collection.
+                //usedIds.remove(solution[prevPiecePlace[0]][prevPiecePlace[1]].getId());
+                usedIds.remove(usedIds.size()-1);
+                //remove the last piece from the puzzle solution.
+                removeLastPieceFromPuzzle();
 
-		if (col == 0) { // Right (first) column in the solution array.
-			if (piece.getLeft() != 0) { // in this case right value must be zero (if not return false).
-				return false;
-			}
-		}
-		// Check if current piece left value fit to left piece right value (sum is
-		// zero).
-		else if (!(isPieceFitRightLeft(piece, solution[row][col - 1]))) {
-			return false; // if sum not zero return false
-		}
-		if (col == numOfColumns) { // Left (last) row in the solution array.
-			if (piece.getRight() != 0) { // in this case left value must be zero (if not return false).
-				return false;
-			}
-		}
-		// return true if the piece fit to the current puzzle status.
-		return true;
-	}
+            }
+        }
+    }
 
-	private void setNextEmptyPlace() {
-		prevPiecePlace[0] = nextEmptyPlace[0];
-		prevPiecePlace[1] = nextEmptyPlace[1];
-		if (nextEmptyPlace[1] < solution[0].length - 1) {
-			nextEmptyPlace[1]++;
-		} else if (nextEmptyPlace[0] < solution.length - 1) {
-			nextEmptyPlace[0]++;
-			nextEmptyPlace[1] = 0;
-		}
-	}
+    /**
+     * This method is recursive method for finding puzzle solution.
+     *
+     * @param row The row number (solution[row][col]).
+     * @param col The column number (solution[row][col]).
+     *
+     * @return true if piece fit to the current puzzle status else return false.
+     */
+    private PieceRequirement getFitPiece(int row , int col ) {
+        int top;
+        int left;
+        int right;
+        int bottom;
 
-	/**
-	 * This method remove the last piece piece that set in the puzzle solution
-	 * array.
-	 */
-	private void removeLastPieceFromPuzzle() {
-		nextEmptyPlace[0] = prevPiecePlace[0];
-		nextEmptyPlace[1] = prevPiecePlace[1];
-		solution[prevPiecePlace[0]][prevPiecePlace[1]] = null;
-		if (prevPiecePlace[1] > 0) {
-			prevPiecePlace[1]--;
-		} else if (prevPiecePlace[0] > 0) {
-			prevPiecePlace[0]--;
-			prevPiecePlace[1] = solution[0].length - 1;
-		}
-	}
+        if (row == 0) {  //Top row in the solution array.
+           top=0;   //in this case required piece top value must be zero.
+        }
+        else {     //in this case required piece top value must the opposite from the bottom value of the piece above.
+            top = (solution[row-1][col].getBottom())*(-1); //multiply with -1 will give the opposite value
+        }
 
-	/**
-	 * This method get two pieces and check if the sum of current piece top value
-	 * and the top piece bottom values is zero.
-	 *
-	 * @param currPiece
-	 *            - the current piece.
-	 * @param topPiece
-	 *            - the piece that is top of the current piece.
-	 *
-	 * @return true if the sum is zero else return false.
-	 */
-	private boolean isPieceFitTopBottom(Piece currPiece, Piece topPiece) {
-		if (currPiece.getTop() + topPiece.getBottom() == 0) {
-			return true;
-		}
-		return false;
-	}
+        if (row == numOfRows-1){ //Bottom row in the solution array.
+            bottom=0;   //in this case required piece bottom value must be zero.
+        }
+        else{     //in this case required piece bottom value is not important (JOKER)
+            bottom=JOKER;
+        }
 
-	/**
-	 * This method get two pieces and check if the sum of current piece left value
-	 * and the left piece right values is zero.
-	 *
-	 * @param currPiece
-	 *            - the current piece.
-	 * @param leftPiece
-	 *            - the piece that in the left side of the current piece.
-	 *
-	 * @return true if the sum is zero else return false.
-	 */
-	private boolean isPieceFitRightLeft(Piece currPiece, Piece leftPiece) {
-		if (currPiece.getLeft() + leftPiece.getRight() == 0) {
-			return true;
-		}
-		return false;
-	}
+        if (col == 0) { //Right (first) column in the solution array.
+            left=0;  //in this case required piece right value must be zero.
+        }
+        else{    //in this case required piece left value must the opposite from the left piece right value.
+            left = (solution[row][col-1].getRight())*(-1); //multiply with -1 will give the opposite value
+        }
 
-	public boolean checkSolution(Piece[][] sol) {
-		solution = sol;
-		for (int i = 0; i < solution.length; i++) {
-			for (int j = 0; j < solution[0].length; j++) {
-				if (!isPieceFit(solution[i][j], i, j)) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+        if (col == numOfColumns-1){ //Left (last) row in the solution array.
+            right=0;  //in this case required piece left value must be zero (if not return false).
+        }
+        else{    //in this case required piece right value is not important (JOKER)
+            right = JOKER;
+        }
+        // create req
+        PieceRequirement reqPiece = new PieceRequirement(new int[]{left,top,right,bottom});
+        return reqPiece;
+    }
+
+
+    private void setNextEmptyPlace() {
+        prevPiecePlace[0]=nextEmptyPlace[0];
+        prevPiecePlace[1]=nextEmptyPlace[1];
+        if(nextEmptyPlace[1] < solution[0].length-1){
+            nextEmptyPlace[1]++;
+        } else if (nextEmptyPlace[0]<solution.length-1){
+            nextEmptyPlace[0]++;
+            nextEmptyPlace[1]=0;
+        }
+    }
+
+    /**
+     * This method remove the last piece piece that set in the puzzle solution array.
+     */
+    private void removeLastPieceFromPuzzle() {
+        nextEmptyPlace[0]=prevPiecePlace[0];
+        nextEmptyPlace[1]=prevPiecePlace[1];
+        solution[prevPiecePlace[0]][prevPiecePlace[1]]=null;
+        if(prevPiecePlace[1] > 0){
+            prevPiecePlace[1]--;
+        } else if (prevPiecePlace[0]>0){
+            prevPiecePlace[0]--;
+            prevPiecePlace[1]=solution[0].length-1;
+        }
+    }
+
+
+    public boolean checkSolution(Piece[][] sol){
+//        solution=sol;
+//        for (int i=0;i<solution.length;i++){
+//            for (int j=0;j<solution[0].length;j++){
+//                if(!isPieceFit(solution[i][j],i,j)){
+//                    return false;
+//                }
+//            }
+//        }
+        return true;
+    }
 
 }

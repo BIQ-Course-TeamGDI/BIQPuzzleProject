@@ -20,10 +20,10 @@ public class PuzzleManager {
 	AnalyzeInputs analyzeInputs = null;
 	int threadsCount = 0;
 
+
 	public PuzzleManager(String inputPiecesFile, String outPutFile) {
 		this.inputPiecesFile = inputPiecesFile;
 		this.outPutFile = outPutFile;
-		pieces = new ArrayList<>();
 	}
 
 	public PuzzleManager(String inputPiecesFile, String outPutFile, boolean isRotate) {
@@ -59,8 +59,10 @@ public class PuzzleManager {
 
 	public void solvePuzzleRegular() throws IOException {
 		ArrayList<Integer> rows = readAnalyzeAndGetPossibleSolutionRows(inputPiecesFile);
-		for (Integer row : rows) {
-			Puzzle puzzle = new Puzzle(pieces, row);
+		PuzzleIndexer puzzleIndexer = new PuzzleIndexer(pieces,isRotate);
+		for (Integer numOfRows : rows) {
+			int numOfColumns = pieces.size()/numOfRows;
+			Puzzle puzzle = new Puzzle(puzzleIndexer,numOfRows,numOfColumns);
 			puzzle.solve();
 			if (!puzzle.getSolution().equals(null)) {
 				puzzle.saveSolution2File(outPutFile);
@@ -71,64 +73,38 @@ public class PuzzleManager {
 
 	public void solvePuzzleByThreads(int numOfThreads) throws IOException, InterruptedException {
 		boolean waitForThread = true;
-		Puzzle puzzle = null;
-		
+		Puzzle puzzle=null;
 		ArrayList<Integer> rows = readAnalyzeAndGetPossibleSolutionRows(inputPiecesFile);
+//		rows.clear();
+//		rows.add(1);
+//		rows.add(2);
+//		rows.add(4);
 
-		// if there are errors - write to to output file
-		if (analyzeInputs.getErrorsList().size() != 0)
-			new Puzzle(pieces).saveSolution2File(outPutFile);
-		else {
-			threadsCount = ((numOfThreads > rows.size()) ? rows.size() : numOfThreads);
-			System.out.println("Number of threads that will run for solution is: " + threadsCount);
-			ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(threadsCount);
-			for (int row : rows) {
-				puzzle = new Puzzle(pieces, row);
-				executor.execute(puzzle);
+		threadsCount = ((numOfThreads > rows.size()) ? rows.size() : numOfThreads);
+		System.out.println("Number of threads that will run for solution is: " + threadsCount);
+		ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(threadsCount);
+		PuzzleIndexer puzzleIndexer = new PuzzleIndexer(pieces,isRotate);
+		for (int row : rows) {
+			int numOfColumns = pieces.size()/row;
+			puzzle = new Puzzle(puzzleIndexer,row,numOfColumns);
+			executor.execute(puzzle);
+		}
+		executor.shutdown();
+		while (waitForThread) {
+
+			executor.awaitTermination(5, TimeUnit.MINUTES);
+			if (!hasSolution.getAndSet(true)) {
+
+				puzzle.saveSolution2File(outPutFile);
 			}
-			executor.shutdown();
-			while (waitForThread) {
-
-				executor.awaitTermination(5, TimeUnit.MINUTES);
-				if (!hasSolution.getAndSet(true)) {
-
-					puzzle.saveSolution2File(outPutFile);
-				}
-				if (puzzle.iSolved) {
-					waitForThread = false;
-
-				}
+			if (puzzle.iSolved) {
+				waitForThread = false;
 
 			}
+
 		}
 	}
 
-	/*public void solvePuzzleByThreads1(int numthreads) throws IOException, InterruptedException {
-		Puzzle p = null;
-		ArrayList<Integer> rows = readAnalyzeAndGetPossibleSolutionRows(inputPiecesFile);
-		// run threads only if no errors...
-		int threadsCount = ((numthreads > rows.size()) ? rows.size() : numthreads);
-		System.out.println("Number of threads that will run for solution is: " + threadsCount);
-		ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(threadsCount);
-		Puzzle[] puzzles = new Puzzle[threadsCount];
-		int i = 0;
-		for (int row : rows) {
-			puzzles[i] = new Puzzle(pieces, row);
-			executor.execute(puzzles[i]);
-			i++;
-		}
-		executor.shutdown();
-		executor.awaitTermination(10, TimeUnit.MINUTES);
-		for (int j = 0; j < puzzles.length; j++) {
-			if (puzzles[j].getSolution() != null)
-				p = puzzles[j];
-			break;
-		}
-
-		if (p.getSolution() != null && !hasSolution.getAndSet(true) && executor.getCompletedTaskCount() >= 1) {
-			p.saveSolution2File(outPutFile);
-		}
-	}*/
 
 	// read elements from file, analyze it and return possible solution rows or null
 	public ArrayList<Integer> readAnalyzeAndGetPossibleSolutionRows(String inputPiecesFile) throws IOException {
