@@ -45,7 +45,7 @@ public class PuzzleManagerTest_GoodScenario
 	}
 
 	@Test
-	public void testGoodFilesSolution() throws IOException
+	public void testGoodFilesSolution() throws IOException, InterruptedException
 	{
 		PuzzleManager puzzleManager = new PuzzleManager(piecesInputFile, testOutputFile);
 		puzzleManager.solvePuzzle();
