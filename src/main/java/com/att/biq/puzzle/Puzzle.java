@@ -50,7 +50,6 @@ public class Puzzle{
         else {
             solvePuzzleByThreads();
         }
-        //saveSolution2File();
     }
 
 
@@ -114,10 +113,6 @@ public class Puzzle{
         solution = pSolver.get(index).getSolution();
     }
 
-//    public int size(){
-//        return puzzlePieces.size();
-//    }
-
 
     public String solution2String(){
         String sol="";
@@ -151,10 +146,4 @@ public class Puzzle{
 		}
 	}
 
-//	@Override
-//	public void run() {
-//		// each thread trying to solve a puzzle
-//		iSolved = solve();
-//
-//	}
 }

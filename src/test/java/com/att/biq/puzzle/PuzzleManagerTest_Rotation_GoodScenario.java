@@ -1,10 +1,9 @@
 package com.att.biq.puzzle;
 
+import com.att.biq.puzzle.utility.ValidatePuzzleSolution;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
-import com.att.biq.puzzle.utility.ValidatePuzzleSolution;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -13,7 +12,7 @@ import java.util.Collection;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
-public class PuzzleManagerTest_GoodScenario
+public class PuzzleManagerTest_isRotate_true_GoodScenario
 {
 	private String pathToFilesFolder = "./resources/PuzzleManagerTest_GoodScenarioFiles/";
 	private String piecesInputFile;
@@ -37,16 +36,16 @@ public class PuzzleManagerTest_GoodScenario
 				{ "test17.in", "test17.testOut" }, });
 	}
 
-	public PuzzleManagerTest_GoodScenario(String piecesInputFile, String testOutputFile)
+	public PuzzleManagerTest_isRotate_true_GoodScenario(String piecesInputFile, String testOutputFile)
 	{
 		this.piecesInputFile = pathToFilesFolder + piecesInputFile;
 		this.testOutputFile = pathToFilesFolder + testOutputFile;
 	}
 
 	@Test
-	public void testGoodFilesSolution() throws IOException, InterruptedException
+	public void testGoodFilesSolution() throws IOException
 	{
-		PuzzleManager puzzleManager = new PuzzleManager(piecesInputFile, testOutputFile);
+		PuzzleManager puzzleManager = new PuzzleManager(piecesInputFile, testOutputFile,false,0);
 		puzzleManager.solvePuzzle();
 		assertTrue(ValidatePuzzleSolution.validate(piecesInputFile, testOutputFile));
 	}
