@@ -15,10 +15,10 @@ public class PuzzleManager {
 	// AnalyzeInputs analyzeInputs = null;
 	// int threadsCount = 0;
 
-	public PuzzleManager(String inputPiecesFile, String outPutFile) {
-		this.inputPiecesFile = inputPiecesFile;
-		this.outPutFile = outPutFile;
-	}
+//	public PuzzleManager(String inputPiecesFile, String outPutFile) {
+//		this.inputPiecesFile = inputPiecesFile;
+//		this.outPutFile = outPutFile;
+//	}
 
 	public PuzzleManager(String inputPiecesFile, String outPutFile, boolean isRotate, int numOfThreads) {
 		this.inputPiecesFile = inputPiecesFile;

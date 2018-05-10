@@ -23,19 +23,20 @@ public class Main {
     }
 
     public static void setArgs(String[] args) {
-        for (int i=0; i<args.length;i++){
-            if(args[i].toLowerCase().equals("-input")){
-                i++;
-                inputFile=args[i];
-            } else if(args[i].toLowerCase().equals("-output")){
-                i++;
-                outputFile=args[i];
-            } else if(args[i].toLowerCase().equals("-numofthreads")){
-                i++;
-                numOfThreads=Integer.parseInt(args[i]);
-            } else if(args[i].toLowerCase().equals("-isRotate")){
-                isRotate=true;
+        try {
+            for (int i = 0; i < args.length; i++) {
+                if (args[i].toLowerCase().equals("-input")) {
+                    inputFile = args[i + 1];
+                } else if (args[i].toLowerCase().equals("-output")) {
+                    outputFile = args[i + 1];
+                } else if (args[i].toLowerCase().equals("-numofthreads")) {
+                    numOfThreads = Integer.parseInt(args[i + 1]);
+                } else if (args[i].toLowerCase().equals("-isrotate")) {
+                    isRotate = true;
+                }
             }
+        } catch (Exception e){
+            validateArgs();
         }
     }
 

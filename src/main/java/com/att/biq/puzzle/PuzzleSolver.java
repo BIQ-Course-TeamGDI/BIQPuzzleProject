@@ -31,6 +31,8 @@ public class PuzzleSolver {
     private int[] prevPiecePlace = new int[2];
 
 
+    public PuzzleSolver(){};
+
 
     public PuzzleSolver(PuzzleIndexer puzzleIndexer , int numOfRows, int numOfColumns) {
         this.puzzleIndexer = puzzleIndexer;

@@ -55,6 +55,7 @@ public class Puzzle{
 
     private void solvePuzzleRegular(){
         PuzzleSolver puzzleSolver;
+        solutionFound.getAndSet(false);
  	    for (Integer row : solutionPossibleRows) {
             int columns = numOfPieces/row;
             puzzleSolver = new PuzzleSolver(indexerPieces,row,columns);
@@ -68,25 +69,22 @@ public class Puzzle{
 
     public void solvePuzzleByThreads(){
         //boolean waitForThread = true;
+        solutionFound.getAndSet(false);
         int index = 0;
         ArrayList<PuzzleSolver> pSolver = new ArrayList<>();
-        ArrayList<Integer> rows = solutionPossibleRows;
-        rows.clear();
-        rows.add(1);
-        rows.add(2);
-        rows.add(4);
-        rows.add(5);
-        rows.add(10);
-        rows.add(25);
+        //ArrayList<Integer> rows = solutionPossibleRows;
+        if(solutionPossibleRows.size()>numOfThreads){
+            numOfThreads=solutionPossibleRows.size();
+        }
         ExecutorService executor = Executors.newFixedThreadPool(numOfThreads);
-        for(int row : rows) {
+        for(int row : solutionPossibleRows) {
             executor.execute(new Runnable() {
                 @Override
                 public void run() {
                     int columns = numOfPieces/row;
                     PuzzleSolver puzzleSolver = new PuzzleSolver(indexerPieces,row,columns);
                     System.out.println("Try to solve puzzle with " + row+ "x"+columns +  " board size ");
-                    Piece[][] currThreadSolution = puzzleSolver.solve(solutionFound);
+                    solution = puzzleSolver.solve(solutionFound);
                     pSolver.add(puzzleSolver);
                 }
             });
@@ -104,7 +102,7 @@ public class Puzzle{
                 }
             }
             try {
-                executor.awaitTermination(1, TimeUnit.MINUTES); /// should be in while ??
+                executor.awaitTermination(5, TimeUnit.MINUTES); /// should be in while ??
                 System.out.println("after awaitTermination...");
             } catch (InterruptedException e) {
                 // TODO : to handle thread interrupted exception

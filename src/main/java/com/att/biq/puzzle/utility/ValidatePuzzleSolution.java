@@ -14,14 +14,13 @@ import com.att.biq.puzzle.infra.FileManager;
 public class ValidatePuzzleSolution {
 
     public static boolean validate(String input, String solutionFile) throws IOException {
-//        Piece[][] solutionToCheck = testPuzzleSolutions(input,solutionFile);
-//        PuzzleSolver puzzleSolver = new PuzzleSolver();
-//        if(solutionToCheck !=null && puzzleSolver.checkSolution(solutionToCheck)){
-//            return true;
-//        } else{
-//            return false;
-//        }
-        return true;
+        Piece[][] solutionToCheck = testPuzzleSolutions(input,solutionFile);
+        PuzzleSolver puzzleSolver = new PuzzleSolver();
+        if(solutionToCheck !=null && puzzleSolver.checkSolution(solutionToCheck)){
+            return true;
+        } else{
+            return false;
+        }
     }
 
 

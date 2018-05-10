@@ -13,9 +13,10 @@ import java.util.Collection;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
-public class PuzzleManagerTest_GoodScenario
+public class PuzzleManagerTest_NoRotation_GoodScenario
 {
 	private String pathToFilesFolder = "./resources/PuzzleManagerTest_GoodScenarioFiles/";
+	private String pathToSolutionFilesFolder = "./resources/PuzzleManagerTest_GoodScenarioFiles/No_Rotation_good_solution/";
 	private String piecesInputFile;
 	private String testOutputFile;
 
@@ -29,7 +30,7 @@ public class PuzzleManagerTest_GoodScenario
 				{ "test9.in", "test9.testOut" },
 				{ "test10.in", "test10.testOut" },
 				{ "test11.in", "test11.testOut" },
-				{ "test12.in", "test12.testOut" },
+				{ "test12.in", "test12.NorRotationTestOut" },
 				{ "test13.in", "test13.testOut" },
 				{ "test14.in", "test14.testOut" },
 				{ "test15.in", "test15.testOut" },
@@ -37,10 +38,10 @@ public class PuzzleManagerTest_GoodScenario
 				{ "test17.in", "test17.testOut" }, });
 	}
 
-	public PuzzleManagerTest_GoodScenario(String piecesInputFile, String testOutputFile)
+	public PuzzleManagerTest_NoRotation_GoodScenario(String piecesInputFile, String testOutputFile)
 	{
 		this.piecesInputFile = pathToFilesFolder + piecesInputFile;
-		this.testOutputFile = pathToFilesFolder + testOutputFile;
+		this.testOutputFile = pathToSolutionFilesFolder + testOutputFile;
 	}
 
 	@Test

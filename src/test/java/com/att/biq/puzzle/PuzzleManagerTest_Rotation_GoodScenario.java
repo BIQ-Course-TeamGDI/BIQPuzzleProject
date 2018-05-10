@@ -12,9 +12,10 @@ import java.util.Collection;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
-public class PuzzleManagerTest_isRotate_true_GoodScenario
+public class PuzzleManagerTest_Rotation_GoodScenario
 {
 	private String pathToFilesFolder = "./resources/PuzzleManagerTest_GoodScenarioFiles/";
+	private String pathToSolutionFilesFolder = "./resources/PuzzleManagerTest_GoodScenarioFiles/Rotation_good_solution/";
 	private String piecesInputFile;
 	private String testOutputFile;
 
@@ -28,7 +29,7 @@ public class PuzzleManagerTest_isRotate_true_GoodScenario
 				{ "test9.in", "test9.testOut" },
 				{ "test10.in", "test10.testOut" },
 				{ "test11.in", "test11.testOut" },
-				{ "test12.in", "test12.testOut" },
+				{ "test12.in", "test12.NorRotationTestOut" },
 				{ "test13.in", "test13.testOut" },
 				{ "test14.in", "test14.testOut" },
 				{ "test15.in", "test15.testOut" },
@@ -36,16 +37,16 @@ public class PuzzleManagerTest_isRotate_true_GoodScenario
 				{ "test17.in", "test17.testOut" }, });
 	}
 
-	public PuzzleManagerTest_isRotate_true_GoodScenario(String piecesInputFile, String testOutputFile)
+	public PuzzleManagerTest_Rotation_GoodScenario(String piecesInputFile, String testOutputFile)
 	{
 		this.piecesInputFile = pathToFilesFolder + piecesInputFile;
-		this.testOutputFile = pathToFilesFolder + testOutputFile;
+		this.testOutputFile = pathToSolutionFilesFolder + testOutputFile;
 	}
 
 	@Test
 	public void testGoodFilesSolution() throws IOException
 	{
-		PuzzleManager puzzleManager = new PuzzleManager(piecesInputFile, testOutputFile,false,0);
+		PuzzleManager puzzleManager = new PuzzleManager(piecesInputFile, testOutputFile,true,4);
 		puzzleManager.solvePuzzle();
 		assertTrue(ValidatePuzzleSolution.validate(piecesInputFile, testOutputFile));
 	}
