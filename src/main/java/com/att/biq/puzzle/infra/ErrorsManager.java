@@ -19,7 +19,7 @@ public abstract class ErrorsManager
 	public final static String ERROR_WRONG_ELEMENTS_FORMAT = "Wrong elements format: ";
 	public final static String ERROR_NUM_ELEMENTS = "Number of good elements are invalid: ";
 	public final static String ERROR_NUM_STRAIGHT_EDGES = "Can't solve puzzle: wrong number of straight edges";
-	public final static String ERROR_MISSING_CORNER_ELEMENT = "Can't solve puzzle: missing corner element:";
+	public final static String ERROR_MISSING_CORNER_ELEMENT = "Can't solve puzzle: missing corner element";
 	public final static String ERROR_WRONG_ELEMENTS_VALUES = "Wrong elements value on line: ";
 	public final static String ERROR_EDGES_SUM_NOT_ZERO = "Can't solve puzzle: edges sum is not zero";
 	public final static String ERROR_BAD_INPUT_FORMAT = "Bad input file format in line: ";

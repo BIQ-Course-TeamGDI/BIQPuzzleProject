@@ -73,8 +73,9 @@ public class AnalyzeInputs {
 					rightZeroEdges++;
 				if (p.getBottom() == 0)
 					bottomZeroEdges++;
-				if (leftZeroEdges >= numOfRows && topZeroEdges >= numOfColumns && rightZeroEdges >= numOfRows
-						&& bottomZeroEdges >= numOfColumns) {
+
+				if (leftZeroEdges + topZeroEdges + rightZeroEdges + bottomZeroEdges >= (numOfRows * 2)
+						+ (numOfColumns * 2)) {
 					optionalRowsForSolution.add(numOfRows);
 					break;
 
@@ -105,35 +106,27 @@ public class AnalyzeInputs {
 	 * to the solver
 	 */
 	public void validateMinimumCorners() {
-		boolean leftTopCorner = false, topRightCorner = false, rightBottomCorner = false, bottomLeftCorner = false;
+		int leftTopCorner = 0, topRightCorner = 0, rightBottomCorner = 0, bottomLeftCorner = 0;
+		boolean hasEnoughCorners = false;
 
-		leftTopCorner = false;
-		topRightCorner = false;
-		rightBottomCorner = false;
-		bottomLeftCorner = false;
 		for (Piece p : input) {
 			if (p.getLeft() == 0 && p.getTop() == 0)
-				leftTopCorner = true;
+				leftTopCorner++;
 			if (p.getTop() == 0 && p.getRight() == 0)
-				topRightCorner = true;
+				topRightCorner++;
 			if (p.getRight() == 0 && p.getBottom() == 0)
-				rightBottomCorner = true;
+				rightBottomCorner++;
 			if (p.getBottom() == 0 && p.getLeft() == 0)
-				bottomLeftCorner = true;
-			if (leftTopCorner && topRightCorner && rightBottomCorner && bottomLeftCorner) {
+				bottomLeftCorner++;
+			if (leftTopCorner + topRightCorner + rightBottomCorner + bottomLeftCorner >= 4) {
+				hasEnoughCorners = true;
 				break;
 
 			}
 		}
 
-		if (!leftTopCorner)
-			errors.add(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT + " TL");
-		if (!topRightCorner)
-			errors.add(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT + " TR");
-		if (!rightBottomCorner)
-			errors.add(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT + " BR");
-		if (!bottomLeftCorner)
-			errors.add(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT + " BL");
+		if (!hasEnoughCorners)
+			errors.add(ErrorsManager.ERROR_MISSING_CORNER_ELEMENT );
 
 	}
 
@@ -141,12 +134,15 @@ public class AnalyzeInputs {
 	 * This method check that input pieces edges are in the range of -1 to 1
 	 */
 	public void validatePiecesFormat() {
-		for (Piece p : input) {
-			if (!(p.getRight() >= -1 && p.getRight() <= 1 && p.getTop() >= -1 && p.getTop() <= 1 && p.getBottom() >= -1
-					&& p.getBottom() <= 1 && p.getLeft() >= -1 && p.getLeft() <= 1)) {
+
+		Collection<Piece> col = input;
+		col.forEach(p -> {
+			if (!(Math.abs(p.getRight()) <= 1 && Math.abs(p.getTop()) <= 1 && Math.abs(p.getLeft()) <= 1
+					&& Math.abs(p.getBottom()) <= 1)) {
 				errors.add(ErrorsManager.ERROR_WRONG_ELEMENTS_VALUES + p.getId());
 			}
-		}
+		});
+
 	}
 
 	/**
