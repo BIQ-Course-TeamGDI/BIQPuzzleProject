@@ -4,8 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import com.att.biq.puzzle.PuzzleManager;
-import com.att.biq.puzzle.utility.validatePuzzleSolution;
+import com.att.biq.puzzle.utility.ValidatePuzzleSolution;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -49,6 +48,6 @@ public class PuzzleManagerTest_GoodScenario
 	{
 		PuzzleManager puzzleManager = new PuzzleManager(piecesInputFile, testOutputFile);
 		puzzleManager.solvePuzzle();
-		assertTrue(validatePuzzleSolution.validate(piecesInputFile, testOutputFile));
+		assertTrue(ValidatePuzzleSolution.validate(piecesInputFile, testOutputFile));
 	}
 }

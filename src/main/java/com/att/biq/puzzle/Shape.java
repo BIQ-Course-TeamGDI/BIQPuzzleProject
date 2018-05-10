@@ -11,9 +11,13 @@ public class Shape {
         this.edges = edges;
     }
 
-    private Shape(int[] edges, int leftPosition) {
+    public Shape(int[] edges, int leftPosition) {
         this.edges = edges;
         this.leftPosition = leftPosition;
+    }
+
+    public int[] getEdges() {
+        return edges;
     }
 
     @Override

@@ -21,7 +21,7 @@ public class PuzzleSolverTest {
         pieces.add(p3);
         PuzzleIndexer puzzleIndexer = new PuzzleIndexer(pieces,false);
         PuzzleSolver puzzleSolver = new PuzzleSolver(puzzleIndexer,1,3);
-        puzzleSolver.solve();
+        //puzzleSolver.solve();
     }
 
     @Test

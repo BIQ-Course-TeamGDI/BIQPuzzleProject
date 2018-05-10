@@ -10,8 +10,8 @@ public class TestForTest {
     @Test
     public void Puzzle() throws IOException, InterruptedException {
 
-        String piecesInputFile="./resources/TestOfTests/test2.in";
-        String testOutputFile="./resources/TestOfTests/test2.testOutRotate";
+        String piecesInputFile="./resources/TestOfTests/test100.in";
+        String testOutputFile="./resources/TestOfTests/test100.testOut";
 
 
         FileManager fileManager = new FileManager(piecesInputFile);
@@ -20,6 +20,7 @@ public class TestForTest {
         analyzeInputs.analyzePicesList();
 
         PuzzleManager puzzleManager = new PuzzleManager(piecesInputFile,testOutputFile,true,2);
+        //PuzzleManager puzzleManager = new PuzzleManager(piecesInputFile,testOutputFile,false,0);
         puzzleManager.solvePuzzle();
 
 

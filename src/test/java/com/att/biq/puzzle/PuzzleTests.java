@@ -6,7 +6,7 @@
 //import com.att.biq.puzzle.Piece;
 //import com.att.biq.puzzle.Puzzle;
 //import com.att.biq.puzzle.infra.FileManager;
-//import com.att.biq.puzzle.utility.validatePuzzleSolution;
+//import com.att.biq.puzzle.utility.ValidatePuzzleSolution;
 //
 //import java.io.IOException;
 //import java.util.ArrayList;
@@ -105,14 +105,14 @@
 //    public void test_good_solution_file() throws IOException {
 //        String inputPiecesFile = inputFilesPath +"test14.in";
 //        String outputSolutionFile = "./resources/puzzleTests_outputFiles/test14.testOut";
-//        assertTrue(validatePuzzleSolution.validate(inputPiecesFile, outputSolutionFile));
+//        assertTrue(ValidatePuzzleSolution.validate(inputPiecesFile, outputSolutionFile));
 //    }
 //
 //	@Test
 //	public void test_not_good_solution_file() throws IOException {
 //		String inputPiecesFile = inputFilesPath +"test15.in";
 //		String outputSolutionFile = "./resources/puzzleTests_outputFiles/test14.testOut";
-//		assertFalse(validatePuzzleSolution.validate(inputPiecesFile,outputSolutionFile));
+//		assertFalse(ValidatePuzzleSolution.validate(inputPiecesFile,outputSolutionFile));
 //	}
 //	@Test
 //	public void GetPiecesFromFileAndAnalayzeFileWithErrors() throws IOException

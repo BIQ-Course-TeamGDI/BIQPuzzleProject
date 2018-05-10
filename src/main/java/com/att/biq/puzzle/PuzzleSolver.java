@@ -1,6 +1,7 @@
 package com.att.biq.puzzle;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.att.biq.puzzle.PieceRequirement.JOKER;
 
@@ -30,9 +31,6 @@ public class PuzzleSolver {
     private int[] prevPiecePlace = new int[2];
 
 
-    public PuzzleSolver() {
-
-    }
 
     public PuzzleSolver(PuzzleIndexer puzzleIndexer , int numOfRows, int numOfColumns) {
         this.puzzleIndexer = puzzleIndexer;
@@ -41,51 +39,51 @@ public class PuzzleSolver {
         this.solution=new Piece[numOfRows][numOfColumns];
     }
 
+    public boolean isSolved() {
+        return isSolved;
+    }
+
+    public Piece[][] getSolution() {
+        return solution;
+    }
+
     /**
      * This method is used to calculate the number of possible solutions rows numbers
      * and call to to the findSolution recursive method with all possibilities.
      *
      */
-//    public Piece[][] solve(Puzzle puzzle){
-//        for(int numOfRows : puzzle.getPosibleSolutionRows()) {
-//            if (!isSolved) {
-//                int columns = puzzle.size() / numOfRows;
-//                solution = new Piece[numOfRows][columns];
-//                findSolution();
-//            }
-//        }
-//        if (isSolved) {
-//            return solution;
-//        }
-//        return null;
-//    }
 
-    public Piece[][] solve(){
-        findSolution();
-        if (isSolved) {
+
+
+
+    public Piece[][] solve(AtomicBoolean solutionFound){
+        findSolution(solutionFound);
+        if (solutionFound.get()){
             return solution;
         }
         return null;
     }
 
 
+
     /**
      * This method is recursive method for finding puzzle solution.
      *
      */
-    private void findSolution(){
-        if(isSolved){ // if isSolve flag is true the puzzle is solve and no need to continue checking.
+    private void findSolution(AtomicBoolean solutionFound){
+        if(solutionFound.get()){ // if isSolve flag is true the puzzle is solve and no need to continue checking.
+            //Thread.currentThread().interrupt();
             return;
         }
         PieceRequirement reqPiece = getFitPiece(nextEmptyPlace[0], nextEmptyPlace[1]);
         Collection<Piece> fitPieces = puzzleIndexer.getMatchingPieces(reqPiece,usedIds);
         for (Piece p : fitPieces){
-            if (!isSolved) {
+            if (!solutionFound.get()) {
                 solution[nextEmptyPlace[0]][nextEmptyPlace[1]] = p;
                 usedIds.add(p.getId());
                 if (usedIds.size() < numOfRows * numOfColumns) {  // not all puzzle pieces are in use
                     setNextEmptyPlace();  // the next empty place (row/column number) in the solution array.
-                    findSolution();
+                    findSolution(solutionFound);
                 }
             }
         }
@@ -93,6 +91,7 @@ public class PuzzleSolver {
             // All puzzle pieces are inside the solution array and fit each other.
             // In this case the puzzle is solved
             isSolved=true;
+            solutionFound.getAndSet(true);
         } else {
             if(usedIds.size()>0) {
                 //remove the last piece from usedIds set collection.
@@ -180,15 +179,20 @@ public class PuzzleSolver {
 
 
     public boolean checkSolution(Piece[][] sol){
-//        solution=sol;
-//        for (int i=0;i<solution.length;i++){
-//            for (int j=0;j<solution[0].length;j++){
-//                if(!isPieceFit(solution[i][j],i,j)){
-//                    return false;
-//                }
-//            }
-//        }
+        solution=sol;
+        for (int i=0;i<solution.length;i++){
+            for (int j=0;j<solution[0].length;j++){
+                PieceRequirement pieceRequirement = getFitPiece(i,j);
+                if(!pieceRequirement.match(solution[i][j].getEdges())){
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
+    public void stop() {
+        // TODO Auto-generated method stub
+        Thread.currentThread().interrupt();
+    }
 }

@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import com.att.biq.puzzle.utility.validatePuzzleSolution;
+import com.att.biq.puzzle.utility.ValidatePuzzleSolution;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -30,7 +30,7 @@ public class PuzzleManagerTests_BadScenario {
 
 	@Test
 	public void testBadFilesSolution() throws IOException {
-		assertFalse(validatePuzzleSolution.validate(piecesInputFile, testOutputFile));
+		assertFalse(ValidatePuzzleSolution.validate(piecesInputFile, testOutputFile));
 	}
 
 }

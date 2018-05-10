@@ -14,7 +14,7 @@ public class Main {
 	public static boolean isRotate = false;
 	public static int numOfThreads = 3;
 
-	public static void main(String[] a) throws IOException, InterruptedException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		PuzzleManager puzzleManager = new PuzzleManager(inputFile, outputFile, isRotate, numOfThreads);
 		puzzleManager.solvePuzzle();
 
