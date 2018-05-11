@@ -31,7 +31,7 @@ public class PuzzleSolver {
     private int[] prevPiecePlace = new int[2];
 
 
-    public PuzzleSolver(){};
+    public PuzzleSolver(){}
 
 
     public PuzzleSolver(PuzzleIndexer puzzleIndexer , int numOfRows, int numOfColumns) {
@@ -63,7 +63,8 @@ public class PuzzleSolver {
         if (solutionFound.get()){
             return solution;
         }
-        return null;
+        solution = null;
+        return solution;
     }
 
 
@@ -196,5 +197,11 @@ public class PuzzleSolver {
     public void stop() {
         // TODO Auto-generated method stub
         Thread.currentThread().interrupt();
+        try {
+            Thread.currentThread().join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
+
 }

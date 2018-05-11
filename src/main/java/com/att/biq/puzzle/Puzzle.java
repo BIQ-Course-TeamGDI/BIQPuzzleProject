@@ -73,7 +73,7 @@ public class Puzzle{
         int index = 0;
         ArrayList<PuzzleSolver> pSolver = new ArrayList<>();
         //ArrayList<Integer> rows = solutionPossibleRows;
-        if(solutionPossibleRows.size()>numOfThreads){
+        if(solutionPossibleRows.size()<numOfThreads){
             numOfThreads=solutionPossibleRows.size();
         }
         ExecutorService executor = Executors.newFixedThreadPool(numOfThreads);
@@ -81,8 +81,8 @@ public class Puzzle{
             executor.execute(new Runnable() {
                 @Override
                 public void run() {
-                    int columns = numOfPieces/row;
-                    PuzzleSolver puzzleSolver = new PuzzleSolver(indexerPieces,row,columns);
+                    int columns = numOfPieces / row;
+                    PuzzleSolver puzzleSolver = new PuzzleSolver(indexerPieces, row, columns);
                     System.out.println("Try to solve puzzle with " + row+ "x"+columns +  " board size ");
                     solution = puzzleSolver.solve(solutionFound);
                     pSolver.add(puzzleSolver);
@@ -90,22 +90,13 @@ public class Puzzle{
             });
         }
         executor.shutdown();
-        while(!iSolved){
-            for(PuzzleSolver ps : pSolver){
-                if(ps.isSolved()){
-                    index = pSolver.indexOf(ps);
-                    iSolved=true;
-                    for (PuzzleSolver psss : pSolver) {
-                        psss.stop();
-                    }
-                    break;
-                }
-            }
-            try {
-                executor.awaitTermination(5, TimeUnit.MINUTES); /// should be in while ??
-                System.out.println("after awaitTermination...");
-            } catch (InterruptedException e) {
-                // TODO : to handle thread interrupted exception
+        while (!executor.isTerminated()){
+
+        }
+        for(PuzzleSolver ps : pSolver){
+            if(ps.isSolved()){
+                index = pSolver.indexOf(ps);
+                break;
             }
         }
         solution = pSolver.get(index).getSolution();

@@ -21,7 +21,7 @@ public class MainTest {
         args[3]="./resources/MainTest/test15.testOut";
         args[4]="-numOfThreads";
         args[5]="4";
-        args[6]="isRotate";
+        args[6]="-isRotate";
         Main.main(args);
         assertTrue(ValidatePuzzleSolution.validate(args[1],args[3]));
     }
@@ -36,4 +36,5 @@ public class MainTest {
         Main.main(args);
         assertTrue(ValidatePuzzleSolution.validate(args[1],args[3]));
     }
+
 }

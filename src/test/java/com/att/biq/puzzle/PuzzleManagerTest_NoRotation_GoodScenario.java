@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class PuzzleManagerTest_NoRotation_GoodScenario
 {
 	private String pathToFilesFolder = "./resources/PuzzleManagerTest_GoodScenarioFiles/";
-	private String pathToSolutionFilesFolder = "./resources/PuzzleManagerTest_GoodScenarioFiles/No_Rotation_good_solution/";
+	private String pathToSolutionFilesFolder = "./resources/PuzzleManagerTest_GoodScenarioFiles/";
 	private String piecesInputFile;
 	private String testOutputFile;
 

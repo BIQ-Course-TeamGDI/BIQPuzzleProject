@@ -25,9 +25,12 @@ public class ValidatePuzzleSolution {
 
 
     public static Piece[][] testPuzzleSolutions(String input, String solutionFile) throws IOException {
+        Piece[][] solutionToCheck=null;
         ArrayList<Piece> pieces = getPieces(input);
         pieces = rotatePiecesDueTOSolutionFile(pieces,solutionFile);
-        Piece[][] solutionToCheck = getSolutionToCheck(pieces , solutionFile);
+        if (pieces!=null){
+            solutionToCheck = getSolutionToCheck(pieces , solutionFile);
+        }
         return solutionToCheck;
     }
 
@@ -42,16 +45,20 @@ public class ValidatePuzzleSolution {
                 if (line!=""){
                     String[] sol = line.split(" ");
                     for(String p : sol){
-                        if(p.contains("[")){
-                            String[] rotP = p.split("\\[");
-                            int pId = Integer.parseInt(rotP[0]);
-                            int rotation = (Integer.parseInt(rotP[1].substring(0, rotP[1].length() - 1)))/90;
-                            Shape shape = getPieceShape(pId , pieces);
-                            rotatePieces.add(new Piece(pId,new Shape(shape.getEdges(),rotation),rotation));
-                        } else{
-                            int pId = Integer.parseInt(p);
-                            Shape shape = getPieceShape(pId , pieces);
-                            rotatePieces.add(new Piece(pId,shape,0));
+                        try {
+                            if (p.contains("[")) {
+                                String[] rotP = p.split("\\[");
+                                int pId = Integer.parseInt(rotP[0]);
+                                int rotation = (Integer.parseInt(rotP[1].substring(0, rotP[1].length() - 1))) / 90;
+                                Shape shape = getPieceShape(pId, pieces);
+                                rotatePieces.add(new Piece(pId, new Shape(shape.getEdges(), rotation), rotation));
+                            } else {
+                                int pId = Integer.parseInt(p);
+                                Shape shape = getPieceShape(pId, pieces);
+                                rotatePieces.add(new Piece(pId, shape, 0));
+                            }
+                        } catch (Exception e){
+                            return null;
                         }
                     }
                 }
@@ -82,6 +89,9 @@ public class ValidatePuzzleSolution {
 
     private static Piece[][] getSolutionToCheck(ArrayList<Piece> pieces, String solutionFile) {
         ArrayList<ArrayList<Integer>> solToCheck= getSolutionFromFile(solutionFile);
+        if(solToCheck==null){
+            return null;
+        }
         Piece[][] sol=null;
         if(solToCheck.isEmpty()){
             return sol;
@@ -112,12 +122,16 @@ public class ValidatePuzzleSolution {
                     ArrayList<Integer> tmp =  new ArrayList<>();
                     String[] piece_ids = line.split(" ");
                     for(String id : piece_ids){
-                        if(id.contains("[")) {
-                            String[] rotP = id.split("\\[");
-                            int pId = Integer.parseInt(rotP[0]);
-                            tmp.add(pId);
-                        } else {
-                            tmp.add(Integer.parseInt(id.trim()));
+                        try {
+                            if (id.contains("[")) {
+                                String[] rotP = id.split("\\[");
+                                int pId = Integer.parseInt(rotP[0]);
+                                tmp.add(pId);
+                            } else {
+                                tmp.add(Integer.parseInt(id.trim()));
+                            }
+                        } catch (Exception e){
+                            return null;
                         }
                     }
                     sol.add(tmp);

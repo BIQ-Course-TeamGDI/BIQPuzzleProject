@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class PuzzleManagerTest_Rotation_GoodScenario
 {
 	private String pathToFilesFolder = "./resources/PuzzleManagerTest_GoodScenarioFiles/";
-	private String pathToSolutionFilesFolder = "./resources/PuzzleManagerTest_GoodScenarioFiles/Rotation_good_solution/";
+	private String pathToSolutionFilesFolder = "./resources/PuzzleManagerTest_GoodScenarioFiles/";
 	private String piecesInputFile;
 	private String testOutputFile;
 
@@ -24,17 +24,17 @@ public class PuzzleManagerTest_Rotation_GoodScenario
 	{
 		return Arrays.asList(new Object[][]
 		{
-				{ "test1.in", "test1.testOut" },
-				{ "test2.in", "test2.testOut" },
-				{ "test9.in", "test9.testOut" },
-				{ "test10.in", "test10.testOut" },
-				{ "test11.in", "test11.testOut" },
-				{ "test12.in", "test12.NorRotationTestOut" },
-				{ "test13.in", "test13.testOut" },
-				{ "test14.in", "test14.testOut" },
-				{ "test15.in", "test15.testOut" },
-				{ "test16.in", "test16.testOut" },
-				{ "test17.in", "test17.testOut" }, });
+				{ "test1.in", "test1.rotationTestOut" },
+				{ "test2.in", "test2.rotationTestOut" },
+				{ "test9.in", "test9.rotationTestOut" },
+				{ "test10.in", "test10.rotationTestOut" },
+				{ "test11.in", "test11.rotationTestOut" },
+				{ "test12.in", "test12.rotationTestOut" },
+				{ "test13.in", "test13.rotationTestOut" },
+				{ "test14.in", "test14.rotationTestOut" },
+				{ "test15.in", "test15.rotationTestOut" },
+				{ "test16.in", "test16.rotationTestOut" },
+				{ "test17.in", "test17.rotationTestOut" }, });
 	}
 
 	public PuzzleManagerTest_Rotation_GoodScenario(String piecesInputFile, String testOutputFile)
