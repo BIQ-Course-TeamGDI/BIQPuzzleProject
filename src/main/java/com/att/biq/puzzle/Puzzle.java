@@ -4,10 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * This is the puzzle class.
@@ -26,8 +23,8 @@ public class Puzzle{
     private int numOfThreads;
     ArrayList<Integer> solutionPossibleRows;
 	private Piece[][] solution;
-	public boolean iSolved = false;
-    public static AtomicBoolean solutionFound = new AtomicBoolean(false);
+	private boolean iSolved = false;
+    private static AtomicBoolean solutionFound = new AtomicBoolean(false);
 	/**
 	 * This constructor initialize new Puzzle with a list of all his pieces.
 	 */
@@ -68,11 +65,9 @@ public class Puzzle{
 
 
     public void solvePuzzleByThreads(){
-        //boolean waitForThread = true;
         solutionFound.getAndSet(false);
         int index = 0;
         ArrayList<PuzzleSolver> pSolver = new ArrayList<>();
-        //ArrayList<Integer> rows = solutionPossibleRows;
         if(solutionPossibleRows.size()<numOfThreads){
             numOfThreads=solutionPossibleRows.size();
         }
@@ -108,7 +103,6 @@ public class Puzzle{
         if(solution!=null) {
             for (int i=0;i<solution.length;i++){
                 for (int j=0;j<solution[0].length;j++){
-                    //System.out.print(solution[i][j]+" ");
                     if(solution[i][j].getRotation()==0) {
                         sol += solution[i][j] + " ";
                     } else {

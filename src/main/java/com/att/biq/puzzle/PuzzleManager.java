@@ -9,17 +9,9 @@ public class PuzzleManager {
 	private String inputPiecesFile;
 	private String outPutFile;
 	private ArrayList<Piece> pieces;
-	// AtomicBoolean hasSolution = new AtomicBoolean(false);
 	private boolean isRotate;
 	private int numOfThreads = -1;
-	// AnalyzeInputs analyzeInputs = null;
-	// int threadsCount = 0;
-
-//	public PuzzleManager(String inputPiecesFile, String outPutFile) {
-//		this.inputPiecesFile = inputPiecesFile;
-//		this.outPutFile = outPutFile;
-//	}
-
+	
 	public PuzzleManager(String inputPiecesFile, String outPutFile, boolean isRotate, int numOfThreads) {
 		this.inputPiecesFile = inputPiecesFile;
 		this.outPutFile = outPutFile;
