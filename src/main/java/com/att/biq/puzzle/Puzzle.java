@@ -83,7 +83,7 @@ public class Puzzle{
                 public void run() {
                     int columns = numOfPieces / row;
                     PuzzleSolver puzzleSolver = new PuzzleSolver(indexerPieces, row, columns);
-                    System.out.println("Try to solve puzzle with " + row+ "x"+columns +  " board size ");
+                    //System.out.println("Try to solve puzzle with " + row+ "x"+columns +  " board size ");
                     solution = puzzleSolver.solve(solutionFound);
                     pSolver.add(puzzleSolver);
                 }
@@ -112,7 +112,7 @@ public class Puzzle{
                     if(solution[i][j].getRotation()==0) {
                         sol += solution[i][j] + " ";
                     } else {
-                        sol += solution[i][j]+"[" +(solution[i][j].getRotation()*90)+"] ";
+                        sol += solution[i][j]+" [" +(solution[i][j].getRotation()*90)+"] ";
                     }
                 }
                 sol = sol.trim();

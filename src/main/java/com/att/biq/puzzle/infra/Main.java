@@ -29,9 +29,9 @@ public class Main {
                     inputFile = args[i + 1];
                 } else if (args[i].toLowerCase().equals("-output")) {
                     outputFile = args[i + 1];
-                } else if (args[i].toLowerCase().equals("-numofthreads")) {
+                } else if (args[i].toLowerCase().equals("-threads")) {
                     numOfThreads = Integer.parseInt(args[i + 1]);
-                } else if (args[i].toLowerCase().equals("-isrotate")) {
+                } else if (args[i].toLowerCase().equals("-rotate")) {
                     isRotate = true;
                 }
             }
@@ -46,7 +46,7 @@ public class Main {
             System.out.println(" please execute the program again with the below parameters:");
             System.out.println(" -input  <path to input file>");
             System.out.println(" -output <path to input file>");
-            System.out.println(" -numOfThreads <number>  (optional, the default option puzzle solution is without threads)");
+            System.out.println(" -threads <number>  (optional, the default option puzzle solution is without threads)");
             System.out.println(" -rotate   (optional, the default option puzzle solution is without rotation)");
             return false;
         }

@@ -44,19 +44,23 @@ public class ValidatePuzzleSolution {
             while ((line = bufferedReader.readLine()) != null) {
                 if (line!=""){
                     String[] sol = line.split(" ");
-                    for(String p : sol){
+                    for(int i=0;i<sol.length;i++) {
                         try {
-                            if (p.contains("[")) {
-                                String[] rotP = p.split("\\[");
-                                int pId = Integer.parseInt(rotP[0]);
-                                int rotation = (Integer.parseInt(rotP[1].substring(0, rotP[1].length() - 1))) / 90;
-                                Shape shape = getPieceShape(pId, pieces);
+                            int pId = Integer.parseInt(sol[i]);
+                            int rotation = 0;
+                            if (i + 1 < sol.length) {
+                                if (sol[i + 1].contains("[")) {
+                                    rotation = (Integer.parseInt(sol[i + 1].substring(1, sol[i + 1].length() - 1))) / 90;
+                                    i = i + 1;
+                                }
+                            }
+                            Shape shape = getPieceShape(pId, pieces);
+                            if (rotation != 0) {
                                 rotatePieces.add(new Piece(pId, new Shape(shape.getEdges(), rotation), rotation));
                             } else {
-                                int pId = Integer.parseInt(p);
-                                Shape shape = getPieceShape(pId, pieces);
-                                rotatePieces.add(new Piece(pId, shape, 0));
+                                rotatePieces.add(new Piece(pId, shape, rotation));
                             }
+
                         } catch (Exception e){
                             return null;
                         }
@@ -121,15 +125,15 @@ public class ValidatePuzzleSolution {
                 if (line!=""){
                     ArrayList<Integer> tmp =  new ArrayList<>();
                     String[] piece_ids = line.split(" ");
-                    for(String id : piece_ids){
-                        try {
-                            if (id.contains("[")) {
-                                String[] rotP = id.split("\\[");
-                                int pId = Integer.parseInt(rotP[0]);
-                                tmp.add(pId);
-                            } else {
-                                tmp.add(Integer.parseInt(id.trim()));
+                    for(int i=0;i<piece_ids.length;i++){
+                        try{
+                            int pId = Integer.parseInt(piece_ids[i]);
+                            if (i+1<piece_ids.length) {
+                                if (piece_ids[i+1].contains("[")) {
+                                    i=i+1;
+                                }
                             }
+                            tmp.add(pId);
                         } catch (Exception e){
                             return null;
                         }
