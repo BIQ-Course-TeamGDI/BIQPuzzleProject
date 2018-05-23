@@ -121,7 +121,7 @@ public class Puzzle{
             }
         } else{
             sol = "Cannot solve puzzle: it seems that there is no proper solution\n";
-            System.out.println("Cannot solve puzzle: it seems that there is no proper solution");
+            //System.out.println("Cannot solve puzzle: it seems that there is no proper solution");
         }
         return sol;
     }
